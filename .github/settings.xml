@@ -15,30 +15,18 @@
                 <repository>
                     <id>central</id>
                     <url>https://repo1.maven.org/maven2</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
                 </repository>
                 <repository>
                     <id>github-package-registry-navikt</id>
                     <url>https://maven.pkg.github.com/navikt/maven-release</url>
                 </repository>
                 <repository>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
                     <id>eux-parent-pom-repo</id>
                     <url>https://maven.pkg.github.com/navikt/eux-parent-pom</url>
                 </repository>
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
                     <id>eux-versions-maven-plugin-repo</id>
                     <url>https://maven.pkg.github.com/navikt/eux-versions-maven-plugin</url>
                 </pluginRepository>
@@ -46,6 +34,11 @@
         </profile>
     </profiles>
     <servers>
+        <server>
+            <id>eux-parent-pom-repo</id>
+            <username>x-access-token</username>
+            <password>${env.READER_TOKEN}</password>
+        </server>
         <server>
             <id>eux-versions-maven-plugin-repo</id>
             <username>x-access-token</username>
@@ -55,11 +48,6 @@
             <id>github-package-registry-navikt</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.GITHUB_TOKEN}</password>
-        </server>
-        <server>
-            <id>eux-parent-pom-repo</id>
-            <username>x-access-token</username>
-            <password>${env.READER_TOKEN}</password>
         </server>
     </servers>
 </settings>
