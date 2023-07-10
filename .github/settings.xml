@@ -27,6 +27,9 @@
                     <url>https://maven.pkg.github.com/navikt/maven-release</url>
                 </repository>
                 <repository>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
                     <id>eux-parent-pom-repo</id>
                     <url>https://maven.pkg.github.com/navikt/eux-parent-pom</url>
                 </repository>
