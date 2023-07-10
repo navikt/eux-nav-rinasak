@@ -6,6 +6,8 @@ on:
   pull_request:
 
 env:
+  APP_NAME: eux-nav-rinasak
+  IMAGE: ghcr.io/${{ github.repository }}/eux-nav-rinasak
   DATABASE_HOST: localhost
   DATABASE_PORT: 5432
   DATABASE_DATABASE: postgres
@@ -57,3 +59,36 @@ jobs:
           mvn clean install
           --settings ./.github/settings.xml
           --no-transfer-progress -B
+
+      - name: Set Image Name
+        run: >
+          echo "DOCKER_IMAGE=${IMAGE}:${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Build docker image
+        run: >
+          docker build -t ${IMAGE}:${{ github.sha }} .
+
+      - name: Push Docker image
+        run: >
+          docker push ${IMAGE}:${{ github.sha }}
+
+    outputs:
+      docker-image: >
+        ${{ env.IMAGE }}:${{ github.sha }}
+
+  deploy:
+    name: 'Dry run to NAIS - Q2'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - name: 'Calling deploy action (eessibasis namespace)'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          DRY_RUN: true
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/nais.yaml
+          VAR: image=${{ needs.build.outputs.docker-image }}
+          VARS: .nais/q2.yaml
+          PRINT_PAYLOAD: true
