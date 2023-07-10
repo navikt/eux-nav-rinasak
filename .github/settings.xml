@@ -59,7 +59,7 @@
         <server>
             <id>eux-parent-pom-repo</id>
             <username>x-access-token</username>
-            <password>${env.GITHUB_TOKEN}</password>
+            <password>${env.READER_TOKEN}</password>
         </server>
     </servers>
 </settings>
