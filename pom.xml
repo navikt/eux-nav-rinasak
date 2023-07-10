@@ -34,5 +34,15 @@
         <developerConnection>scm:git:https://github.com/navikt/eux-nav-rinasak.git</developerConnection>
         <url>https://github.com/navikt/eux-nav-rinasak.git</url>
     </scm>
-    
+
+    <repositories>
+        <repository>
+            <id>github-package-registry-navikt</id>
+            <url>https://maven.pkg.github.com/navikt/maven-release</url>
+        </repository>
+        <repository>
+            <id>eux-parent-pom-repo</id>
+            <url>https://maven.pkg.github.com/navikt/eux-parent-pom</url>
+        </repository>
+    </repositories>
 </project>
