@@ -26,6 +26,10 @@
                     <id>github-package-registry-navikt</id>
                     <url>https://maven.pkg.github.com/navikt/maven-release</url>
                 </repository>
+                <repository>
+                    <id>eux-parent-pom-repo</id>
+                    <url>https://maven.pkg.github.com/navikt/eux-parent-pom</url>
+                </repository>
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
@@ -46,6 +50,11 @@
         </server>
         <server>
             <id>github-package-registry-navikt</id>
+            <username>${env.GITHUB_ACTOR}</username>
+            <password>${env.GITHUB_TOKEN}</password>
+        </server>
+        <server>
+            <id>eux-parent-pom-repo</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.GITHUB_TOKEN}</password>
         </server>
