@@ -1,0 +1,48 @@
+NavRinasakType:
+  type: object
+  required:
+    - rinasakId
+    - opprettetDato
+  properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
+    opprettetDato:
+      $ref: '../properties/meta.yaml#/opprettetDato'
+
+NavRinasakCreateType:
+  type: object
+  required:
+    - rinasakId
+  properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
+    opprettetDato:
+      $ref: '../properties/meta.yaml#/opprettetDato'
+
+NavRinasakPatchType:
+  type: object
+  required:
+    - rinasakId
+  properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
+
+NavRinasakSearchCriteriaType:
+  type: object
+  properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
+    fraOpprettetDato:
+      $ref: '../properties/meta.yaml#/opprettetDato'
+    tilOpprettetDato:
+      $ref: '../properties/meta.yaml#/opprettetDato'
+
+NavRinasakSearchResponseType:
+  type: object
+  properties:
+    rinasaker:
+      type: array
+      minItems: 0
+      maxItems: 500
+      items:
+        $ref: '#/NavRinasakType'

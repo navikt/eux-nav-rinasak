@@ -7,11 +7,20 @@
     <groupId>no.nav.eux.rinasak</groupId>
     <artifactId>eux-nav-rinasak</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>eux-nav-rinasak-webapp</module>
+        <module>eux-nav-rinasak-service</module>
+        <module>eux-nav-rinasak-model</module>
+        <module>eux-nav-rinasak-openapi</module>
+        <module>eux-nav-rinasak-persistence</module>
+    </modules>
 
     <parent>
         <groupId>no.nav.eux</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>0.0.2</version>
+        <version>0.0.3</version>
     </parent>
 
     <properties>

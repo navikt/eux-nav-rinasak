@@ -1,0 +1,8 @@
+UserId:
+  name: userId
+  in: header
+  schema:
+    type: string
+  required: false
+  description: >-
+    Identifies the person or system initiating the request.

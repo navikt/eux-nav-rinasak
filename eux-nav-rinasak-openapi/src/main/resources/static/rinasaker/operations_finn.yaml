@@ -1,0 +1,32 @@
+post:
+  tags:
+    - Nav Rinasak API
+  summary: Finn
+  description: Searches Desc
+  operationId: navRinasakFinn
+  parameters:
+    - $ref: '../common/header.yaml#/UserId'
+  requestBody:
+    required: true
+    content:
+      'application/json':
+        schema:
+          $ref: 'model.yaml#/NavRinasakSearchCriteriaType'
+
+  responses:
+    '200':
+      description: OK
+      content:
+        'application/json':
+          schema:
+            $ref: 'model.yaml#/NavRinasakSearchResponseType'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'
