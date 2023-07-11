@@ -1,5 +1,5 @@
-kind: Applicationinvalid-
-apiVersion: nais.io/invalid-v1alpha1
+kind: Application
+apiVersion: nais.io/v1alpha1
 metadata:
   name: {{ name }}
   namespace: eessibasis
