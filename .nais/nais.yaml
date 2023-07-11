@@ -9,7 +9,6 @@ spec:
   image: {{ image }}
   ingresses:
     - {{ ingress }}
-    - asdf
   gcp:
     sqlInstances:
       - type: POSTGRES_14
