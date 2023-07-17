@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 class NavRinasakCreateRequest(
     val rinasakId: String,
     val opprettetBruker: String,
-    val opprettetDato: LocalDateTime,
+    val opprettetDato: LocalDateTime
 ) {
     val navRinasak =
         NavRinasak(
