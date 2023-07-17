@@ -2,7 +2,7 @@ post:
   tags:
     - Nav Rinasak API
   summary: Finn
-  description: Searches Desc
+  description: Finn NAV rinasaker som matcher kriteriene.
   operationId: navRinasakFinn
   parameters:
     - $ref: '../common/header.yaml#/UserId'

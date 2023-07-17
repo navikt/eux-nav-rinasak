@@ -1,0 +1,13 @@
+FagsakType:
+  type: object
+  properties:
+    id:
+      $ref: '../properties/fagsak.yaml#/id'
+    tema:
+      $ref: '../properties/fagsak.yaml#/tema'
+    system:
+      $ref: '../properties/fagsak.yaml#/system'
+    nr:
+      $ref: '../properties/fagsak.yaml#/nr'
+    type:
+      $ref: '../properties/fagsak.yaml#/type'

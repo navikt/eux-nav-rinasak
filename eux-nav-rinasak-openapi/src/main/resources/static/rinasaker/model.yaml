@@ -3,9 +3,22 @@ NavRinasakType:
   required:
     - rinasakId
     - opprettetDato
+    - opprettetBruker
   properties:
     rinasakId:
       $ref: '../properties/rinasak.yaml#/rinasakId'
+    overstyrtEnhetsnummer:
+      $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
+    fagsak:
+      $ref: '#/NavRinasakFagsakCreateType'
+    seder:
+      type: array
+      minItems: 0
+      maxItems: 500
+      items:
+        $ref: '#/NavRinasakSedCreateType'
+    opprettetBruker:
+      $ref: '../properties/meta.yaml#/opprettetBruker'
     opprettetDato:
       $ref: '../properties/meta.yaml#/opprettetDato'
 
@@ -13,19 +26,46 @@ NavRinasakCreateType:
   type: object
   required:
     - rinasakId
+    - opprettetBruker
   properties:
     rinasakId:
       $ref: '../properties/rinasak.yaml#/rinasakId'
-    opprettetDato:
-      $ref: '../properties/meta.yaml#/opprettetDato'
+    overstyrtEnhetsnummer:
+      $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
+    fagsak:
+      $ref: '#/NavRinasakFagsakCreateType'
+    seder:
+      type: array
+      minItems: 0
+      maxItems: 500
+      items:
+        $ref: '#/NavRinasakSedCreateType'
+    opprettetBruker:
+      $ref: '../properties/meta.yaml#/opprettetBruker'
 
-NavRinasakPatchType:
+NavRinasakFagsakCreateType:
   type: object
-  required:
-    - rinasakId
   properties:
-    rinasakId:
-      $ref: '../properties/rinasak.yaml#/rinasakId'
+    id:
+      $ref: '../properties/fagsak.yaml#/id'
+    tema:
+      $ref: '../properties/fagsak.yaml#/tema'
+    system:
+      $ref: '../properties/fagsak.yaml#/system'
+    nr:
+      $ref: '../properties/fagsak.yaml#/nr'
+    type:
+      $ref: '../properties/fagsak.yaml#/type'
+
+NavRinasakSedCreateType:
+  type: object
+  properties:
+    id:
+      $ref: '../properties/sed.yaml#/id'
+    dokumentInfoId:
+      $ref: '../properties/sed.yaml#/dokumentInfoId'
+    type:
+      $ref: '../properties/sed.yaml#/type'
 
 NavRinasakSearchCriteriaType:
   type: object
@@ -40,7 +80,7 @@ NavRinasakSearchCriteriaType:
 NavRinasakSearchResponseType:
   type: object
   properties:
-    rinasaker:
+    navRinasaker:
       type: array
       minItems: 0
       maxItems: 500

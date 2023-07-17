@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: NAV Rinasaker API
+  title: Nav Rinasak API
   description: API for å behandle NAV Rinasaker
   contact:
     name: vegard.lundeberg.hillestad@nav.no
@@ -8,7 +8,7 @@ info:
 servers:
   - url: 'http://localhost:8080/api/v1'
 tags:
-  - name: Rinasaker API
+  - name: Nav Rinasak API
     description: API for å behandle NAV Rinasaker
 
 paths:

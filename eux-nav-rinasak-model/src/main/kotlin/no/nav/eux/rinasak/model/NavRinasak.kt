@@ -8,5 +8,6 @@ import java.time.LocalDateTime
 class NavRinasak(
     @Id
     val rinasakId: String,
-    val opprettetDato: LocalDateTime
+    val opprettetBruker: String,
+    val opprettetDato: LocalDateTime,
 )

@@ -12,8 +12,8 @@ class NavRinasakService(
 ) {
 
     @Transactional
-    fun createNavRinasak(navRinasak: NavRinasakCreateRequest) {
-        repository.save(navRinasak.navRinasak)
+    fun createNavRinasak(navRinasakCreateRequest: NavRinasakCreateRequest) {
+        repository.save(navRinasakCreateRequest.navRinasak)
     }
 
     fun findAllNavRinasaker(): List<NavRinasak> =

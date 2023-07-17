@@ -1,0 +1,62 @@
+id:
+  type: string
+  minLength: 1
+  maxLength: 35
+  description: >
+    todo: desc
+
+tema:
+  type: string
+  maxLength: 80
+  description: |
+    Temaet som fagsaken tilhører, for eksempel 'DAG' (Dagpenger). Lovlige verdier inkluderer:
+      * `DAG` - Dagpenger
+      * `BAR` - Barnetrygd
+      * `KON` - Kontantstøtte
+      * `AAP` - Arbidsavklaring
+      * `SYK` - Sykdom
+
+system:
+  type: string
+  maxLength: 80
+  description: |
+    Fagsystemet som saken behandles i. Lovlige verdier inkluderer:
+      * `FS38` - Melosys
+      * `FS36` - Foreldrepengeløsningen
+      * `UFM` - Unntak fra medlemskap
+      * `AO01` - Arena
+      * `AO11` - Grisen
+      * `IT01` - Infotrygd
+      * `OEBS`
+      * `PP01`
+      * `PP01`
+      * `K9`
+      * `BISYS`
+      * `BA` - Barnetrygd
+      * `EF` - Enslig forsørger
+      * `KONT` - Kontantstøtte
+      * `SUPSTONAD` - Supplerende Stønad
+      * `OMSORGSPENGER`
+      * `HJELPEMIDLER`
+      * `BARNEBRILLER`
+      * `EY` - Etterlatteytelser
+
+nr:
+  type: string
+  minLength: 1
+  maxLength: 35
+  description: >
+    Nummer på rinasaken
+
+type:
+  type: string
+  maxLength: 80
+  description: |
+    Type fagsak. Lovlige verdier inkluderer:
+      * `FAGSAK` vil si at dokumentene tilhører en sak i et fagsystem. Dersom FAGSAK velges, må `id` og 
+          `saksystem` oppgis.
+      * `GENERELL_SAK` kan brukes for dokumenter som skal journalføres, men som ikke tilhører en konkret 
+          fagsak. Generell sak kan ses på som brukerens "mappe" på et gitt tema.
+      * `ARKIVSAK` er deprekert og skal kun brukes etter avtale.
+
+
