@@ -1,9 +1,10 @@
 name: release
-run-name: Build and deploy [${{ github.ref_name }}] to NAIS, dev-gcp, q1 and q2
 
 on:
   push:
     branches: [ main ]
+
+concurrency: release
 
 env:
   APP_NAME: eux-nav-rinasak
