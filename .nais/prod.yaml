@@ -1,7 +1,7 @@
 name: eux-nav-rinasak
 ingress: https://eux-nav-rinasak.intern.dev.nav.no
 database:
-  name: eux-nav-rinasak-db-q1
+  name: eux-nav-rinasak-db
   tier: db-custom-1-614
 application:
   eux-neessi:

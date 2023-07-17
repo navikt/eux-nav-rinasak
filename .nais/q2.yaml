@@ -1,7 +1,7 @@
 name: eux-nav-rinasak-q2
 ingress: https://eux-nav-rinasak-q2.intern.dev.nav.no
 database:
-  name: eux-nav-rinasak-db-q1
+  name: eux-nav-rinasak-db-q2
   tier: db-f1-micro
 application:
   eux-neessi:
