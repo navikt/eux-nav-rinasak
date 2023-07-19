@@ -4,6 +4,7 @@ package no.nav.eux.rinasak.persistence
 
 import no.nav.eux.rinasak.model.entity.Fagsak
 import no.nav.eux.rinasak.model.entity.NavRinasak
+import no.nav.eux.rinasak.model.entity.Sed
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -13,3 +14,8 @@ interface NavRinasakRepository : JpaRepository<NavRinasak, UUID>
 
 @Repository
 interface FagsakRepository : JpaRepository<Fagsak, UUID>
+
+@Repository
+interface SedRepository : JpaRepository<Sed, UUID> {
+    fun findByNavRinasakUuidIn(navRinasakUuids: List<UUID>): List<Sed>
+}

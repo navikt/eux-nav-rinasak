@@ -3,19 +3,33 @@ package no.nav.eux.rinasak.webapp
 import no.nav.eux.rinasak.model.dto.NavRinasakCreateRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
 import no.nav.eux.rinasak.model.entity.Fagsak
+import no.nav.eux.rinasak.model.entity.Sed
 import no.nav.eux.rinasak.openapi.model.*
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
-import java.util.*
+import java.util.UUID.randomUUID
 
 val NavRinasakCreateType.navRinasakCreateRequest:
         NavRinasakCreateRequest
     get() = NavRinasakCreateRequest(
-        navRinasakUuid = UUID.randomUUID(),
+        navRinasakUuid = randomUUID(),
         rinasakId = rinasakId,
         opprettetBruker = opprettetBruker,
         opprettetDato = LocalDateTime.now(),
-        fagsak = fagsak.toFagsakCreateRequest()
+        fagsak = fagsak.toFagsakCreateRequest(),
+        seder = seder.sedCreateRequests()
+    )
+
+fun List<NavRinasakSedCreateType>?.sedCreateRequests() =
+    this?.let { sedCreateTypes -> sedCreateTypes.map { it.toSedCreateRequest() } }
+        ?: emptyList()
+
+fun NavRinasakSedCreateType.toSedCreateRequest() =
+    NavRinasakCreateRequest.SedCreateRequest(
+        sedUuid = randomUUID(),
+        id = id!!,
+        dokumentInfoId = dokumentInfoId,
+        type = type,
     )
 
 fun NavRinasakFagsakCreateType?.toFagsakCreateRequest() =
@@ -31,14 +45,22 @@ fun NavRinasakFagsakCreateType?.toFagsakCreateRequest() =
 
 fun List<NavRinasakFinnResponse>.toNavRinasakSearchResponseType() =
     NavRinasakSearchResponseType(
-        navRinasaker = map {
+        navRinasaker = map { finnResponse ->
             NavRinasakType(
-                rinasakId = it.navRinasak.rinasakId,
-                opprettetBruker = it.navRinasak.opprettetBruker,
+                rinasakId = finnResponse.navRinasak.rinasakId,
+                opprettetBruker = finnResponse.navRinasak.opprettetBruker,
                 opprettetDato = OffsetDateTime.now(),
-                fagsak = it.fagsak?.toFagsakType()
+                fagsak = finnResponse.fagsak?.toFagsakType(),
+                seder = finnResponse.seder?.map { it.toNavRinasakSedCreateType() }
             )
         }
+    )
+
+fun Sed.toNavRinasakSedCreateType() =
+    NavRinasakSedCreateType(
+        id = id,
+        type = type,
+        dokumentInfoId = dokumentInfoId
     )
 
 fun Fagsak.toFagsakType() =

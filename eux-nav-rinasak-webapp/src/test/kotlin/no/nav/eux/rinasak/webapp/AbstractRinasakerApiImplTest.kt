@@ -36,6 +36,7 @@ abstract class AbstractRinasakerApiImplTest {
     fun initialiseRestAssuredMockMvcWebApplicationContext() {
         JdbcTestUtils.deleteFromTables(
             jdbcTemplate,
+            "sed",
             "nav_rinasak",
             "fagsak",
         )

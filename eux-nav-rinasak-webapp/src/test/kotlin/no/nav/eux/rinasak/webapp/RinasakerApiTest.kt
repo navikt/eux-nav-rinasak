@@ -34,6 +34,11 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             assertThat(type).isEqualTo("type")
             assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
         }
+        with (navRinasak.seder!!.single()) {
+            assertThat(id).isEqualTo("sed-id")
+            assertThat(dokumentInfoId).isEqualTo("dokumentInfoId")
+            assertThat(type).isEqualTo("type")
+        }
     }
 
     @Test
