@@ -1,28 +1,51 @@
 package no.nav.eux.rinasak.webapp
 
-import no.nav.eux.rinasak.model.NavRinasak
-import no.nav.eux.rinasak.model.NavRinasakCreateRequest
-import no.nav.eux.rinasak.openapi.model.NavRinasakCreateType
-import no.nav.eux.rinasak.openapi.model.NavRinasakSearchResponseType
-import no.nav.eux.rinasak.openapi.model.NavRinasakType
+import no.nav.eux.rinasak.model.dto.NavRinasakCreateRequest
+import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
+import no.nav.eux.rinasak.model.entity.Fagsak
+import no.nav.eux.rinasak.openapi.model.*
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
+import java.util.*
 
 val NavRinasakCreateType.navRinasakCreateRequest:
         NavRinasakCreateRequest
     get() = NavRinasakCreateRequest(
-        rinasakId = this.rinasakId,
-        opprettetBruker = this.opprettetBruker,
-        opprettetDato = LocalDateTime.now()
+        navRinasakUuid = UUID.randomUUID(),
+        rinasakId = rinasakId,
+        opprettetBruker = opprettetBruker,
+        opprettetDato = LocalDateTime.now(),
+        fagsak = fagsak.toFagsakCreateRequest()
     )
 
-fun List<NavRinasak>.toNavRinasakSearchResponseType() =
+fun NavRinasakFagsakCreateType?.toFagsakCreateRequest() =
+    this?.let {
+        NavRinasakCreateRequest.FagsakCreateRequest(
+            id = id,
+            tema = it.tema,
+            system = it.system,
+            nr = it.nr,
+            type = it.type,
+        )
+    }
+
+fun List<NavRinasakFinnResponse>.toNavRinasakSearchResponseType() =
     NavRinasakSearchResponseType(
-        navRinasaker = this.map {
+        navRinasaker = map {
             NavRinasakType(
-                rinasakId = it.rinasakId,
-                opprettetBruker = it.opprettetBruker,
-                opprettetDato = OffsetDateTime.now()
+                rinasakId = it.navRinasak.rinasakId,
+                opprettetBruker = it.navRinasak.opprettetBruker,
+                opprettetDato = OffsetDateTime.now(),
+                fagsak = it.fagsak?.toFagsakType()
             )
         }
+    )
+
+fun Fagsak.toFagsakType() =
+    FagsakType(
+        id = id,
+        tema = tema,
+        system = system,
+        nr = nr,
+        type = type,
     )

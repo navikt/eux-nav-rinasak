@@ -10,7 +10,7 @@ NavRinasakType:
     overstyrtEnhetsnummer:
       $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
     fagsak:
-      $ref: '#/NavRinasakFagsakCreateType'
+      $ref: '../fagsaker/model.yaml#/FagsakType'
     seder:
       type: array
       minItems: 0

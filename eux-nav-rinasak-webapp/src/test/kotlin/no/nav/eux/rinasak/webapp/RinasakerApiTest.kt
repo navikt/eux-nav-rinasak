@@ -24,9 +24,34 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
                 url = navRinasakerFinnUrl,
                 request = NavRinasakFinnKriterier(rinasakId = "rinasakId-1").httpEntity
             )!!
-            .rinasaker
+            .navRinasaker
             .single()
         assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-1")
+        with (navRinasak.fagsak!!) {
+            assertThat(tema).isEqualTo("tema")
+            assertThat(system).isEqualTo("system")
+            assertThat(nr).isEqualTo("nr")
+            assertThat(type).isEqualTo("type")
+            assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
+        }
+    }
+
+    @Test
+    fun `POST relaterterinasaker - forespørsel, uten fagsak og sed finn med id - 200`() {
+        val createResponse = restTemplate.postForEntity<Void>(
+            navRinasakerUrl,
+            NavRinasakOpprettelse(fagsak = null).httpEntity
+        )
+        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        val navRinasak = restTemplate
+            .postForObject<NavRinasaker>(
+                url = navRinasakerFinnUrl,
+                request = NavRinasakFinnKriterier(rinasakId = "rinasakId-1").httpEntity
+            )!!
+            .navRinasaker
+            .single()
+        assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-1")
+        assertThat(navRinasak.fagsak).isNull()
     }
 
     @Test
@@ -41,8 +66,9 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
                 url = navRinasakerFinnUrl,
                 request = NavRinasakFinnKriterier(rinasakId = "finnes ikke").httpEntity
             )!!
-            .rinasaker
+            .navRinasaker
             .single()
         assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-1")
+        assertThat(navRinasak.fagsak!!.id).isEqualTo("fagsak-1")
     }
 }

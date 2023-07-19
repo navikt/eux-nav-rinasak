@@ -27,5 +27,6 @@ class RinasakerApiImpl(
     ) = service
         .findAllNavRinasaker()
         .toNavRinasakSearchResponseType()
+        .also { println(it) }
         .toOkResponseEntity()
 }

@@ -1,13 +1,15 @@
-package no.nav.eux.rinasak.model
+package no.nav.eux.rinasak.model.entity
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import java.time.LocalDateTime
+import java.util.*
 
 @Entity
-class NavRinasak(
+data class NavRinasak(
     @Id
+    val navRinasakUuid: UUID,
     val rinasakId: String,
     val opprettetBruker: String,
-    val opprettetDato: LocalDateTime,
+    val opprettetDato: LocalDateTime
 )

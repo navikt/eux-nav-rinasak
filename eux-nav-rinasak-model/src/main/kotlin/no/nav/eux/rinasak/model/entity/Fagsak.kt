@@ -1,0 +1,19 @@
+package no.nav.eux.rinasak.model.entity
+
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import java.time.LocalDateTime
+import java.util.*
+
+@Entity
+data class Fagsak(
+    @Id
+    val navRinasakUuid: UUID,
+    val id: String?,
+    val tema: String?,
+    val system: String?,
+    val nr: String?,
+    val type: String?,
+    val opprettetBruker: String,
+    val opprettetDato: LocalDateTime,
+)
