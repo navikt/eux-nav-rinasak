@@ -2,6 +2,8 @@ package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
+import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel1
+import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel2
 import no.nav.eux.rinasak.webapp.model.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.NavRinasaker
@@ -66,14 +68,33 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             NavRinasakOpprettelse().httpEntity
         )
         assertThat(createResponse.statusCode.value()).isEqualTo(201)
-        val navRinasak = restTemplate
+        val navRinasaker = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
                 request = NavRinasakFinnKriterier(rinasakId = "finnes ikke").httpEntity
             )!!
             .navRinasaker
+        assertThat(navRinasaker).isEmpty()
+    }
+
+    @Test
+    fun `POST relaterterinasaker finn - forespørsel, 2 enkle, hent ved rinasakId - 200`() {
+        val response1 = restTemplate.postForEntity<Void>(
+            navRinasakerUrl,
+            navRinasakOpprettelseEnkel1.httpEntity
+        )
+        restTemplate.postForEntity<Void>(
+            navRinasakerUrl,
+            navRinasakOpprettelseEnkel2.httpEntity
+        )
+        val navRinasak = restTemplate
+            .postForObject<NavRinasaker>(
+                url = navRinasakerFinnUrl,
+                request = NavRinasakFinnKriterier(rinasakId = "rinasakId-2").httpEntity
+            )!!
+            .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-1")
-        assertThat(navRinasak.fagsak!!.id).isEqualTo("fagsak-1")
+        assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-2")
+        assertThat(navRinasak.fagsak).isNull()
     }
 }

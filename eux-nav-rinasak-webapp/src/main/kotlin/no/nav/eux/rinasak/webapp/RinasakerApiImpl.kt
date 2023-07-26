@@ -25,7 +25,7 @@ class RinasakerApiImpl(
         navRinasakSearchCriteriaType: NavRinasakSearchCriteriaType,
         userId: String?
     ) = service
-        .findAllNavRinasaker()
+        .findAllNavRinasaker(navRinasakSearchCriteriaType.toNavRinasakFinnRequest)
         .toNavRinasakSearchResponseType()
         .also { println(it) }
         .toOkResponseEntity()

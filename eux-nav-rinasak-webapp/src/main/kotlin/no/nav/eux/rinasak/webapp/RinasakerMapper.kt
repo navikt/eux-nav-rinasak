@@ -1,6 +1,7 @@
 package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.model.dto.NavRinasakCreateRequest
+import no.nav.eux.rinasak.model.dto.NavRinasakFinnRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
 import no.nav.eux.rinasak.model.entity.Fagsak
 import no.nav.eux.rinasak.model.entity.Sed
@@ -18,6 +19,12 @@ val NavRinasakCreateType.navRinasakCreateRequest:
         opprettetDato = LocalDateTime.now(),
         fagsak = fagsak.toFagsakCreateRequest(),
         seder = seder.sedCreateRequests()
+    )
+
+val NavRinasakSearchCriteriaType.toNavRinasakFinnRequest:
+        NavRinasakFinnRequest
+    get() = NavRinasakFinnRequest(
+        rinasakId = rinasakId
     )
 
 fun List<NavRinasakSedCreateType>?.sedCreateRequests() =
@@ -71,3 +78,4 @@ fun Fagsak.toFagsakType() =
         nr = nr,
         type = type,
     )
+

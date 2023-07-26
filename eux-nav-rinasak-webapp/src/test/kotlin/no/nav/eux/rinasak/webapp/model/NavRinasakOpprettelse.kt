@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 data class NavRinasakOpprettelse(
     val rinasakId: String = "rinasakId-1",
     val fagsak: Fagsak? = Fagsak(),
-    val seder: List<Sed> = sedList,
+    val seder: List<Sed>? = sedList,
     val opprettetBruker: String = "bruker",
 )
 

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface NavRinasakRepository : JpaRepository<NavRinasak, UUID>
+interface NavRinasakRepository : JpaRepository<NavRinasak, UUID> {
+    fun findAllByRinasakId(rinasakId: String): List<NavRinasak>
+}
 
 @Repository
 interface FagsakRepository : JpaRepository<Fagsak, UUID>
