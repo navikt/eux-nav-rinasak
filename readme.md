@@ -1,4 +1,4 @@
-### EUX Relaterte Rinasaker
+### EUX NAV Rinasak
 
 Sammenknytning av NAV og Rina-saker.
 
