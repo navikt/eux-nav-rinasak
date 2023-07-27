@@ -4,6 +4,7 @@ import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel1
 import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel2
+import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel3
 import no.nav.eux.rinasak.webapp.model.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.NavRinasaker
@@ -79,13 +80,17 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `POST relaterterinasaker finn - forespørsel, 2 enkle, hent ved rinasakId - 200`() {
-        val response1 = restTemplate.postForEntity<Void>(
+        restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             navRinasakOpprettelseEnkel1.httpEntity
         )
         restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             navRinasakOpprettelseEnkel2.httpEntity
+        )
+        restTemplate.postForEntity<Void>(
+            navRinasakerUrl,
+            navRinasakOpprettelseEnkel3.httpEntity
         )
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(

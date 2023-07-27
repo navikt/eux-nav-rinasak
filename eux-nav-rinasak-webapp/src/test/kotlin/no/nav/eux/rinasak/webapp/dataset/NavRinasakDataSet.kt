@@ -15,3 +15,10 @@ val navRinasakOpprettelseEnkel2 = NavRinasakOpprettelse(
     seder = null,
     opprettetBruker = "bruker"
 )
+
+val navRinasakOpprettelseEnkel3 = NavRinasakOpprettelse(
+    rinasakId = "rinasakId-3",
+    fagsak = null,
+    seder = null,
+    opprettetBruker = "bruker"
+)

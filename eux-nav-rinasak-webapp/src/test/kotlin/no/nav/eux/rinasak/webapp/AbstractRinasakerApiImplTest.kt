@@ -37,8 +37,8 @@ abstract class AbstractRinasakerApiImplTest {
         JdbcTestUtils.deleteFromTables(
             jdbcTemplate,
             "sed",
-            "nav_rinasak",
             "fagsak",
+            "nav_rinasak",
         )
     }
 

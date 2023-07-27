@@ -1,6 +1,6 @@
 CREATE TABLE fagsak
 (
-    nav_rinasak_uuid uuid primary key,
+    nav_rinasak_uuid uuid primary key references nav_rinasak (nav_rinasak_uuid),
     id               varchar(100),
     tema             varchar(100),
     system           varchar(100),
