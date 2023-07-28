@@ -12,7 +12,7 @@ import org.springframework.http.MediaType
 class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
 
     @Test
-    fun `POST relaterterinasaker finn - finn uten kriterier - 200`() {
+    fun `POST rinasaker finn - finn uten kriterier - 200`() {
         val response = restTemplate.postForEntity<Void>(
             navRinasakerFinnUrl,
             NavRinasakFinnKriterier().httpEntity
@@ -21,7 +21,7 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
-    fun `POST relaterterinasaker finn - ikke autentisert - 401`() {
+    fun `POST rinasaker finn - ikke autentisert - 401`() {
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_JSON
         val entity = HttpEntity<String>("{}", headers)
@@ -33,7 +33,7 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
-    fun `POST relaterterinasaker finn - ugyldig request - 400`() {
+    fun `POST rinasaker finn - ugyldig request - 400`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerFinnUrl,
             ".".httpEntity

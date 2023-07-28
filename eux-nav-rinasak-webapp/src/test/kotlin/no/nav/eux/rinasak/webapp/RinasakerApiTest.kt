@@ -16,7 +16,7 @@ import org.springframework.boot.test.web.client.postForObject
 class RinasakerApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
-    fun `POST relaterterinasaker - forespørsel, finn med id - 200`() {
+    fun `POST rinasaker - forespørsel, finn med id - 200`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             NavRinasakOpprettelse().httpEntity
@@ -45,7 +45,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
-    fun `POST relaterterinasaker - forespørsel, uten fagsak og sed finn med id - 200`() {
+    fun `POST rinasaker - forespørsel, uten fagsak og sed finn med id - 200`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             NavRinasakOpprettelse(fagsak = null).httpEntity
@@ -63,7 +63,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
-    fun `POST relaterterinasaker finn - forespørsel, ikke funnet med feil id - 200`() {
+    fun `POST rinasaker finn - forespørsel, ikke funnet med feil id - 200`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             NavRinasakOpprettelse().httpEntity
@@ -79,7 +79,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
-    fun `POST relaterterinasaker finn - forespørsel, 2 enkle, hent ved rinasakId - 200`() {
+    fun `POST rinasaker finn - forespørsel, 2 enkle, hent ved rinasakId - 200`() {
         restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             navRinasakOpprettelseEnkel1.httpEntity
