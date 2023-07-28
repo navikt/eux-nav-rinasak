@@ -8,5 +8,5 @@ application:
     name: eux-neessi
     namespace: eessibasis
 cluster:
-  fss: dev-fss
-  gcp: dev-gcp
+  fss: prod-fss
+  gcp: prod-gcp
