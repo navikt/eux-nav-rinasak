@@ -22,6 +22,7 @@ spring:
     clean-on-validation-error: true
     clean-disabled: false
 
+# noinspection SpringBootApplicationYaml
 no.nav.security.jwt:
   issuer:
     azuread:
