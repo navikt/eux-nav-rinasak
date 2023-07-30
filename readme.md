@@ -22,7 +22,20 @@ set -x DATABASE_DATABASE postgres
 set -x DATABASE_PORT 5432
 ```
 
-## Database V1
+## Konseptuell modell
+
+````mermaid
+flowchart LR
+    Fagsak --> Rinasak
+    SED --> Rinasak
+````
+
+## Logisk modell
+
+````mermaid
+````
+
+## Fysisk modell
 
 ````mermaid
 erDiagram
@@ -56,7 +69,7 @@ erDiagram
     
     fagsak ||--|| nav_rinasak :  "er (stemmer kardinaliteten her?)"
     sed }|--|{ nav_rinasak :  "inngår i (hva er egentlig kardinaliteten her?)"
-    
 
 ````
+
 
