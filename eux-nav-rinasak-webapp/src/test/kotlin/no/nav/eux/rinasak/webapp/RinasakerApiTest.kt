@@ -79,7 +79,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
-    fun `POST rinasaker finn - forespørsel, 2 enkle, hent ved rinasakId - 200`() {
+    fun `POST rinasaker finn - forespørsel, 3 enkle, hent ved rinasakId - 200`() {
         restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             navRinasakOpprettelseEnkel1.httpEntity
