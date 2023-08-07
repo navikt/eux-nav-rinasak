@@ -3,18 +3,33 @@ id:
   minLength: 1
   maxLength: 35
   description: >
-    todo: desc
+    UUID
+    1. Hvem allokerer?
+    2. Hva er formatet?
+    3. I hvilken context er den unik?
+    sjekk med Thomas
 
-dokumentInfoId:
+versionNumber:
   type: string
   minLength: 1
   maxLength: 35
   description: >
-    todo: desc
+    1. Hvem allokerer?
+    2. Hva er formatet?
+    3. I hvilken context er den unik?
+    sjekk med Thomas
+
+dokumentInfoId:
+  type: string
+  minLength: 9
+  maxLength: 9
+  pattern: '^\d{9}$'
+  description: >
+    Unit identifikator på et bestemt dokument i Joark.
 
 type:
   type: string
   minLength: 1
   maxLength: 35
   description: >
-    todo: desc
+    todo: Skal vi fjerne denne?

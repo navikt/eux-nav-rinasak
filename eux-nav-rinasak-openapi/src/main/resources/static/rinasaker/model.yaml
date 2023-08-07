@@ -16,7 +16,7 @@ NavRinasakType:
       minItems: 0
       maxItems: 500
       items:
-        $ref: '#/NavRinasakSedCreateType'
+        $ref: '#/NavRinasakSedType'
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
     opprettetDato:
@@ -32,7 +32,7 @@ NavRinasakCreateType:
       $ref: '../properties/rinasak.yaml#/rinasakId'
     overstyrtEnhetsnummer:
       $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
-    fagsak:
+    initiellFagsak:
       $ref: '#/NavRinasakFagsakCreateType'
     seder:
       type: array
@@ -40,6 +40,7 @@ NavRinasakCreateType:
       maxItems: 500
       items:
         $ref: '#/NavRinasakSedCreateType'
+#   bruk token i steden
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
 
@@ -56,6 +57,10 @@ NavRinasakFagsakCreateType:
       $ref: '../properties/fagsak.yaml#/nr'
     type:
       $ref: '../properties/fagsak.yaml#/type'
+    arkiv:
+      $ref: '../properties/fagsak.yaml#/arkiv'
+    aktoerId:
+      $ref: '../properties/person.yaml#/aktoerId'
 
 NavRinasakSedCreateType:
   type: object

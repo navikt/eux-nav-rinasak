@@ -6,7 +6,3 @@ opprettetDato:
 opprettetBruker:
   type: string
   description: Dato da entiteten ble opprettet.
-
-beskrivelse:
-  type: string
-  description: Beskrivelse av entiteten
