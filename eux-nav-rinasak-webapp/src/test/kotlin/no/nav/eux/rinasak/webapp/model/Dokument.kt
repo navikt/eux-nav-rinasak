@@ -1,8 +1,7 @@
 package no.nav.eux.rinasak.webapp.model
 
-
-data class Sed(
-    val id: String,
+data class Dokument(
+    val sedId: String,
+    val sedType: String?,
     val dokumentInfoId: String?,
-    val type: String?,
 )

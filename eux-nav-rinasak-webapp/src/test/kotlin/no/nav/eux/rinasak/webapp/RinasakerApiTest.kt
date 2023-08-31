@@ -25,22 +25,22 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = "rinasakId-1").httpEntity
+                request = NavRinasakFinnKriterier(rinasakId = 1).httpEntity
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-1")
-        with (navRinasak.fagsak!!) {
-            assertThat(tema).isEqualTo("tema")
+        assertThat(navRinasak.rinasakId).isEqualTo(1)
+        with (navRinasak.initiellFagsak!!) {
+            assertThat(tema).isEqualTo("AAA")
             assertThat(system).isEqualTo("system")
             assertThat(nr).isEqualTo("nr")
             assertThat(type).isEqualTo("type")
             assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
         }
-        with (navRinasak.seder!!.single()) {
-            assertThat(id).isEqualTo("sed-id")
-            assertThat(dokumentInfoId).isEqualTo("dokumentInfoId")
-            assertThat(type).isEqualTo("type")
+        with (navRinasak.dokumenter!!.single()) {
+            assertThat(sedId).isEqualTo("sed-id")
+            assertThat(dokumentInfoId).isEqualTo("123456789")
+            assertThat(sedType).isEqualTo("type")
         }
     }
 
@@ -48,18 +48,18 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     fun `POST rinasaker - forespørsel, uten fagsak og sed finn med id - 200`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
-            NavRinasakOpprettelse(fagsak = null).httpEntity
+            NavRinasakOpprettelse(initiellFagsak = null).httpEntity
         )
         assertThat(createResponse.statusCode.value()).isEqualTo(201)
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = "rinasakId-1").httpEntity
+                request = NavRinasakFinnKriterier(rinasakId = 1).httpEntity
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-1")
-        assertThat(navRinasak.fagsak).isNull()
+        assertThat(navRinasak.rinasakId).isEqualTo(1)
+        assertThat(navRinasak.initiellFagsak).isNull()
     }
 
     @Test
@@ -72,7 +72,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
         val navRinasaker = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = "finnes ikke").httpEntity
+                request = NavRinasakFinnKriterier(rinasakId = 0).httpEntity
             )!!
             .navRinasaker
         assertThat(navRinasaker).isEmpty()
@@ -95,11 +95,11 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = "rinasakId-2").httpEntity
+                request = NavRinasakFinnKriterier(rinasakId = 2).httpEntity
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo("rinasakId-2")
-        assertThat(navRinasak.fagsak).isNull()
+        assertThat(navRinasak.rinasakId).isEqualTo(2)
+        assertThat(navRinasak.initiellFagsak).isNull()
     }
 }

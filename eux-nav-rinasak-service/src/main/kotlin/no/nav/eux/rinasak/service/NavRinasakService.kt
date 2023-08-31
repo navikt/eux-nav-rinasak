@@ -19,8 +19,8 @@ class NavRinasakService(
     @Transactional
     fun createNavRinasak(request: NavRinasakCreateRequest) {
         navRinasakRepository.save(request.navRinasakEntity)
-        request.fagsakEntity?.let { fagsakRepository.save(it) }
-        request.sedEntities.forEach { sedRepository.save(it) }
+        request.initiellFagsakEntity?.let { fagsakRepository.save(it) }
+        request.dokumentEntities.forEach { sedRepository.save(it) }
     }
 
     fun findAllNavRinasaker(request: NavRinasakFinnRequest): List<NavRinasakFinnResponse> {

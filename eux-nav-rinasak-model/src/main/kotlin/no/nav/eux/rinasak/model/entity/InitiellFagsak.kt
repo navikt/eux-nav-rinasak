@@ -6,12 +6,13 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Entity
-data class Sed(
+data class InitiellFagsak(
     @Id
-    val sedUuid: UUID,
-    val id: String,
     val navRinasakUuid: UUID,
-    val dokumentInfoId: String?,
+    val id: String?,
+    val tema: String?,
+    val system: String?,
+    val nr: String?,
     val type: String?,
     val opprettetBruker: String,
     val opprettetDato: LocalDateTime,

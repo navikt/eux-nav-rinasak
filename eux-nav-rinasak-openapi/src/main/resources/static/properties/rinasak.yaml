@@ -1,5 +1,5 @@
 rinasakId:
-  type: number
+  type: integer
   description: >
     Unik identifikator på Rinasak allokert av RINA.
 

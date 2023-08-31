@@ -1,9 +1,0 @@
-SedType:
-  type: object
-  properties:
-    id:
-      $ref: '../properties/sed.yaml#/id'
-    dokumentInfoId:
-      $ref: '../properties/sed.yaml#/dokumentInfoId'
-    type:
-      $ref: '../properties/sed.yaml#/type'

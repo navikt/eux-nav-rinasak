@@ -9,7 +9,7 @@ import java.util.*
 data class NavRinasak(
     @Id
     val navRinasakUuid: UUID,
-    val rinasakId: String,
+    val rinasakId: Int,
     val opprettetBruker: String,
     val opprettetDato: LocalDateTime
 )

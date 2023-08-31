@@ -9,14 +9,14 @@ NavRinasakType:
       $ref: '../properties/rinasak.yaml#/rinasakId'
     overstyrtEnhetsnummer:
       $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
-    fagsak:
+    initiellFagsak:
       $ref: '../fagsaker/model.yaml#/FagsakType'
-    seder:
+    dokumenter:
       type: array
       minItems: 0
       maxItems: 500
       items:
-        $ref: '#/NavRinasakSedType'
+        $ref: '../dokumenter/model.yaml#/DokumentType'
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
     opprettetDato:
@@ -33,18 +33,18 @@ NavRinasakCreateType:
     overstyrtEnhetsnummer:
       $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
     initiellFagsak:
-      $ref: '#/NavRinasakFagsakCreateType'
-    seder:
+      $ref: '#/NavRinasakInitiellFagsakCreateType'
+    dokumenter:
       type: array
       minItems: 0
       maxItems: 500
       items:
-        $ref: '#/NavRinasakSedCreateType'
+        $ref: '#/NavRinasakDokumentCreateType'
 #   bruk token i steden
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
 
-NavRinasakFagsakCreateType:
+NavRinasakInitiellFagsakCreateType:
   type: object
   properties:
     id:
@@ -62,15 +62,15 @@ NavRinasakFagsakCreateType:
     aktoerId:
       $ref: '../properties/person.yaml#/aktoerId'
 
-NavRinasakSedCreateType:
+NavRinasakDokumentCreateType:
   type: object
   properties:
-    id:
-      $ref: '../properties/sed.yaml#/id'
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedType:
+      $ref: '../properties/dokument.yaml#/sedType'
     dokumentInfoId:
-      $ref: '../properties/sed.yaml#/dokumentInfoId'
-    type:
-      $ref: '../properties/sed.yaml#/type'
+      $ref: '../properties/dokument.yaml#/dokumentInfoId'
 
 NavRinasakSearchCriteriaType:
   type: object

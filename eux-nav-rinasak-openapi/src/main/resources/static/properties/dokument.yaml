@@ -4,12 +4,15 @@ id:
   maxLength: 35
   description: >
     UUID
-    1. Hvem allokerer?
-    2. Hva er formatet?
-    3. I hvilken context er den unik?
-    sjekk med Thomas
 
-versionNumber:
+sedId:
+  type: string
+  minLength: 1
+  maxLength: 35
+  description: >
+    UUID
+
+sedVersjon:
   type: string
   minLength: 1
   maxLength: 35
@@ -18,6 +21,13 @@ versionNumber:
     2. Hva er formatet?
     3. I hvilken context er den unik?
     sjekk med Thomas
+
+sedType:
+  type: string
+  minLength: 1
+  maxLength: 35
+  description: >
+    H001 etc.
 
 dokumentInfoId:
   type: string
@@ -26,10 +36,3 @@ dokumentInfoId:
   pattern: '^\d{9}$'
   description: >
     Unit identifikator på et bestemt dokument i Joark.
-
-type:
-  type: string
-  minLength: 1
-  maxLength: 35
-  description: >
-    todo: Skal vi fjerne denne?
