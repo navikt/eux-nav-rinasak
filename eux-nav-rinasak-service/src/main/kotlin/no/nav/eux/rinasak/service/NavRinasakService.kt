@@ -19,23 +19,23 @@ class NavRinasakService(
     @Transactional
     fun createNavRinasak(request: NavRinasakCreateRequest) {
         navRinasakRepository.save(request.navRinasakEntity)
-        request.fagsakEntity?.let { fagsakRepository.save(it) }
-        request.sedEntities.forEach { sedRepository.save(it) }
+        request.initiellFagsakEntity?.let { fagsakRepository.save(it) }
+        request.dokumentEntities.forEach { sedRepository.save(it) }
     }
 
     fun findAllNavRinasaker(request: NavRinasakFinnRequest): List<NavRinasakFinnResponse> {
-        val navRinasaker = when {
+        val navRinasakList = when {
             request.rinasakId != null -> navRinasakRepository.findAllByRinasakId(request.rinasakId!!)
             else -> navRinasakRepository.findAll()
         }
-        val fagsaker = fagsakRepository
-            .findAllById(navRinasaker.map { it.navRinasakUuid })
+        val fagsakMap = fagsakRepository
+            .findAllById(navRinasakList.map { it.navRinasakUuid })
             .associateBy { it.navRinasakUuid }
-        val seder = sedRepository
-            .findByNavRinasakUuidIn(navRinasaker.map { it.navRinasakUuid })
+        val sedMap = sedRepository
+            .findByNavRinasakUuidIn(navRinasakList.map { it.navRinasakUuid })
             .groupBy { it.navRinasakUuid }
-        return navRinasaker.map {
-            NavRinasakFinnResponse(it, fagsaker[it.navRinasakUuid], seder[it.navRinasakUuid])
+        return navRinasakList.map {
+            NavRinasakFinnResponse(it, fagsakMap[it.navRinasakUuid], sedMap[it.navRinasakUuid])
         }
     }
 }

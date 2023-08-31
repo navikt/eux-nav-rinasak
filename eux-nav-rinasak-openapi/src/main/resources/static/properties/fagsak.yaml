@@ -3,18 +3,20 @@ id:
   minLength: 1
   maxLength: 35
   description: >
-    todo: desc
+    todo: Kanskje vi burde ta en prat med Ida Stenerud for å forstå dette
 
 tema:
   type: string
-  maxLength: 80
+  minLength: 3
+  maxLength: 3
+  pattern: '^[A-Z]{3}$'
   description: |
     Temaet som fagsaken tilhører, for eksempel 'DAG' (Dagpenger). Lovlige verdier inkluderer:
       * `DAG` - Dagpenger
       * `BAR` - Barnetrygd
       * `KON` - Kontantstøtte
-      * `AAP` - Arbeidsavklaring
       * `SYK` - Sykdom
+      * `GEN` - Generell
 
 system:
   type: string
@@ -27,34 +29,43 @@ system:
       * `AO01` - Arena
       * `AO11` - Grisen
       * `IT01` - Infotrygd
-      * `OEBS`
-      * `PP01`
-      * `PP01`
-      * `K9`
-      * `BISYS`
+      * `OEBS` - Utbetaling
+      * `PP01` - Pensjon (PESYS)
+      * `K9` - Sykdom i familien
+      * `BISYS` - Bidrag
       * `BA` - Barnetrygd
       * `EF` - Enslig forsørger
       * `KONT` - Kontantstøtte
       * `SUPSTONAD` - Supplerende Stønad
-      * `OMSORGSPENGER`
-      * `HJELPEMIDLER`
-      * `BARNEBRILLER`
+      * `OMSORGSPENGER` - Omsorgspenger
+      * `HJELPEMIDLER` - Hjelpemidler
+      * `BARNEBRILLER` - Barnebriller
       * `EY` - Etterlatteytelser
 
 nr:
   type: string
   minLength: 1
-  maxLength: 35
+  maxLength: 100
   description: >
-    Nummer på rinasaken
+    Unikt saksnummer i `system`. Allokert av fagsystemet. Også kjent som saksreferanse.
 
 type:
   type: string
-  maxLength: 80
+  minLength: 1
+  maxLength: 12
   description: |
     Type fagsak. Lovlige verdier inkluderer:
-      * `FAGSAK` vil si at dokumentene tilhører en sak i et fagsystem. Dersom FAGSAK velges, må `id` og 
-          `saksystem` oppgis.
+      * `FAGSAK` vil si at dokumentene tilhører en sak i et fagsystem. Dersom FAGSAK velges, må `nr` og 
+          `system` oppgis.
       * `GENERELL_SAK` kan brukes for dokumenter som skal journalføres, men som ikke tilhører en konkret 
           fagsak. Generell sak kan ses på som brukerens "mappe" på et gitt tema.
-      * `ARKIVSAK` er deprekert og skal kun brukes etter avtale.
+
+arkiv:
+  type: string
+  minLength: 4
+  maxLength: 4
+  pattern: '^[A-Z]{4}$'
+  description: |
+    Hvilket arkivsystem fagsaken tilhører. Lovlige verdier er:
+      * `PSAK` - Arkiv for pensjon
+      * `GSAK` - Generelt arkiv for fagsaker

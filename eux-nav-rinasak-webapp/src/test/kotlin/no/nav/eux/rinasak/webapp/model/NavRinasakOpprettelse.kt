@@ -1,19 +1,19 @@
 package no.nav.eux.rinasak.webapp.model
 
 import no.nav.eux.rinasak.webapp.common.offsetDateTime1
-import no.nav.eux.rinasak.webapp.dataset.sedList
+import no.nav.eux.rinasak.webapp.dataset.dokumenterEttElement
 import java.time.LocalDateTime
 
 data class NavRinasakOpprettelse(
-    val rinasakId: String = "rinasakId-1",
-    val fagsak: Fagsak? = Fagsak(),
-    val seder: List<Sed>? = sedList,
+    val rinasakId: Int = 1,
+    val initiellFagsak: InitiellFagsak? = InitiellFagsak(),
+    val dokumenter: List<Dokument>? = dokumenterEttElement,
     val opprettetBruker: String = "bruker",
 )
 
-data class Fagsak(
+data class InitiellFagsak(
     val id: String = "fagsak-1",
-    val tema: String? = "tema",
+    val tema: String? = "AAA",
     val system: String? = "system",
     val nr: String? = "nr",
     val type: String? = "type",

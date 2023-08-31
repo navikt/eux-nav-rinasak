@@ -3,8 +3,8 @@ package no.nav.eux.rinasak.webapp
 import no.nav.eux.rinasak.model.dto.NavRinasakCreateRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
-import no.nav.eux.rinasak.model.entity.Fagsak
-import no.nav.eux.rinasak.model.entity.Sed
+import no.nav.eux.rinasak.model.entity.Dokument
+import no.nav.eux.rinasak.model.entity.InitiellFagsak
 import no.nav.eux.rinasak.openapi.model.*
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
@@ -17,8 +17,8 @@ val NavRinasakCreateType.navRinasakCreateRequest:
         rinasakId = rinasakId,
         opprettetBruker = opprettetBruker,
         opprettetDato = LocalDateTime.now(),
-        fagsak = fagsak.toFagsakCreateRequest(),
-        seder = seder.sedCreateRequests()
+        initiellFagsak = initiellFagsak.toInitiellFagsakCreateRequest(),
+        dokumenter = dokumenter.toDokumentCreateRequests()
     )
 
 val NavRinasakSearchCriteriaType.toNavRinasakFinnRequest:
@@ -27,19 +27,19 @@ val NavRinasakSearchCriteriaType.toNavRinasakFinnRequest:
         rinasakId = rinasakId
     )
 
-fun List<NavRinasakSedCreateType>?.sedCreateRequests() =
-    this?.let { sedCreateTypes -> sedCreateTypes.map { it.toSedCreateRequest() } }
+fun List<NavRinasakDokumentCreateType>?.toDokumentCreateRequests() =
+    this?.let { sedCreateTypes -> sedCreateTypes.map { it.toDokumentCreateRequest() } }
         ?: emptyList()
 
-fun NavRinasakSedCreateType.toSedCreateRequest() =
-    NavRinasakCreateRequest.SedCreateRequest(
-        sedUuid = randomUUID(),
-        id = id!!,
+fun NavRinasakDokumentCreateType.toDokumentCreateRequest() =
+    NavRinasakCreateRequest.DokumentCreateRequest(
+        dokumentUuid = randomUUID(),
+        sedId = sedId!!,
         dokumentInfoId = dokumentInfoId,
-        type = type,
+        sedType = sedType,
     )
 
-fun NavRinasakFagsakCreateType?.toFagsakCreateRequest() =
+fun NavRinasakInitiellFagsakCreateType?.toInitiellFagsakCreateRequest() =
     this?.let {
         NavRinasakCreateRequest.FagsakCreateRequest(
             id = id,
@@ -57,20 +57,20 @@ fun List<NavRinasakFinnResponse>.toNavRinasakSearchResponseType() =
                 rinasakId = finnResponse.navRinasak.rinasakId,
                 opprettetBruker = finnResponse.navRinasak.opprettetBruker,
                 opprettetDato = OffsetDateTime.now(),
-                fagsak = finnResponse.fagsak?.toFagsakType(),
-                seder = finnResponse.seder?.map { it.toNavRinasakSedCreateType() }
+                initiellFagsak = finnResponse.initiellFagsak?.toInitiellFagsakType(),
+                dokumenter = finnResponse.dokumenter?.map { it.toDokumentType() }
             )
         }
     )
 
-fun Sed.toNavRinasakSedCreateType() =
-    NavRinasakSedCreateType(
-        id = id,
-        type = type,
+fun Dokument.toDokumentType() =
+    DokumentType(
+        sedId = sedId,
+        sedType = sedType,
         dokumentInfoId = dokumentInfoId
     )
 
-fun Fagsak.toFagsakType() =
+fun InitiellFagsak.toInitiellFagsakType() =
     FagsakType(
         id = id,
         tema = tema,
@@ -78,4 +78,3 @@ fun Fagsak.toFagsakType() =
         nr = nr,
         type = type,
     )
-

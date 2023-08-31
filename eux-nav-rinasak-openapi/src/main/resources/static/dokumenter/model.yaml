@@ -1,0 +1,9 @@
+DokumentType:
+  type: object
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedType:
+      $ref: '../properties/dokument.yaml#/sedType'
+    dokumentInfoId:
+      $ref: '../properties/dokument.yaml#/dokumentInfoId'

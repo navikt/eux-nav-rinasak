@@ -1,18 +1,18 @@
 package no.nav.eux.rinasak.model.dto
 
-import no.nav.eux.rinasak.model.entity.Fagsak
+import no.nav.eux.rinasak.model.entity.Dokument
+import no.nav.eux.rinasak.model.entity.InitiellFagsak
 import no.nav.eux.rinasak.model.entity.NavRinasak
-import no.nav.eux.rinasak.model.entity.Sed
 import java.time.LocalDateTime
 import java.util.*
 
 data class NavRinasakCreateRequest(
     val navRinasakUuid: UUID,
-    val rinasakId: String,
+    val rinasakId: Int,
     val opprettetBruker: String,
     val opprettetDato: LocalDateTime,
-    val fagsak: FagsakCreateRequest?,
-    val seder: List<SedCreateRequest>,
+    val initiellFagsak: FagsakCreateRequest?,
+    val dokumenter: List<DokumentCreateRequest>,
 ) {
     data class FagsakCreateRequest(
         val id: String?,
@@ -22,11 +22,11 @@ data class NavRinasakCreateRequest(
         val type: String?,
     )
 
-    data class SedCreateRequest(
-        val id: String,
-        val sedUuid: UUID,
+    data class DokumentCreateRequest(
+        val sedId: String,
+        val sedType: String?,
+        val dokumentUuid: UUID,
         val dokumentInfoId: String?,
-        val type: String?,
     )
 
     val navRinasakEntity =
@@ -37,9 +37,9 @@ data class NavRinasakCreateRequest(
             opprettetDato = opprettetDato,
         )
 
-    val fagsakEntity =
-        this.fagsak?.let {
-            Fagsak(
+    val initiellFagsakEntity =
+        this.initiellFagsak?.let {
+            InitiellFagsak(
                 navRinasakUuid = this.navRinasakUuid,
                 id = it.id,
                 tema = it.tema,
@@ -51,15 +51,15 @@ data class NavRinasakCreateRequest(
             )
         }
 
-    val sedEntities =
-        this.seder
+    val dokumentEntities =
+        this.dokumenter
             .map {
-                Sed(
-                    sedUuid = it.sedUuid,
-                    id = it.id,
+                Dokument(
+                    dokumentUuid = it.dokumentUuid,
+                    sedId = it.sedId,
                     navRinasakUuid = this.navRinasakUuid,
                     dokumentInfoId = it.dokumentInfoId,
-                    type = it.type,
+                    sedType = it.sedType,
                     opprettetBruker = this.opprettetBruker,
                     opprettetDato = this.opprettetDato,
                 )

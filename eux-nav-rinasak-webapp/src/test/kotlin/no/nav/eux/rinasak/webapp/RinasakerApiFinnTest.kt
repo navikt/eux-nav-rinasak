@@ -34,10 +34,10 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `POST rinasaker finn - ugyldig request - 400`() {
-        val createResponse = restTemplate.postForEntity<Void>(
+        val finnResponse = restTemplate.postForEntity<Void>(
             navRinasakerFinnUrl,
             ".".httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(400)
+        assertThat(finnResponse.statusCode.value()).isEqualTo(400)
     }
 }

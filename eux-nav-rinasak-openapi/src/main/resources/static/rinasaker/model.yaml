@@ -9,14 +9,14 @@ NavRinasakType:
       $ref: '../properties/rinasak.yaml#/rinasakId'
     overstyrtEnhetsnummer:
       $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
-    fagsak:
+    initiellFagsak:
       $ref: '../fagsaker/model.yaml#/FagsakType'
-    seder:
+    dokumenter:
       type: array
       minItems: 0
       maxItems: 500
       items:
-        $ref: '#/NavRinasakSedCreateType'
+        $ref: '../dokumenter/model.yaml#/DokumentType'
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
     opprettetDato:
@@ -32,18 +32,19 @@ NavRinasakCreateType:
       $ref: '../properties/rinasak.yaml#/rinasakId'
     overstyrtEnhetsnummer:
       $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
-    fagsak:
-      $ref: '#/NavRinasakFagsakCreateType'
-    seder:
+    initiellFagsak:
+      $ref: '#/NavRinasakInitiellFagsakCreateType'
+    dokumenter:
       type: array
       minItems: 0
       maxItems: 500
       items:
-        $ref: '#/NavRinasakSedCreateType'
+        $ref: '#/NavRinasakDokumentCreateType'
+#   bruk token i steden
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
 
-NavRinasakFagsakCreateType:
+NavRinasakInitiellFagsakCreateType:
   type: object
   properties:
     id:
@@ -56,16 +57,20 @@ NavRinasakFagsakCreateType:
       $ref: '../properties/fagsak.yaml#/nr'
     type:
       $ref: '../properties/fagsak.yaml#/type'
+    arkiv:
+      $ref: '../properties/fagsak.yaml#/arkiv'
+    aktoerId:
+      $ref: '../properties/person.yaml#/aktoerId'
 
-NavRinasakSedCreateType:
+NavRinasakDokumentCreateType:
   type: object
   properties:
-    id:
-      $ref: '../properties/sed.yaml#/id'
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedType:
+      $ref: '../properties/dokument.yaml#/sedType'
     dokumentInfoId:
-      $ref: '../properties/sed.yaml#/dokumentInfoId'
-    type:
-      $ref: '../properties/sed.yaml#/type'
+      $ref: '../properties/dokument.yaml#/dokumentInfoId'
 
 NavRinasakSearchCriteriaType:
   type: object

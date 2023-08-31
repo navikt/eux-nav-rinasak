@@ -1,11 +1,11 @@
 package no.nav.eux.rinasak.webapp.dataset
 
-import no.nav.eux.rinasak.webapp.model.Sed
+import no.nav.eux.rinasak.webapp.model.Dokument
 
-val sed = Sed(
-    id = "sed-id",
-    dokumentInfoId = "dokumentInfoId",
-    type = "type"
+val dokument = Dokument(
+    sedId = "sed-id",
+    dokumentInfoId = "123456789",
+    sedType = "type"
 )
 
-val sedList = listOf(sed)
+val dokumenterEttElement = listOf(dokument)
