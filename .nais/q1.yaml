@@ -7,8 +7,8 @@ application:
   eux-neessi:
     name: eux-neessi-q1
     namespace: eessibasis
-  eux-nav-rinasak:
-    name: eux-nav-rinasak-q1
+  eux-nav-rinasak-datasync:
+    name: eux-nav-rinasak-datasync-q1
     namespace: eessibasis
 cluster:
   fss: dev-fss
