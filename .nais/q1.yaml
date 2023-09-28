@@ -7,6 +7,9 @@ application:
   eux-neessi:
     name: eux-neessi-q1
     namespace: eessibasis
+  eux-nav-rinasak:
+    name: eux-nav-rinasak-q1
+    namespace: eessibasis
 cluster:
   fss: dev-fss
   gcp: dev-gcp

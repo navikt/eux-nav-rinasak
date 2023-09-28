@@ -65,3 +65,6 @@ spec:
         - application: {{ application.eux-neessi.name }}
           namespace: {{ application.eux-neessi.namespace }}
           cluster: {{ cluster.gcp }}
+        - application: {{ application.eux-nav-rinasak.name }}
+          namespace: {{ application.eux-nav-rinasak.namespace }}
+          cluster: {{ cluster.gcp }}
