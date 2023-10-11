@@ -10,6 +10,7 @@ data class NavRinasak(
     @Id
     val navRinasakUuid: UUID,
     val rinasakId: Int,
+    val overstyrtEnhetsnummer: String?,
     val opprettetBruker: String,
     val opprettetDato: LocalDateTime
 )

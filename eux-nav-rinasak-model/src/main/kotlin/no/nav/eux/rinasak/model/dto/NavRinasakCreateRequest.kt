@@ -9,6 +9,7 @@ import java.util.*
 data class NavRinasakCreateRequest(
     val navRinasakUuid: UUID,
     val rinasakId: Int,
+    val overstyrtEnhetsnummer: String?,
     val opprettetBruker: String,
     val opprettetDato: LocalDateTime,
     val initiellFagsak: FagsakCreateRequest?,
@@ -33,6 +34,7 @@ data class NavRinasakCreateRequest(
         NavRinasak(
             navRinasakUuid = navRinasakUuid,
             rinasakId = rinasakId,
+            overstyrtEnhetsnummer = overstyrtEnhetsnummer,
             opprettetBruker = opprettetBruker,
             opprettetDato = opprettetDato,
         )

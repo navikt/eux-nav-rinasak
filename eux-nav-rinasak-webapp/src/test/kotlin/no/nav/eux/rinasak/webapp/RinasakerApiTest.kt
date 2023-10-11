@@ -30,6 +30,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             .navRinasaker
             .single()
         assertThat(navRinasak.rinasakId).isEqualTo(1)
+        assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("1234")
         with (navRinasak.initiellFagsak!!) {
             assertThat(tema).isEqualTo("AAA")
             assertThat(system).isEqualTo("system")

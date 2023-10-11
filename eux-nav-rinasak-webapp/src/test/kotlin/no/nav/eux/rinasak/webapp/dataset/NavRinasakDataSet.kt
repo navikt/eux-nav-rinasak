@@ -4,6 +4,7 @@ import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
 
 val navRinasakOpprettelseEnkel1 = NavRinasakOpprettelse(
     rinasakId = 1,
+    overstyrtEnhetsnummer = "1234",
     initiellFagsak = null,
     dokumenter = null,
     opprettetBruker = "bruker"

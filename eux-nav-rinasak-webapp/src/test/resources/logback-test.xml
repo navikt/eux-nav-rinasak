@@ -9,8 +9,8 @@
         <appender-ref ref="STDOUT"/>
     </root>
     <logger name="org.flywaydb.core.internal.license" level="error"/>
-    <logger name="org.hibernate" level="error"/>
-    <logger name="org.springframework" level="error"/>
+    <logger name="org.hibernate" level="warn"/>
+    <logger name="org.springframework" level="warn"/>
     <logger name="org.apache" level="error"/>
     <logger name="com.zaxxer.hikari.pool" level="error"/>
     <logger name="no.nav.security" level="error"/>

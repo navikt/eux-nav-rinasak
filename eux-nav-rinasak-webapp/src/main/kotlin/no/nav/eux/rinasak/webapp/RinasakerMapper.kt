@@ -15,6 +15,7 @@ val NavRinasakCreateType.navRinasakCreateRequest:
     get() = NavRinasakCreateRequest(
         navRinasakUuid = randomUUID(),
         rinasakId = rinasakId,
+        overstyrtEnhetsnummer = overstyrtEnhetsnummer,
         opprettetBruker = opprettetBruker,
         opprettetDato = LocalDateTime.now(),
         initiellFagsak = initiellFagsak.toInitiellFagsakCreateRequest(),
@@ -55,6 +56,7 @@ fun List<NavRinasakFinnResponse>.toNavRinasakSearchResponseType() =
         navRinasaker = map { finnResponse ->
             NavRinasakType(
                 rinasakId = finnResponse.navRinasak.rinasakId,
+                overstyrtEnhetsnummer = finnResponse.navRinasak.overstyrtEnhetsnummer,
                 opprettetBruker = finnResponse.navRinasak.opprettetBruker,
                 opprettetDato = OffsetDateTime.now(),
                 initiellFagsak = finnResponse.initiellFagsak?.toInitiellFagsakType(),
