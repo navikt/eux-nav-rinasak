@@ -11,3 +11,5 @@ FagsakType:
       $ref: '../properties/fagsak.yaml#/nr'
     type:
       $ref: '../properties/fagsak.yaml#/type'
+    fnr:
+      $ref: '../properties/person.yaml#/fnr'

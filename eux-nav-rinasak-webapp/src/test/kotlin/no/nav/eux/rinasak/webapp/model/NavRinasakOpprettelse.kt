@@ -18,6 +18,7 @@ data class InitiellFagsak(
     val system: String? = "system",
     val nr: String? = "nr",
     val type: String? = "type",
+    val fnr: String? = "03028700000",
     val opprettetBruker: String = "fagsak-bruker",
     val opprettetDato: LocalDateTime = offsetDateTime1.toLocalDateTime(),
 )

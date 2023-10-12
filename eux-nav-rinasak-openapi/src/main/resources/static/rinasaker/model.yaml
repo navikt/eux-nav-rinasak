@@ -59,8 +59,8 @@ NavRinasakInitiellFagsakCreateType:
       $ref: '../properties/fagsak.yaml#/type'
     arkiv:
       $ref: '../properties/fagsak.yaml#/arkiv'
-    aktoerId:
-      $ref: '../properties/person.yaml#/aktoerId'
+    fnr:
+      $ref: '../properties/person.yaml#/fnr'
 
 NavRinasakDokumentCreateType:
   type: object

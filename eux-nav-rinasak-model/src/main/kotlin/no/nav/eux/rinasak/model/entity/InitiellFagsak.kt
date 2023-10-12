@@ -14,6 +14,7 @@ data class InitiellFagsak(
     val system: String?,
     val nr: String?,
     val type: String?,
+    val fnr: String?,
     val opprettetBruker: String,
     val opprettetDato: LocalDateTime,
 )

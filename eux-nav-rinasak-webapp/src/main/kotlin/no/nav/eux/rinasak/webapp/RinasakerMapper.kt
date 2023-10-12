@@ -48,6 +48,7 @@ fun NavRinasakInitiellFagsakCreateType?.toInitiellFagsakCreateRequest() =
             system = it.system,
             nr = it.nr,
             type = it.type,
+            fnr = it.fnr,
         )
     }
 
@@ -79,4 +80,5 @@ fun InitiellFagsak.toInitiellFagsakType() =
         system = system,
         nr = nr,
         type = type,
+        fnr = fnr,
     )
