@@ -10,9 +10,10 @@ data class Dokument(
     @Id
     val dokumentUuid: UUID,
     val navRinasakUuid: UUID,
+    val sedId: UUID,
+    val sedVersjon: Int,
+    val sedType: String,
     val dokumentInfoId: String?,
-    val sedId: String,
-    val sedType: String?,
     val opprettetBruker: String,
     val opprettetDato: LocalDateTime,
 )

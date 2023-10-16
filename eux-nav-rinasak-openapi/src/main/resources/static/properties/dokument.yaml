@@ -7,20 +7,14 @@ id:
 
 sedId:
   type: string
-  minLength: 1
-  maxLength: 35
+  format: uuid
   description: >
-    UUID
+    Id på SED. Kjent som setId i Rina.
 
 sedVersjon:
-  type: string
-  minLength: 1
-  maxLength: 35
+  type: integer
   description: >
-    1. Hvem allokerer?
-    2. Hva er formatet?
-    3. I hvilken context er den unik?
-    sjekk med Thomas
+    Versjon av sedId
 
 sedType:
   type: string

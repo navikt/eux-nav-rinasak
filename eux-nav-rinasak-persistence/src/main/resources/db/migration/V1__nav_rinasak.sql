@@ -6,3 +6,5 @@ CREATE TABLE nav_rinasak
     opprettet_bruker       varchar(100),
     opprettet_dato         timestamp
 );
+
+CREATE INDEX idx_nav_rinasak_rinasak_id ON nav_rinasak (rinasak_id);

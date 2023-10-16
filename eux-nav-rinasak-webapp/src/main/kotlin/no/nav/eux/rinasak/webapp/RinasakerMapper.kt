@@ -36,6 +36,7 @@ fun NavRinasakDokumentCreateType.toDokumentCreateRequest() =
     NavRinasakCreateRequest.DokumentCreateRequest(
         dokumentUuid = randomUUID(),
         sedId = sedId!!,
+        sedVersjon = sedVersjon!!,
         dokumentInfoId = dokumentInfoId,
         sedType = sedType,
     )
@@ -69,6 +70,7 @@ fun List<NavRinasakFinnResponse>.toNavRinasakSearchResponseType() =
 fun Dokument.toDokumentType() =
     DokumentType(
         sedId = sedId,
+        sedVersjon = sedVersjon,
         sedType = sedType,
         dokumentInfoId = dokumentInfoId
     )

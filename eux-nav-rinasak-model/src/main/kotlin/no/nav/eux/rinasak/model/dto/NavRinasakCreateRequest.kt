@@ -25,8 +25,9 @@ data class NavRinasakCreateRequest(
     )
 
     data class DokumentCreateRequest(
-        val sedId: String,
-        val sedType: String?,
+        val sedId: UUID,
+        val sedVersjon: Int,
+        val sedType: String,
         val dokumentUuid: UUID,
         val dokumentInfoId: String?,
     )
@@ -61,6 +62,7 @@ data class NavRinasakCreateRequest(
                 Dokument(
                     dokumentUuid = it.dokumentUuid,
                     sedId = it.sedId,
+                    sedVersjon = it.sedVersjon,
                     navRinasakUuid = this.navRinasakUuid,
                     dokumentInfoId = it.dokumentInfoId,
                     sedType = it.sedType,
