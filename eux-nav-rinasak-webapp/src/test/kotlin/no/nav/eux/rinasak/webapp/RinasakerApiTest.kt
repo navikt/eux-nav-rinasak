@@ -32,7 +32,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             .single()
         assertThat(navRinasak.rinasakId).isEqualTo(1)
         assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("1234")
-        with (navRinasak.initiellFagsak!!) {
+        with(navRinasak.initiellFagsak!!) {
             assertThat(tema).isEqualTo("AAA")
             assertThat(system).isEqualTo("system")
             assertThat(nr).isEqualTo("nr")
@@ -40,7 +40,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
             assertThat(fnr).isEqualTo("03028700000")
         }
-        with (navRinasak.dokumenter!!.single()) {
+        with(navRinasak.dokumenter!!.single()) {
             assertThat(sedId).isEqualTo(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"))
             assertThat(sedVersjon).isEqualTo(1)
             assertThat(dokumentInfoId).isEqualTo("123456789")

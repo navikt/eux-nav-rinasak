@@ -23,10 +23,10 @@ class RinasakerApiImpl(
 
     @Protected
     override fun oppdaterNavRinasak(
-        patchType: NavRinasakPatchType,
+        navRinasakPatchType: NavRinasakPatchType,
         userId: String?
     ) = service
-        .patchNavRinasak(patchType.navRinasakPatch)
+        .patchNavRinasak(navRinasakPatchType.navRinasakPatch)
         .toCreatedEmptyResponseEntity()
 
     @Protected

@@ -28,7 +28,8 @@ class NavRinasakService(
     @Transactional
     fun patchNavRinasak(patch: NavRinasakPatch) {
         val eksisterende = findAllNavRinasaker(NavRinasakFinnRequest(rinasakId = patch.rinasakId))
-            .single()
+            .singleOrNull()
+            ?: throw RuntimeException("${patch.rinasakId} ikke funnet")
         navRinasakRepository.save(eksisterende.navRinasak.patch(patch))
         if (eksisterende.initiellFagsak == null && patch.initiellFagsak != null)
             patch(patch, eksisterende)
