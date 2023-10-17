@@ -26,3 +26,32 @@ post:
       $ref: '../common/responses.yaml#/409'
     '500':
       $ref: '../common/responses.yaml#/500'
+
+patch:
+  tags:
+    - Nav Rinasak API
+  summary: Oppdater
+  description: Oppdater ny NAV Rinasak
+  operationId: oppdaterNavRinasak
+  parameters:
+    - $ref: '../common/header.yaml#/UserId'
+  requestBody:
+    required: true
+    content:
+      'application/json':
+        schema:
+          $ref: 'model.yaml#/NavRinasakPatchType'
+
+  responses:
+    '201':
+      $ref: '../common/responses.yaml#/201'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'

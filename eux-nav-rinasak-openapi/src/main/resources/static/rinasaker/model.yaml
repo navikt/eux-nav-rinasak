@@ -40,11 +40,46 @@ NavRinasakCreateType:
       maxItems: 500
       items:
         $ref: '#/NavRinasakDokumentCreateType'
-#   bruk token i steden
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
 
+NavRinasakPatchType:
+  type: object
+  required:
+    - rinasakId
+  properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
+    overstyrtEnhetsnummer:
+      $ref: '../properties/rinasak.yaml#/overstyrtEnhetsnummer'
+    initiellFagsak:
+      $ref: '#/NavRinasakInitiellFagsakPatchType'
+    dokumenter:
+      type: array
+      minItems: 0
+      maxItems: 500
+      items:
+        $ref: '#/NavRinasakDokumentPatchType'
+
 NavRinasakInitiellFagsakCreateType:
+  type: object
+  properties:
+    id:
+      $ref: '../properties/fagsak.yaml#/id'
+    tema:
+      $ref: '../properties/fagsak.yaml#/tema'
+    system:
+      $ref: '../properties/fagsak.yaml#/system'
+    nr:
+      $ref: '../properties/fagsak.yaml#/nr'
+    type:
+      $ref: '../properties/fagsak.yaml#/type'
+    arkiv:
+      $ref: '../properties/fagsak.yaml#/arkiv'
+    fnr:
+      $ref: '../properties/person.yaml#/fnr'
+
+NavRinasakInitiellFagsakPatchType:
   type: object
   properties:
     id:
@@ -68,6 +103,21 @@ NavRinasakDokumentCreateType:
     - sedId
     - sedVersjon
     - sedType
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedVersjon:
+      $ref: '../properties/dokument.yaml#/sedVersjon'
+    sedType:
+      $ref: '../properties/dokument.yaml#/sedType'
+    dokumentInfoId:
+      $ref: '../properties/dokument.yaml#/dokumentInfoId'
+
+NavRinasakDokumentPatchType:
+  type: object
+  required:
+    - sedId
+    - sedVersjon
   properties:
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'

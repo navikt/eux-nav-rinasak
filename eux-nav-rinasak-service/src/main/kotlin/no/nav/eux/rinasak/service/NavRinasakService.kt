@@ -3,6 +3,8 @@ package no.nav.eux.rinasak.service
 import no.nav.eux.rinasak.model.dto.NavRinasakCreateRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
+import no.nav.eux.rinasak.model.dto.NavRinasakPatch
+import no.nav.eux.rinasak.model.entity.Dokument
 import no.nav.eux.rinasak.persistence.FagsakRepository
 import no.nav.eux.rinasak.persistence.NavRinasakRepository
 import no.nav.eux.rinasak.persistence.SedRepository
@@ -21,6 +23,32 @@ class NavRinasakService(
         navRinasakRepository.save(request.navRinasakEntity)
         request.initiellFagsakEntity?.let { fagsakRepository.save(it) }
         request.dokumentEntities.forEach { sedRepository.save(it) }
+    }
+
+    @Transactional
+    fun patchNavRinasak(patch: NavRinasakPatch) {
+        val eksisterende = findAllNavRinasaker(NavRinasakFinnRequest(rinasakId = patch.rinasakId))
+            .single()
+        navRinasakRepository.save(eksisterende.navRinasak.patch(patch))
+        if (eksisterende.initiellFagsak == null && patch.initiellFagsak != null)
+            patch(patch, eksisterende)
+        patch
+            .dokumenter
+            ?.filter { eksisterende.dokumenter?.any { dokument -> it.exists(dokument) } ?: false }
+    }
+
+    fun NavRinasakPatch.DokumentPatch.exists(dokument: Dokument) =
+        this.sedId == dokument.sedId && this.sedVersjon == dokument.sedVersjon
+
+    fun patch(
+        patch: NavRinasakPatch,
+        eksisterende: NavRinasakFinnResponse
+    ) {
+        patch.initiellFagsakEntity(
+            eksisterende.navRinasak.navRinasakUuid,
+            eksisterende.navRinasak.opprettetBruker,
+            eksisterende.navRinasak.opprettetDato
+        )?.let { fagsakRepository.save(it) }
     }
 
     fun findAllNavRinasaker(request: NavRinasakFinnRequest): List<NavRinasakFinnResponse> {

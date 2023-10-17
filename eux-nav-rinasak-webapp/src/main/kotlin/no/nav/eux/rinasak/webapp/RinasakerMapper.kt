@@ -3,6 +3,7 @@ package no.nav.eux.rinasak.webapp
 import no.nav.eux.rinasak.model.dto.NavRinasakCreateRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
+import no.nav.eux.rinasak.model.dto.NavRinasakPatch
 import no.nav.eux.rinasak.model.entity.Dokument
 import no.nav.eux.rinasak.model.entity.InitiellFagsak
 import no.nav.eux.rinasak.openapi.model.*
@@ -22,6 +23,15 @@ val NavRinasakCreateType.navRinasakCreateRequest:
         dokumenter = dokumenter.toDokumentCreateRequests()
     )
 
+val NavRinasakPatchType.navRinasakPatch:
+        NavRinasakPatch
+    get() = NavRinasakPatch(
+        rinasakId = rinasakId,
+        overstyrtEnhetsnummer = overstyrtEnhetsnummer,
+        initiellFagsak = initiellFagsak.toInitiellFagsakPatchRequest(),
+        dokumenter = dokumenter.toDokumentPatchRequests()
+    )
+
 val NavRinasakSearchCriteriaType.toNavRinasakFinnRequest:
         NavRinasakFinnRequest
     get() = NavRinasakFinnRequest(
@@ -32,11 +42,24 @@ fun List<NavRinasakDokumentCreateType>?.toDokumentCreateRequests() =
     this?.let { sedCreateTypes -> sedCreateTypes.map { it.toDokumentCreateRequest() } }
         ?: emptyList()
 
+fun List<NavRinasakDokumentPatchType>?.toDokumentPatchRequests() =
+    this?.let { sedCreateTypes -> sedCreateTypes.map { it.toDokumentPatchRequest() } }
+        ?: emptyList()
+
 fun NavRinasakDokumentCreateType.toDokumentCreateRequest() =
     NavRinasakCreateRequest.DokumentCreateRequest(
         dokumentUuid = randomUUID(),
-        sedId = sedId!!,
-        sedVersjon = sedVersjon!!,
+        sedId = sedId,
+        sedVersjon = sedVersjon,
+        dokumentInfoId = dokumentInfoId,
+        sedType = sedType,
+    )
+
+fun NavRinasakDokumentPatchType.toDokumentPatchRequest() =
+    NavRinasakPatch.DokumentPatch(
+        dokumentUuid = randomUUID(),
+        sedId = sedId,
+        sedVersjon = sedVersjon,
         dokumentInfoId = dokumentInfoId,
         sedType = sedType,
     )
@@ -44,6 +67,18 @@ fun NavRinasakDokumentCreateType.toDokumentCreateRequest() =
 fun NavRinasakInitiellFagsakCreateType?.toInitiellFagsakCreateRequest() =
     this?.let {
         NavRinasakCreateRequest.FagsakCreateRequest(
+            id = id,
+            tema = it.tema,
+            system = it.system,
+            nr = it.nr,
+            type = it.type,
+            fnr = it.fnr,
+        )
+    }
+
+fun NavRinasakInitiellFagsakPatchType?.toInitiellFagsakPatchRequest() =
+    this?.let {
+        NavRinasakPatch.InitiellFagsakPatch(
             id = id,
             tema = it.tema,
             system = it.system,

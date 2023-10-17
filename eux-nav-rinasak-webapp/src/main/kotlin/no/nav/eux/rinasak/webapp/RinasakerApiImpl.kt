@@ -2,6 +2,7 @@ package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.openapi.api.RinasakerApi
 import no.nav.eux.rinasak.openapi.model.NavRinasakCreateType
+import no.nav.eux.rinasak.openapi.model.NavRinasakPatchType
 import no.nav.eux.rinasak.openapi.model.NavRinasakSearchCriteriaType
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.security.token.support.core.api.Protected
@@ -18,6 +19,14 @@ class RinasakerApiImpl(
         userId: String?
     ) = service
         .createNavRinasak(navRinasakCreateType.navRinasakCreateRequest)
+        .toCreatedEmptyResponseEntity()
+
+    @Protected
+    override fun oppdaterNavRinasak(
+        patchType: NavRinasakPatchType,
+        userId: String?
+    ) = service
+        .patchNavRinasak(patchType.navRinasakPatch)
         .toCreatedEmptyResponseEntity()
 
     @Protected
