@@ -2,8 +2,8 @@ package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
+import no.nav.eux.rinasak.webapp.dataset.navRinasakOppdatering
 import no.nav.eux.rinasak.webapp.model.NavRinasakFinnKriterier
-import no.nav.eux.rinasak.webapp.model.NavRinasakOppdatering
 import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.NavRinasaker
 import org.assertj.core.api.Assertions.assertThat
@@ -25,10 +25,7 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
         val createResponse = restTemplate.exchange<Void>(
             url = navRinasakerUrl,
             method = HttpMethod.PATCH,
-            requestEntity = NavRinasakOppdatering()
-                .copy(
-                    overstyrtEnhetsnummer = "5678"
-                )
+            requestEntity = navRinasakOppdatering
                 .httpEntity
         )
         assertThat(createResponse.statusCode.value()).isEqualTo(201)
@@ -42,18 +39,25 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
         assertThat(navRinasak.rinasakId).isEqualTo(1)
         assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("5678")
         with(navRinasak.initiellFagsak!!) {
-            assertThat(tema).isEqualTo("AAA")
-            assertThat(system).isEqualTo("system")
-            assertThat(nr).isEqualTo("nr")
-            assertThat(type).isEqualTo("type")
+            assertThat(tema).isEqualTo("BBB")
+            assertThat(system).isEqualTo("oppdatertSystem")
+            assertThat(nr).isEqualTo("oppdatertNr")
+            assertThat(type).isEqualTo("endret")
             assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
-            assertThat(fnr).isEqualTo("03028700000")
+            assertThat(fnr).isEqualTo("03028700001")
         }
-        with(navRinasak.dokumenter!!.single()) {
+        val dokumentMap = navRinasak.dokumenter!!.associateBy { Pair(it.sedId, it.sedVersjon) }
+        with(dokumentMap[Pair(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b69"), 1)]!!) {
+            assertThat(sedId).isEqualTo(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b69"))
+            assertThat(sedVersjon).isEqualTo(1)
+            assertThat(dokumentInfoId).isEqualTo("000000003")
+            assertThat(sedType).isEqualTo("type")
+        }
+        with(dokumentMap[Pair(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"), 1)]!!) {
             assertThat(sedId).isEqualTo(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"))
             assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("123456789")
-            assertThat(sedType).isEqualTo("type")
+            assertThat(dokumentInfoId).isEqualTo("000000011")
+            assertThat(sedType).isEqualTo("oppdatert")
         }
     }
 }

@@ -1,7 +1,7 @@
 package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
-import no.nav.eux.rinasak.webapp.model.NavRinasakOppdatering
+import no.nav.eux.rinasak.webapp.dataset.navRinasakOppdatering
 import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,7 +23,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
         val createResponse = restTemplate.exchange<Void>(
             url = navRinasakerUrl,
             method = HttpMethod.PATCH,
-            requestEntity = NavRinasakOppdatering().httpEntity
+            requestEntity = navRinasakOppdatering.httpEntity
         )
         assertThat(createResponse.statusCode.value()).isEqualTo(201)
     }

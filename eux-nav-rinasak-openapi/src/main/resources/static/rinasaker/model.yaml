@@ -118,6 +118,7 @@ NavRinasakDokumentPatchType:
   required:
     - sedId
     - sedVersjon
+    - sedType
   properties:
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'

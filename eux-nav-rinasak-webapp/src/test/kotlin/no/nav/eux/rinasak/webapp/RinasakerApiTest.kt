@@ -43,7 +43,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
         with(navRinasak.dokumenter!!.single()) {
             assertThat(sedId).isEqualTo(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"))
             assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("123456789")
+            assertThat(dokumentInfoId).isEqualTo("000000001")
             assertThat(sedType).isEqualTo("type")
         }
     }

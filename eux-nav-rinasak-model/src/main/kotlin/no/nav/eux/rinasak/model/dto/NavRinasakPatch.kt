@@ -1,5 +1,6 @@
 package no.nav.eux.rinasak.model.dto
 
+import no.nav.eux.rinasak.model.entity.Dokument
 import no.nav.eux.rinasak.model.entity.InitiellFagsak
 import java.time.LocalDateTime
 import java.util.*
@@ -17,28 +18,38 @@ data class NavRinasakPatch(
         val nr: String?,
         val type: String?,
         val fnr: String?,
-    )
+    ) {
+        fun entity(navRinasakUuid: UUID, opprettetBruker: String, opprettetDato: LocalDateTime) =
+            this.let {
+                InitiellFagsak(
+                    navRinasakUuid = navRinasakUuid,
+                    id = it.id,
+                    tema = it.tema,
+                    system = it.system,
+                    nr = it.nr,
+                    type = it.type,
+                    fnr = it.fnr,
+                    opprettetBruker = opprettetBruker,
+                    opprettetDato = opprettetDato
+                )
+            }
+    }
 
     data class DokumentPatch(
         val sedId: UUID,
         val sedVersjon: Int,
-        val sedType: String?,
+        val sedType: String,
         val dokumentUuid: UUID,
         val dokumentInfoId: String?,
-    )
-
-    fun initiellFagsakEntity(navRinasakUuid: UUID, opprettetBruker: String, opprettetDato: LocalDateTime) =
-        this.initiellFagsak?.let {
-            InitiellFagsak(
+    ) {
+        fun entity(navRinasakUuid: UUID) =
+            Dokument(
+                dokumentUuid = dokumentUuid,
+                sedId = sedId,
+                sedVersjon = sedVersjon,
                 navRinasakUuid = navRinasakUuid,
-                id = it.id,
-                tema = it.tema,
-                system = it.system,
-                nr = it.nr,
-                type = it.type,
-                fnr = it.fnr,
-                opprettetBruker = opprettetBruker,
-                opprettetDato = opprettetDato
+                dokumentInfoId = dokumentInfoId,
+                sedType = sedType,
             )
-        }
+    }
 }

@@ -18,6 +18,6 @@ interface NavRinasakRepository : JpaRepository<NavRinasak, UUID> {
 interface FagsakRepository : JpaRepository<InitiellFagsak, UUID>
 
 @Repository
-interface SedRepository : JpaRepository<Dokument, UUID> {
+interface DokumentRepository : JpaRepository<Dokument, UUID> {
     fun findByNavRinasakUuidIn(navRinasakUuids: List<UUID>): List<Dokument>
 }
