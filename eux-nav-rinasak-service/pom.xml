@@ -24,12 +24,6 @@
             <artifactId>kotlin-stdlib</artifactId>
         </dependency>
 
-        <!-- other -->
-        <dependency>
-            <groupId>io.github.oshai</groupId>
-            <artifactId>kotlin-logging-jvm</artifactId>
-        </dependency>
-
         <!-- Siblings -->
         <dependency>
             <groupId>no.nav.eux.rinasak</groupId>

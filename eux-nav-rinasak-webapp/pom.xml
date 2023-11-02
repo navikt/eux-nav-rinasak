@@ -70,10 +70,6 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.github.oshai</groupId>
-            <artifactId>kotlin-logging-jvm</artifactId>
-        </dependency>
 
         <!-- Siblings -->
         <dependency>
