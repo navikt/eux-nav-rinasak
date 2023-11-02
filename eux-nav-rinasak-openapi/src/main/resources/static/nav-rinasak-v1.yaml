@@ -16,3 +16,5 @@ paths:
     $ref: 'rinasaker/operations_finn.yaml'
   '/rinasaker':
     $ref: 'rinasaker/operations_rot.yaml'
+  '/rinasaker/{rinasakId}/dokumenter':
+    $ref: 'dokumenter/operations_rot.yaml'

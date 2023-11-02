@@ -2,6 +2,8 @@ package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
+import no.nav.eux.rinasak.webapp.common.uuid1
+import no.nav.eux.rinasak.webapp.common.uuid3
 import no.nav.eux.rinasak.webapp.dataset.navRinasakOppdatering
 import no.nav.eux.rinasak.webapp.model.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
@@ -12,7 +14,6 @@ import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.boot.test.web.client.postForObject
 import org.springframework.http.HttpMethod
-import java.util.*
 
 class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
 
@@ -47,17 +48,17 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
             assertThat(fnr).isEqualTo("03028700001")
         }
         val dokumentMap = navRinasak.dokumenter!!.associateBy { Pair(it.sedId, it.sedVersjon) }
-        with(dokumentMap[Pair(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b69"), 1)]!!) {
-            assertThat(sedId).isEqualTo(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b69"))
-            assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("000000003")
-            assertThat(sedType).isEqualTo("type")
-        }
-        with(dokumentMap[Pair(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"), 1)]!!) {
-            assertThat(sedId).isEqualTo(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"))
+        with(dokumentMap[Pair(uuid1, 1)]!!) {
+            assertThat(sedId).isEqualTo(uuid1)
             assertThat(sedVersjon).isEqualTo(1)
             assertThat(dokumentInfoId).isEqualTo("000000011")
             assertThat(sedType).isEqualTo("oppdatert")
+        }
+        with(dokumentMap[Pair(uuid3, 1)]!!) {
+            assertThat(sedId).isEqualTo(uuid3)
+            assertThat(sedVersjon).isEqualTo(1)
+            assertThat(dokumentInfoId).isEqualTo("000000003")
+            assertThat(sedType).isEqualTo("type")
         }
     }
 }

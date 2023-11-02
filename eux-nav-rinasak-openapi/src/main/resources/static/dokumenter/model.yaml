@@ -13,3 +13,19 @@ DokumentType:
       $ref: '../properties/dokument.yaml#/sedType'
     dokumentInfoId:
       $ref: '../properties/dokument.yaml#/dokumentInfoId'
+
+DokumentCreateType:
+  type: object
+  required:
+    - sedId
+    - sedVersjon
+    - sedType
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedVersjon:
+      $ref: '../properties/dokument.yaml#/sedVersjon'
+    sedType:
+      $ref: '../properties/dokument.yaml#/sedType'
+    dokumentInfoId:
+      $ref: '../properties/dokument.yaml#/dokumentInfoId'

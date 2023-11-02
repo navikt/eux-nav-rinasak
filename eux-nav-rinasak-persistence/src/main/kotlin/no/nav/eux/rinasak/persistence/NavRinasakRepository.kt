@@ -20,4 +20,5 @@ interface FagsakRepository : JpaRepository<InitiellFagsak, UUID>
 @Repository
 interface DokumentRepository : JpaRepository<Dokument, UUID> {
     fun findByNavRinasakUuidIn(navRinasakUuids: List<UUID>): List<Dokument>
+    fun findBySedIdAndSedVersjon(sedId: UUID, sedVersjon: Int): List<Dokument>
 }

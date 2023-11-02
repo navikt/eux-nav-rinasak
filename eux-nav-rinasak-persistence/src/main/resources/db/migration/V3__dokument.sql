@@ -9,4 +9,5 @@ CREATE TABLE dokument
     opprettet_bruker varchar(100),
     opprettet_dato   timestamp
 );
-CREATE INDEX idx_dokument_nav_rinasak_uuid_id ON nav_rinasak (nav_rinasak_uuid);
+CREATE INDEX idx_dokument_sed_id ON dokument (sed_id);
+CREATE INDEX idx_dokument_nav_rinasak_uuid_id ON dokument (nav_rinasak_uuid);

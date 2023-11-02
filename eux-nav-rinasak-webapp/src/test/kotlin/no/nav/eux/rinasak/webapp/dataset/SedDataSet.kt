@@ -1,31 +1,33 @@
 package no.nav.eux.rinasak.webapp.dataset
 
+import no.nav.eux.rinasak.webapp.common.uuid1
+import no.nav.eux.rinasak.webapp.common.uuid2
+import no.nav.eux.rinasak.webapp.common.uuid3
 import no.nav.eux.rinasak.webapp.model.Dokument
-import java.util.*
 
 val dokument1 = Dokument(
-    sedId = UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"),
+    sedId = uuid1,
     sedVersjon = 1,
     sedType = "type",
     dokumentInfoId = "000000001",
 )
 
 val dokument1Oppdatert = Dokument(
-    sedId = UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"),
+    sedId = uuid1,
     sedVersjon = 1,
     sedType = "oppdatert",
     dokumentInfoId = "000000011",
 )
 
 val dokument2 = Dokument(
-    sedId = UUID.fromString("164a85f4-a031-48e3-a349-53f516005b68"),
+    sedId = uuid2,
     sedVersjon = 1,
     sedType = "type",
     dokumentInfoId = "000000002",
 )
 
 val dokument3 = Dokument(
-    sedId = UUID.fromString("164a85f4-a031-48e3-a349-53f516005b69"),
+    sedId = uuid3,
     sedVersjon = 1,
     sedType = "type",
     dokumentInfoId = "000000003",

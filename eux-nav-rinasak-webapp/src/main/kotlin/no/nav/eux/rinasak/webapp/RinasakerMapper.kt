@@ -32,7 +32,7 @@ val NavRinasakPatchType.navRinasakPatch:
         dokumenter = dokumenter.toDokumentPatchRequests()
     )
 
-val NavRinasakSearchCriteriaType.toNavRinasakFinnRequest:
+val NavRinasakSearchCriteriaType.navRinasakFinnRequest:
         NavRinasakFinnRequest
     get() = NavRinasakFinnRequest(
         rinasakId = rinasakId

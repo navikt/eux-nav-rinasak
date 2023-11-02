@@ -2,6 +2,7 @@ package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
+import no.nav.eux.rinasak.webapp.common.uuid1
 import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel1
 import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel2
 import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel3
@@ -12,7 +13,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.boot.test.web.client.postForObject
-import java.util.*
 
 class RinasakerApiTest : AbstractRinasakerApiImplTest() {
 
@@ -41,7 +41,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             assertThat(fnr).isEqualTo("03028700000")
         }
         with(navRinasak.dokumenter!!.single()) {
-            assertThat(sedId).isEqualTo(UUID.fromString("164a85f4-a031-48e3-a349-53f516005b67"))
+            assertThat(sedId).isEqualTo(uuid1)
             assertThat(sedVersjon).isEqualTo(1)
             assertThat(dokumentInfoId).isEqualTo("000000001")
             assertThat(sedType).isEqualTo("type")

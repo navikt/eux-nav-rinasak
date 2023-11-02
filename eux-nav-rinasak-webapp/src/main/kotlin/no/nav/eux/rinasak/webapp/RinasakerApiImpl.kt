@@ -1,16 +1,19 @@
 package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.openapi.api.RinasakerApi
+import no.nav.eux.rinasak.openapi.model.DokumentCreateType
 import no.nav.eux.rinasak.openapi.model.NavRinasakCreateType
 import no.nav.eux.rinasak.openapi.model.NavRinasakPatchType
 import no.nav.eux.rinasak.openapi.model.NavRinasakSearchCriteriaType
+import no.nav.eux.rinasak.service.DokumentService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class RinasakerApiImpl(
-    val service: NavRinasakService
+    val service: NavRinasakService,
+    val dokumentService: DokumentService
 ) : RinasakerApi {
 
     @Protected
@@ -34,8 +37,15 @@ class RinasakerApiImpl(
         navRinasakSearchCriteriaType: NavRinasakSearchCriteriaType,
         userId: String?
     ) = service
-        .findAllNavRinasaker(navRinasakSearchCriteriaType.toNavRinasakFinnRequest)
+        .findAllNavRinasaker(navRinasakSearchCriteriaType.navRinasakFinnRequest)
         .toNavRinasakSearchResponseType()
-        .also { println(it) }
         .toOkResponseEntity()
+
+    @Protected
+    override fun opprettNyttDokument(
+        rinasakId: Int,
+        dokumentCreateType: DokumentCreateType
+    ) = toDokumentCreateRequest(rinasakId, dokumentCreateType)
+        .let { dokumentService.createDokument(it) }
+        .toCreatedEmptyResponseEntity()
 }
