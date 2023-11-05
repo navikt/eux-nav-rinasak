@@ -8,6 +8,7 @@ import no.nav.eux.rinasak.openapi.model.NavRinasakSearchCriteriaType
 import no.nav.eux.rinasak.service.DokumentService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.security.token.support.core.api.Protected
+import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -32,7 +33,7 @@ class RinasakerApiImpl(
         .patchNavRinasak(navRinasakPatchType.navRinasakPatch)
         .toCreatedEmptyResponseEntity()
 
-    @Protected
+    @Unprotected
     override fun navRinasakFinn(
         navRinasakSearchCriteriaType: NavRinasakSearchCriteriaType,
         userId: String?
