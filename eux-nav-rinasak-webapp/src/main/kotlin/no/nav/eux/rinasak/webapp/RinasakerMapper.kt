@@ -17,7 +17,7 @@ val NavRinasakCreateType.navRinasakCreateRequest:
         navRinasakUuid = randomUUID(),
         rinasakId = rinasakId,
         overstyrtEnhetsnummer = overstyrtEnhetsnummer,
-        opprettetBruker = opprettetBruker,
+        opprettetBruker = opprettetBruker ?: "ukjent",
         opprettetDato = LocalDateTime.now(),
         initiellFagsak = initiellFagsak.toInitiellFagsakCreateRequest(),
         dokumenter = dokumenter.toDokumentCreateRequests()

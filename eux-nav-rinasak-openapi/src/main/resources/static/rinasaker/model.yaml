@@ -26,7 +26,6 @@ NavRinasakCreateType:
   type: object
   required:
     - rinasakId
-    - opprettetBruker
   properties:
     rinasakId:
       $ref: '../properties/rinasak.yaml#/rinasakId'

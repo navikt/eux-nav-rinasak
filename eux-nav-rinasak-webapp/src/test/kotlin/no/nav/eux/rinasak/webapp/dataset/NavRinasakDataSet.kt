@@ -1,5 +1,6 @@
 package no.nav.eux.rinasak.webapp.dataset
 
+import no.nav.eux.rinasak.webapp.model.InitiellFagsak
 import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
 
 val navRinasakOpprettelseEnkel1 = NavRinasakOpprettelse(
@@ -20,6 +21,13 @@ val navRinasakOpprettelseEnkel2 = NavRinasakOpprettelse(
 val navRinasakOpprettelseEnkel3 = NavRinasakOpprettelse(
     rinasakId = 3,
     initiellFagsak = null,
+    dokumenter = null,
+    opprettetBruker = "bruker"
+)
+
+val navRinasakOpprettelseInvalid = NavRinasakOpprettelse(
+    rinasakId = 4,
+    initiellFagsak = InitiellFagsak(fnr = "invalid"),
     dokumenter = null,
     opprettetBruker = "bruker"
 )
