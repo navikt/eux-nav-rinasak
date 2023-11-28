@@ -10,6 +10,9 @@ application:
   eux-nav-rinasak-datasync:
     name: eux-nav-rinasak-datasync-q2
     namespace: eessibasis
+  eux-fagmodul-journalfoering:
+    name: eux-fagmodul-journalfoering-q2
+    namespace: eessibasis
 cluster:
   fss: dev-fss
   gcp: dev-gcp
