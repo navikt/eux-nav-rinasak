@@ -70,6 +70,6 @@ spec:
         - application: {{ application.eux-nav-rinasak-datasync.name }}
           namespace: {{ application.eux-nav-rinasak-datasync.namespace }}
           cluster: {{ cluster.gcp }}
-        - application: { { application.eux-fagmodul-journalfoering.name } }
-          namespace: { { application.eux-fagmodul-journalfoering.namespace } }
-          cluster: { { cluster.fss } }
+        - application: {{ application.eux-fagmodul-journalfoering.name }}
+          namespace: {{ application.eux-fagmodul-journalfoering.namespace }}
+          cluster: {{ cluster.fss }}
