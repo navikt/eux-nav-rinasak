@@ -23,13 +23,19 @@
           summary: The request is invalid
         validation:
           value:
-            message: "name: must not be null desc: size must be between 4 and 35"
-            errorKey: VALIDATION
-            originatingSystem: EUX
-            constraintViolations: {
-              name: must not be null,
-              desc: size must be between 4 and 35
-            }
+            timestamp: "2023-11-28T13:59:53.57164"
+            errors: [
+              {
+                "field": "initiellFagsak.fnr",
+                "defaultMessage": "must match \"^\\d{11}$\"",
+                "rejectedValue": "123"
+              },
+              {
+                "field": "initiellFagsak.fnr",
+                "defaultMessage": "size must be between 11 and 11",
+                "rejectedValue": "123"
+              }
+            ]
           summary: Invalid request with constraint violations
   description: >
     Bad Request. The server cannot or will not process the request due to an apparent client error.
