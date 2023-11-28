@@ -130,13 +130,11 @@ NavRinasakDokumentPatchType:
 
 NavRinasakSearchCriteriaType:
   type: object
+  required:
+    - rinasakId
   properties:
     rinasakId:
       $ref: '../properties/rinasak.yaml#/rinasakId'
-    fraOpprettetDato:
-      $ref: '../properties/meta.yaml#/opprettetDato'
-    tilOpprettetDato:
-      $ref: '../properties/meta.yaml#/opprettetDato'
 
 NavRinasakSearchResponseType:
   type: object
