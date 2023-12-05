@@ -5,12 +5,12 @@ import java.time.LocalDateTime
 
 data class InitiellFagsak(
     val id: String = "fagsak-1",
-    val tema: String? = "AAA",
+    val tema: String = "AAA",
     val system: String? = "system",
     val nr: String? = "nr",
-    val type: String? = "type",
-    val fnr: String? = "03028700000",
-    val arkiv: String? = "PSAK",
+    val type: String = "type",
+    val fnr: String = "03028700000",
+    val arkiv: String = "PSAK",
     val opprettetBruker: String = "fagsak-bruker",
-    val opprettetDato: LocalDateTime = offsetDateTime1.toLocalDateTime(),
+    val opprettetTidspunkt: LocalDateTime = offsetDateTime1.toLocalDateTime(),
 )

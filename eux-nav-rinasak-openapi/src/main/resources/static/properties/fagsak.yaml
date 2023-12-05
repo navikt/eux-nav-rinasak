@@ -23,6 +23,7 @@ system:
   maxLength: 80
   description: |
     Fagsystemet som saken behandles i. Lovlige verdier inkluderer:
+      * `FS22` - Gosys
       * `FS38` - Melosys
       * `FS36` - Foreldrepengeløsningen
       * `UFM` - Unntak fra medlemskap

@@ -5,5 +5,5 @@ import java.time.OffsetDateTime
 
 data class NavRinasakFinnKriterier(
     val rinasakId: Int = 1,
-    val opprettetDato: OffsetDateTime = offsetDateTime1,
+    val opprettetTidspunkt: OffsetDateTime = offsetDateTime1,
 )

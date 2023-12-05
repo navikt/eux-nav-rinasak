@@ -1,8 +1,8 @@
-opprettetDato:
+opprettetTidspunkt:
   type: string
   format: date-time
   description: Dato da entiteten ble opprettet.
 
 opprettetBruker:
   type: string
-  description: Dato da entiteten ble opprettet.
+  description: Brukeren som opprettet entiteten. Kan være skalbehandler eller system.

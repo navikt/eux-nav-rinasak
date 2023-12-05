@@ -1,5 +1,10 @@
 FagsakType:
   type: object
+  required:
+    - tema
+    - type
+    - arkiv
+    - fnr
   properties:
     id:
       $ref: '../properties/fagsak.yaml#/id'

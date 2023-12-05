@@ -13,14 +13,14 @@ data class NavRinasakPatch(
 ) {
     data class InitiellFagsakPatch(
         val id: String?,
-        val tema: String?,
+        val tema: String,
         val system: String?,
         val nr: String?,
-        val type: String?,
-        val fnr: String?,
-        val arkiv: String?,
+        val type: String,
+        val fnr: String,
+        val arkiv: String,
     ) {
-        fun entity(navRinasakUuid: UUID, opprettetBruker: String, opprettetDato: LocalDateTime) =
+        fun entity(navRinasakUuid: UUID, opprettetBruker: String, opprettetTidspunkt: LocalDateTime) =
             this.let {
                 InitiellFagsak(
                     navRinasakUuid = navRinasakUuid,
@@ -32,7 +32,7 @@ data class NavRinasakPatch(
                     fnr = it.fnr,
                     arkiv = it.arkiv,
                     opprettetBruker = opprettetBruker,
-                    opprettetDato = opprettetDato
+                    opprettetTidspunkt = opprettetTidspunkt
                 )
             }
     }

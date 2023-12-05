@@ -11,18 +11,18 @@ data class NavRinasakCreateRequest(
     val rinasakId: Int,
     val overstyrtEnhetsnummer: String?,
     val opprettetBruker: String,
-    val opprettetDato: LocalDateTime,
+    val opprettetTidspunkt: LocalDateTime,
     val initiellFagsak: FagsakCreateRequest?,
     val dokumenter: List<DokumentCreateRequest>,
 ) {
     data class FagsakCreateRequest(
         val id: String?,
-        val tema: String?,
+        val tema: String,
         val system: String?,
         val nr: String?,
-        val type: String?,
-        val fnr: String?,
-        val arkiv: String?
+        val type: String,
+        val fnr: String,
+        val arkiv: String
     )
 
     data class DokumentCreateRequest(
@@ -39,7 +39,7 @@ data class NavRinasakCreateRequest(
             rinasakId = rinasakId,
             overstyrtEnhetsnummer = overstyrtEnhetsnummer,
             opprettetBruker = opprettetBruker,
-            opprettetDato = opprettetDato,
+            opprettetTidspunkt = opprettetTidspunkt,
         )
 
     val initiellFagsakEntity =
@@ -54,7 +54,7 @@ data class NavRinasakCreateRequest(
                 fnr = it.fnr,
                 arkiv = it.arkiv,
                 opprettetBruker = this.opprettetBruker,
-                opprettetDato = this.opprettetDato
+                opprettetTidspunkt = this.opprettetTidspunkt
             )
         }
 
@@ -69,7 +69,7 @@ data class NavRinasakCreateRequest(
                     dokumentInfoId = it.dokumentInfoId,
                     sedType = it.sedType,
                     opprettetBruker = this.opprettetBruker,
-                    opprettetDato = this.opprettetDato,
+                    opprettetTidspunkt = this.opprettetTidspunkt,
                 )
             }
 }

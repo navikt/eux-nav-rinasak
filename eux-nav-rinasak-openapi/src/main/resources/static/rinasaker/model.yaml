@@ -2,7 +2,7 @@ NavRinasakType:
   type: object
   required:
     - rinasakId
-    - opprettetDato
+    - opprettetTidspunkt
     - opprettetBruker
   properties:
     rinasakId:
@@ -19,8 +19,8 @@ NavRinasakType:
         $ref: '../dokumenter/model.yaml#/DokumentType'
     opprettetBruker:
       $ref: '../properties/meta.yaml#/opprettetBruker'
-    opprettetDato:
-      $ref: '../properties/meta.yaml#/opprettetDato'
+    opprettetTidspunkt:
+      $ref: '../properties/meta.yaml#/opprettetTidspunkt'
 
 NavRinasakCreateType:
   type: object
@@ -39,8 +39,6 @@ NavRinasakCreateType:
       maxItems: 500
       items:
         $ref: '#/NavRinasakDokumentCreateType'
-    opprettetBruker:
-      $ref: '../properties/meta.yaml#/opprettetBruker'
 
 NavRinasakPatchType:
   type: object
@@ -62,6 +60,11 @@ NavRinasakPatchType:
 
 NavRinasakInitiellFagsakCreateType:
   type: object
+  required:
+    - tema
+    - type
+    - arkiv
+    - fnr
   properties:
     id:
       $ref: '../properties/fagsak.yaml#/id'
@@ -80,6 +83,11 @@ NavRinasakInitiellFagsakCreateType:
 
 NavRinasakInitiellFagsakPatchType:
   type: object
+  required:
+    - tema
+    - type
+    - arkiv
+    - fnr
   properties:
     id:
       $ref: '../properties/fagsak.yaml#/id'

@@ -48,7 +48,7 @@ class NavRinasakService(
         entity(
             eksisterende.navRinasak.navRinasakUuid,
             eksisterende.navRinasak.opprettetBruker,
-            eksisterende.navRinasak.opprettetDato
+            eksisterende.navRinasak.opprettetTidspunkt
         ).let { fagsakRepository.save(it) }
     }
 

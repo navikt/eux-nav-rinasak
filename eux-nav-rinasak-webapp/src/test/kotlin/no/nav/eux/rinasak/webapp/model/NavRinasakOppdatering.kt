@@ -9,10 +9,10 @@ data class NavRinasakOppdatering(
 
 data class InitiellFagsakOppdatering(
     val id: String,
-    val tema: String?,
+    val tema: String,
     val system: String?,
     val nr: String?,
-    val type: String?,
-    val fnr: String?,
-    val arkiv: String?,
+    val type: String,
+    val fnr: String,
+    val arkiv: String,
 )

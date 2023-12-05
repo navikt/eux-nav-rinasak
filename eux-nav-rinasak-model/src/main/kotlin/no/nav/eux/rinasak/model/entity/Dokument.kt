@@ -17,7 +17,7 @@ data class Dokument(
     val sedType: String,
     val dokumentInfoId: String?,
     @Column(updatable = false)
-    val opprettetBruker: String = "",
+    val opprettetBruker: String = "ukjent",
     @Column(updatable = false)
-    val opprettetDato: LocalDateTime = now(),
+    val opprettetTidspunkt: LocalDateTime = now(),
 )

@@ -1,9 +1,9 @@
 CREATE TABLE nav_rinasak
 (
     nav_rinasak_uuid       uuid primary key,
-    rinasak_id             integer not null,
+    rinasak_id             integer      not null,
     overstyrt_enhetsnummer varchar(31),
-    opprettet_bruker       varchar(100),
-    opprettet_dato         timestamp
+    opprettet_bruker       varchar(100) not null,
+    opprettet_tidspunkt    timestamp    not null
 );
-CREATE INDEX idx_nav_rinasak_rinasak_id ON nav_rinasak (rinasak_id);
+CREATE UNIQUE INDEX idx_nav_rinasak_rinasak_id ON nav_rinasak (rinasak_id);
