@@ -14,4 +14,5 @@ data class InitiellFagsakOppdatering(
     val nr: String?,
     val type: String?,
     val fnr: String?,
+    val arkiv: String?,
 )

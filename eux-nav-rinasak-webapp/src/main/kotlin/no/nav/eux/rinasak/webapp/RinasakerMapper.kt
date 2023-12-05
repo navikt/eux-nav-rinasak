@@ -8,7 +8,7 @@ import no.nav.eux.rinasak.model.entity.Dokument
 import no.nav.eux.rinasak.model.entity.InitiellFagsak
 import no.nav.eux.rinasak.openapi.model.*
 import java.time.LocalDateTime
-import java.time.OffsetDateTime
+import java.time.ZoneOffset.UTC
 import java.util.UUID.randomUUID
 
 val NavRinasakCreateType.navRinasakCreateRequest:
@@ -73,6 +73,7 @@ fun NavRinasakInitiellFagsakCreateType?.toInitiellFagsakCreateRequest() =
             nr = it.nr,
             type = it.type,
             fnr = it.fnr,
+            arkiv = it.arkiv
         )
     }
 
@@ -85,6 +86,7 @@ fun NavRinasakInitiellFagsakPatchType?.toInitiellFagsakPatchRequest() =
             nr = it.nr,
             type = it.type,
             fnr = it.fnr,
+            arkiv = it.arkiv,
         )
     }
 
@@ -95,7 +97,7 @@ fun List<NavRinasakFinnResponse>.toNavRinasakSearchResponseType() =
                 rinasakId = finnResponse.navRinasak.rinasakId,
                 overstyrtEnhetsnummer = finnResponse.navRinasak.overstyrtEnhetsnummer,
                 opprettetBruker = finnResponse.navRinasak.opprettetBruker,
-                opprettetDato = OffsetDateTime.now(),
+                opprettetDato = finnResponse.navRinasak.opprettetDato.atOffset(UTC),
                 initiellFagsak = finnResponse.initiellFagsak?.toInitiellFagsakType(),
                 dokumenter = finnResponse.dokumenter?.map { it.toDokumentType() }
             )
@@ -118,4 +120,5 @@ fun InitiellFagsak.toInitiellFagsakType() =
         nr = nr,
         type = type,
         fnr = fnr,
+        arkiv = arkiv
     )

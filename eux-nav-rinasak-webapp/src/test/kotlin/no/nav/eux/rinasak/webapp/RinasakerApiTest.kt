@@ -39,6 +39,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             assertThat(type).isEqualTo("type")
             assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
             assertThat(fnr).isEqualTo("03028700000")
+            assertThat(arkiv).isEqualTo("PSAK")
         }
         with(navRinasak.dokumenter!!.single()) {
             assertThat(sedId).isEqualTo(uuid1)

@@ -18,6 +18,7 @@ data class NavRinasakPatch(
         val nr: String?,
         val type: String?,
         val fnr: String?,
+        val arkiv: String?,
     ) {
         fun entity(navRinasakUuid: UUID, opprettetBruker: String, opprettetDato: LocalDateTime) =
             this.let {
@@ -29,6 +30,7 @@ data class NavRinasakPatch(
                     nr = it.nr,
                     type = it.type,
                     fnr = it.fnr,
+                    arkiv = it.arkiv,
                     opprettetBruker = opprettetBruker,
                     opprettetDato = opprettetDato
                 )

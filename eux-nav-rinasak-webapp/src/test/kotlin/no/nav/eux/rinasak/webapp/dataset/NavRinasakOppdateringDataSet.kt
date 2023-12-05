@@ -10,6 +10,7 @@ val initiellFagsakOppdatering = InitiellFagsakOppdatering(
     nr = "oppdatertNr",
     type = "endret",
     fnr = "03028700001",
+    arkiv = "PSAK",
 )
 
 val navRinasakOppdatering = NavRinasakOppdatering(

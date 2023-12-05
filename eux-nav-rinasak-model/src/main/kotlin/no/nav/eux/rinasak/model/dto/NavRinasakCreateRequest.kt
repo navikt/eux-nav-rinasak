@@ -22,6 +22,7 @@ data class NavRinasakCreateRequest(
         val nr: String?,
         val type: String?,
         val fnr: String?,
+        val arkiv: String?
     )
 
     data class DokumentCreateRequest(
@@ -51,6 +52,7 @@ data class NavRinasakCreateRequest(
                 nr = it.nr,
                 type = it.type,
                 fnr = it.fnr,
+                arkiv = it.arkiv,
                 opprettetBruker = this.opprettetBruker,
                 opprettetDato = this.opprettetDato
             )
