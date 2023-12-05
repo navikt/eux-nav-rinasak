@@ -1,7 +1,7 @@
 package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
-import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
@@ -15,7 +15,7 @@ class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
     fun `POST rinasaker - gyldig forespørsel - 201`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
-            NavRinasakOpprettelse().httpEntity
+            navRinasakOpprettelse.httpEntity
         )
         assertThat(createResponse.statusCode.value()).isEqualTo(201)
     }

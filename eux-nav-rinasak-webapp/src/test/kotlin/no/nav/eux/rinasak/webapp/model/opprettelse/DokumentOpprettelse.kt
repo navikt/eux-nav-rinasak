@@ -1,8 +1,8 @@
-package no.nav.eux.rinasak.webapp.model
+package no.nav.eux.rinasak.webapp.model.opprettelse
 
 import java.util.*
 
-data class Dokument(
+data class DokumentOpprettelse(
     val sedId: UUID,
     val sedVersjon: Int,
     val sedType: String?,

@@ -4,6 +4,8 @@ DokumentType:
     - sedId
     - sedVersjon
     - sedType
+    - opprettetBruker
+    - opprettetTidspunkt
   properties:
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'
@@ -13,6 +15,10 @@ DokumentType:
       $ref: '../properties/dokument.yaml#/sedType'
     dokumentInfoId:
       $ref: '../properties/dokument.yaml#/dokumentInfoId'
+    opprettetBruker:
+      $ref: '../properties/meta.yaml#/opprettetBruker'
+    opprettetTidspunkt:
+      $ref: '../properties/meta.yaml#/opprettetTidspunkt'
 
 DokumentCreateType:
   type: object

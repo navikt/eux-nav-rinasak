@@ -1,10 +1,12 @@
-package no.nav.eux.rinasak.webapp.model
+package no.nav.eux.rinasak.webapp.model.oppdatering
+
+import no.nav.eux.rinasak.webapp.model.base.Dokument
 
 data class NavRinasakOppdatering(
     val rinasakId: Int,
-    val overstyrtEnhetsnummer: String? = null,
-    val initiellFagsak: InitiellFagsakOppdatering? = null,
-    val dokumenter: List<Dokument>? = null,
+    val overstyrtEnhetsnummer: String?,
+    val initiellFagsak: InitiellFagsakOppdatering?,
+    val dokumenter: List<Dokument>?,
 )
 
 data class InitiellFagsakOppdatering(

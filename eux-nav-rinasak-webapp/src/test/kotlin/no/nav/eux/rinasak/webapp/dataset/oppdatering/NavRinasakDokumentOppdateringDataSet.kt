@@ -1,7 +1,7 @@
-package no.nav.eux.rinasak.webapp.dataset
+package no.nav.eux.rinasak.webapp.dataset.oppdatering
 
 import no.nav.eux.rinasak.webapp.common.uuid4
-import no.nav.eux.rinasak.webapp.model.NavRinasakDokumentOpprettelse
+import no.nav.eux.rinasak.webapp.model.opprettelse.NavRinasakDokumentOpprettelse
 
 val navRinasakDokumentOpprettelse = NavRinasakDokumentOpprettelse(
     rinasakId = 1,

@@ -5,6 +5,8 @@ FagsakType:
     - type
     - arkiv
     - fnr
+    - opprettetBruker
+    - opprettetTidspunkt
   properties:
     id:
       $ref: '../properties/fagsak.yaml#/id'
@@ -20,3 +22,7 @@ FagsakType:
       $ref: '../properties/fagsak.yaml#/arkiv'
     fnr:
       $ref: '../properties/person.yaml#/fnr'
+    opprettetBruker:
+      $ref: '../properties/meta.yaml#/opprettetBruker'
+    opprettetTidspunkt:
+      $ref: '../properties/meta.yaml#/opprettetTidspunkt'

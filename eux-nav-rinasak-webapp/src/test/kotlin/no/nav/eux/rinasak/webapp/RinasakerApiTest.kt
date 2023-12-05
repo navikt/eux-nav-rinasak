@@ -3,12 +3,13 @@ package no.nav.eux.rinasak.webapp
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
-import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel1
-import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel2
-import no.nav.eux.rinasak.webapp.dataset.navRinasakOpprettelseEnkel3
-import no.nav.eux.rinasak.webapp.model.NavRinasakFinnKriterier
-import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
-import no.nav.eux.rinasak.webapp.model.NavRinasaker
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel1
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel2
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel3
+import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
+import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
+import no.nav.eux.rinasak.webapp.model.opprettelse.NavRinasakOpprettelse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
@@ -20,7 +21,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     fun `POST rinasaker - forespørsel, finn med id - 200`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
-            NavRinasakOpprettelse().httpEntity
+            navRinasakOpprettelse.httpEntity
         )
         assertThat(createResponse.statusCode.value()).isEqualTo(201)
         val navRinasak = restTemplate
@@ -36,9 +37,9 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             assertThat(tema).isEqualTo("AAA")
             assertThat(system).isEqualTo("system")
             assertThat(nr).isEqualTo("nr")
-            assertThat(type).isEqualTo("type")
-            assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
-            assertThat(fnr).isEqualTo("03028700000")
+            assertThat(type).isEqualTo("FAGSAK")
+            assertThat(opprettetBruker).isEqualTo("ukjent")
+            assertThat(fnr).isEqualTo("03028700001")
             assertThat(arkiv).isEqualTo("PSAK")
         }
         with(navRinasak.dokumenter!!.single()) {
@@ -71,7 +72,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     fun `POST rinasaker finn - forespørsel, ikke funnet med feil id - 200`() {
         val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
-            NavRinasakOpprettelse().httpEntity
+            navRinasakOpprettelse.httpEntity
         )
         assertThat(createResponse.statusCode.value()).isEqualTo(201)
         val navRinasaker = restTemplate

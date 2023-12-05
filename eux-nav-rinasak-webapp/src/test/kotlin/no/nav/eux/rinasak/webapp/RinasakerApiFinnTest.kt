@@ -1,9 +1,8 @@
 package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
-import no.nav.eux.rinasak.webapp.model.NavRinasakFinnKriterier
+import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.http.HttpEntity

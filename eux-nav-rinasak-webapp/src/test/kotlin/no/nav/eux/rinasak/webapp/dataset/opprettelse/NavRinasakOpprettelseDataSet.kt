@@ -1,33 +1,36 @@
-package no.nav.eux.rinasak.webapp.dataset
+package no.nav.eux.rinasak.webapp.dataset.opprettelse
 
-import no.nav.eux.rinasak.webapp.model.InitiellFagsak
-import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
+import no.nav.eux.rinasak.webapp.model.opprettelse.NavRinasakOpprettelse
+
+
+val navRinasakOpprettelse = NavRinasakOpprettelse(
+    rinasakId = 1,
+    overstyrtEnhetsnummer = "1234",
+    initiellFagsak = initiellFagsakOpprettelse,
+    dokumenter = dokumenterOpprettelseEttElement,
+)
 
 val navRinasakOpprettelseEnkel1 = NavRinasakOpprettelse(
     rinasakId = 1,
     overstyrtEnhetsnummer = "1234",
     initiellFagsak = null,
     dokumenter = null,
-    opprettetBruker = "bruker"
 )
 
 val navRinasakOpprettelseEnkel2 = NavRinasakOpprettelse(
     rinasakId = 2,
     initiellFagsak = null,
     dokumenter = null,
-    opprettetBruker = "bruker"
 )
 
 val navRinasakOpprettelseEnkel3 = NavRinasakOpprettelse(
     rinasakId = 3,
     initiellFagsak = null,
     dokumenter = null,
-    opprettetBruker = "bruker"
 )
 
 val navRinasakOpprettelseInvalid = NavRinasakOpprettelse(
     rinasakId = 4,
-    initiellFagsak = InitiellFagsak(fnr = "invalid"),
+    initiellFagsak = initiellFagsakOpprettelse.copy(fnr = "invalid"),
     dokumenter = null,
-    opprettetBruker = "bruker"
 )

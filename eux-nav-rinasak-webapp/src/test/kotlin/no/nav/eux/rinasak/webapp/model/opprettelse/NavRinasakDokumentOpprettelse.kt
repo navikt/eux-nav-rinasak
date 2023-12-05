@@ -1,4 +1,4 @@
-package no.nav.eux.rinasak.webapp.model
+package no.nav.eux.rinasak.webapp.model.opprettelse
 
 import java.util.*
 

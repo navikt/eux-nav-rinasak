@@ -109,7 +109,9 @@ fun Dokument.toDokumentType() =
         sedId = sedId,
         sedVersjon = sedVersjon,
         sedType = sedType,
-        dokumentInfoId = dokumentInfoId
+        dokumentInfoId = dokumentInfoId,
+        opprettetBruker = opprettetBruker,
+        opprettetTidspunkt = opprettetTidspunkt.atOffset(UTC),
     )
 
 fun InitiellFagsak.toInitiellFagsakType() =
@@ -120,5 +122,7 @@ fun InitiellFagsak.toInitiellFagsakType() =
         nr = nr,
         type = type,
         fnr = fnr,
-        arkiv = arkiv
+        arkiv = arkiv,
+        opprettetBruker = opprettetBruker,
+        opprettetTidspunkt = opprettetTidspunkt.atOffset(UTC),
     )

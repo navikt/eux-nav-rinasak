@@ -1,4 +1,4 @@
-package no.nav.eux.rinasak.webapp.model
+package no.nav.eux.rinasak.webapp.model.base
 
 import no.nav.eux.rinasak.webapp.common.offsetDateTime1
 import java.time.OffsetDateTime

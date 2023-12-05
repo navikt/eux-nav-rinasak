@@ -4,10 +4,10 @@ import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
 import no.nav.eux.rinasak.webapp.common.uuid3
-import no.nav.eux.rinasak.webapp.dataset.navRinasakOppdatering
-import no.nav.eux.rinasak.webapp.model.NavRinasakFinnKriterier
-import no.nav.eux.rinasak.webapp.model.NavRinasakOpprettelse
-import no.nav.eux.rinasak.webapp.model.NavRinasaker
+import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakOppdatering
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
+import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
+import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.exchange
@@ -21,7 +21,7 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
     fun `POST rinasaker - forespørsel, oppdatering, finn med id - 200`() {
         restTemplate.postForEntity<Void>(
             navRinasakerUrl,
-            NavRinasakOpprettelse().httpEntity
+            navRinasakOpprettelse.httpEntity
         )
         val createResponse = restTemplate.exchange<Void>(
             url = navRinasakerUrl,
@@ -44,7 +44,7 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
             assertThat(system).isEqualTo("oppdatertSystem")
             assertThat(nr).isEqualTo("oppdatertNr")
             assertThat(type).isEqualTo("endret")
-            assertThat(opprettetBruker).isEqualTo("fagsak-bruker")
+            assertThat(opprettetBruker).isEqualTo("ukjent")
             assertThat(fnr).isEqualTo("03028700001")
         }
         val dokumentMap = navRinasak.dokumenter!!.associateBy { Pair(it.sedId, it.sedVersjon) }
