@@ -12,9 +12,11 @@ tags:
     description: API for å behandle NAV Rinasaker
 
 paths:
-  '/rinasaker/finn':
-    $ref: 'rinasaker/operations_finn.yaml'
   '/rinasaker':
     $ref: 'rinasaker/operations_rot.yaml'
+  '/rinasaker/finn':
+    $ref: 'rinasaker/operations_finn.yaml'
+  '/rinasaker/{rinasakId}':
+    $ref: 'rinasaker/operations_byRinasakId.yaml'
   '/rinasaker/{rinasakId}/dokumenter':
     $ref: 'dokumenter/operations_rot.yaml'

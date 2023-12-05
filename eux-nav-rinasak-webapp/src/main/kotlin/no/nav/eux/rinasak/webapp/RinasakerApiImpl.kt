@@ -17,6 +17,14 @@ class RinasakerApiImpl(
 ) : RinasakerApi {
 
     @Protected
+    override fun hentNavRinasak(
+        rinasakId: Int
+    ) = service
+        .findNavRinasakId(rinasakId)
+        .toNavRinasakType()
+        .toOkResponseEntity()
+
+    @Protected
     override fun opprettNavRinasak(
         navRinasakCreateType: NavRinasakCreateType,
         userId: String?

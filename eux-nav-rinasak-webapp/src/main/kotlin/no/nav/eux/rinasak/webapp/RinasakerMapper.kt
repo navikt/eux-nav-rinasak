@@ -11,8 +11,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset.UTC
 import java.util.UUID.randomUUID
 
-val NavRinasakCreateType.navRinasakCreateRequest:
-        NavRinasakCreateRequest
+val NavRinasakCreateType.navRinasakCreateRequest
     get() = NavRinasakCreateRequest(
         navRinasakUuid = randomUUID(),
         rinasakId = rinasakId,
@@ -23,8 +22,7 @@ val NavRinasakCreateType.navRinasakCreateRequest:
         dokumenter = dokumenter.toDokumentCreateRequests()
     )
 
-val NavRinasakPatchType.navRinasakPatch:
-        NavRinasakPatch
+val NavRinasakPatchType.navRinasakPatch
     get() = NavRinasakPatch(
         rinasakId = rinasakId,
         overstyrtEnhetsnummer = overstyrtEnhetsnummer,
@@ -32,10 +30,19 @@ val NavRinasakPatchType.navRinasakPatch:
         dokumenter = dokumenter.toDokumentPatchRequests()
     )
 
-val NavRinasakSearchCriteriaType.navRinasakFinnRequest:
-        NavRinasakFinnRequest
+val NavRinasakSearchCriteriaType.navRinasakFinnRequest
     get() = NavRinasakFinnRequest(
         rinasakId = rinasakId
+    )
+
+fun NavRinasakFinnResponse.toNavRinasakType() =
+    NavRinasakType(
+        rinasakId = navRinasak.rinasakId,
+        overstyrtEnhetsnummer = navRinasak.overstyrtEnhetsnummer,
+        opprettetBruker = navRinasak.opprettetBruker,
+        opprettetTidspunkt = navRinasak.opprettetTidspunkt.atOffset(UTC),
+        initiellFagsak = initiellFagsak?.toInitiellFagsakType(),
+        dokumenter = dokumenter?.map { it.toDokumentType() }
     )
 
 fun List<NavRinasakDokumentCreateType>?.toDokumentCreateRequests() =
@@ -91,18 +98,7 @@ fun NavRinasakInitiellFagsakPatchType?.toInitiellFagsakPatchRequest() =
     }
 
 fun List<NavRinasakFinnResponse>.toNavRinasakSearchResponseType() =
-    NavRinasakSearchResponseType(
-        navRinasaker = map { finnResponse ->
-            NavRinasakType(
-                rinasakId = finnResponse.navRinasak.rinasakId,
-                overstyrtEnhetsnummer = finnResponse.navRinasak.overstyrtEnhetsnummer,
-                opprettetBruker = finnResponse.navRinasak.opprettetBruker,
-                opprettetTidspunkt = finnResponse.navRinasak.opprettetTidspunkt.atOffset(UTC),
-                initiellFagsak = finnResponse.initiellFagsak?.toInitiellFagsakType(),
-                dokumenter = finnResponse.dokumenter?.map { it.toDokumentType() }
-            )
-        }
-    )
+    NavRinasakSearchResponseType(navRinasaker = map { it.toNavRinasakType() })
 
 fun Dokument.toDokumentType() =
     DokumentType(

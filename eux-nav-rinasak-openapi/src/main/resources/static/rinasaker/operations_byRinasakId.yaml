@@ -1,0 +1,31 @@
+get:
+  tags:
+    - Nav Rinasak API
+  summary: Hent
+  description: Hent NAV Rinasak
+  parameters:
+    - name: rinasakId
+      in: path
+      required: true
+      schema:
+        $ref: '../properties/rinasak.yaml#/rinasakId'
+  operationId: hentNavRinasak
+  responses:
+    '200':
+      description: OK
+      content:
+        'application/json':
+          schema:
+            $ref: 'model.yaml#/NavRinasakType'
+    '201':
+      $ref: '../common/responses.yaml#/201'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'

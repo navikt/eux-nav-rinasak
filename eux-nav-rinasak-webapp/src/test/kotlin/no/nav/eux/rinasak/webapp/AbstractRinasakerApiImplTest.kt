@@ -2,6 +2,7 @@ package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.Application
 import no.nav.eux.rinasak.webapp.common.httpEntity
+import no.nav.eux.rinasak.webapp.common.voidHttpEntity
 import no.nav.security.mock.oauth2.MockOAuth2Server
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
 import org.junit.jupiter.api.Assertions.*
@@ -41,6 +42,8 @@ abstract class AbstractRinasakerApiImplTest {
             "nav_rinasak",
         )
     }
+
+    fun httpEntity() = voidHttpEntity(mockOAuth2Server)
 
     val <T> T.httpEntity: HttpEntity<T>
         get() = httpEntity(mockOAuth2Server)

@@ -8,8 +8,11 @@ import no.nav.eux.rinasak.model.entity.Dokument
 import no.nav.eux.rinasak.persistence.DokumentRepository
 import no.nav.eux.rinasak.persistence.FagsakRepository
 import no.nav.eux.rinasak.persistence.NavRinasakRepository
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.server.ResponseStatusException
 import java.util.*
 
 @Service
@@ -39,7 +42,7 @@ class NavRinasakService(
         }
     }
 
-    fun NavRinasakPatch.DokumentPatch.sammeSed(dokument: Dokument) =
+    fun NavRinasakPatch.DokumentPatch.sammeDokument(dokument: Dokument) =
         this.sedId == dokument.sedId && this.sedVersjon == dokument.sedVersjon
 
     fun NavRinasakPatch.InitiellFagsakPatch.patch(
@@ -50,6 +53,18 @@ class NavRinasakService(
             eksisterende.navRinasak.opprettetBruker,
             eksisterende.navRinasak.opprettetTidspunkt
         ).let { fagsakRepository.save(it) }
+    }
+
+    fun findNavRinasakId(rinasakId: Int): NavRinasakFinnResponse {
+        val navRinasak = navRinasakRepository
+            .findAllByRinasakId(rinasakId)
+            .singleOrNull()
+            ?: throw ResponseStatusException(NOT_FOUND, "NAV Rinasak ikke funnet: $rinasakId")
+        val fagsak = fagsakRepository
+            .findByIdOrNull(navRinasak.navRinasakUuid)
+        val dokumenter = dokumentRepository
+            .findByNavRinasakUuid(navRinasak.navRinasakUuid)
+        return NavRinasakFinnResponse(navRinasak, fagsak, dokumenter)
     }
 
     fun findAllNavRinasaker(request: NavRinasakFinnRequest): List<NavRinasakFinnResponse> {
@@ -71,7 +86,7 @@ class NavRinasakService(
     fun List<Dokument>.leggTil(patch: NavRinasakPatch, navRinasakUuid: UUID) {
         patch
             .dokumenter
-            ?.filterNot { patchDokument -> any { patchDokument.sammeSed(it) } }
+            ?.filterNot { patchDokument -> any { patchDokument.sammeDokument(it) } }
             ?.map { it.entity(navRinasakUuid) }
             ?.forEach { dokumentRepository.save(it) }
     }
@@ -79,7 +94,7 @@ class NavRinasakService(
     fun List<Dokument>.oppdater(patch: NavRinasakPatch, navRinasakUuid: UUID) {
         patch
             .dokumenter
-            ?.filter { patchDokument -> any { patchDokument.sammeSed(it) } }
+            ?.filter { patchDokument -> any { patchDokument.sammeDokument(it) } }
             ?.map { it.entity(navRinasakUuid) }
             ?.forEach { dokumentRepository.save(it) }
     }
