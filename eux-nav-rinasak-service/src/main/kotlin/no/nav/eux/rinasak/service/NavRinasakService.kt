@@ -9,6 +9,7 @@ import no.nav.eux.rinasak.persistence.DokumentRepository
 import no.nav.eux.rinasak.persistence.FagsakRepository
 import no.nav.eux.rinasak.persistence.NavRinasakRepository
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus.CONFLICT
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -24,6 +25,9 @@ class NavRinasakService(
 
     @Transactional
     fun createNavRinasak(request: NavRinasakCreateRequest) {
+        navRinasakRepository
+            .findByRinasakId(request.rinasakId)
+            ?.let { throw ResponseStatusException(CONFLICT, "NAV Rinasak finnes alt: ${request.rinasakId}") }
         navRinasakRepository.save(request.navRinasakEntity)
         request.initiellFagsakEntity?.let { fagsakRepository.save(it) }
         request.dokumentEntities.forEach { dokumentRepository.save(it) }
@@ -33,7 +37,7 @@ class NavRinasakService(
     fun patchNavRinasak(patch: NavRinasakPatch) {
         val eksisterende = findAllNavRinasaker(NavRinasakFinnRequest(rinasakId = patch.rinasakId))
             .singleOrNull()
-            ?: throw RuntimeException("${patch.rinasakId} ikke funnet")
+            ?: throw ResponseStatusException(NOT_FOUND, "${patch.rinasakId} ikke funnet")
         navRinasakRepository.save(eksisterende.navRinasak.patch(patch))
         patch.initiellFagsak?.patch(eksisterende)
         patch.dokumenter?.let {

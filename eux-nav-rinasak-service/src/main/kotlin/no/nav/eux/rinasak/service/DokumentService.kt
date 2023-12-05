@@ -4,8 +4,10 @@ import no.nav.eux.rinasak.model.dto.DokumentCreateRequest
 import no.nav.eux.rinasak.model.entity.Dokument
 import no.nav.eux.rinasak.persistence.DokumentRepository
 import no.nav.eux.rinasak.persistence.NavRinasakRepository
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.server.ResponseStatusException
 
 @Service
 class DokumentService(
@@ -18,7 +20,10 @@ class DokumentService(
         val eksisterendeDokumenter = dokumentRepository
             .findBySedIdAndSedVersjon(request.sedId, request.sedVersjon)
         if (eksisterendeDokumenter.isNotEmpty())
-            throw RuntimeException("Dokument eksisterer med sedId=${request.sedId} og sedVersjon=${request.sedVersjon}")
+            throw ResponseStatusException(
+                HttpStatus.CONFLICT,
+                "Dokument eksisterer med sedId=${request.sedId} og sedVersjon=${request.sedVersjon}"
+            )
         val rinasak = navRinasakRepository
             .findAllByRinasakId(request.rinasakId)
             .single()

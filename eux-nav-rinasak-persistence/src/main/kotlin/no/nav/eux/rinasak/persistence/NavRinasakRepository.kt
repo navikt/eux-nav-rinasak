@@ -12,6 +12,7 @@ import java.util.*
 @Repository
 interface NavRinasakRepository : JpaRepository<NavRinasak, UUID> {
     fun findAllByRinasakId(rinasakId: Int): List<NavRinasak>
+    fun findByRinasakId(rinasakId: Int): NavRinasak?
 }
 
 @Repository

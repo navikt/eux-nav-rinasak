@@ -21,6 +21,19 @@ class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
+    fun `POST rinasaker - finnes alt, conflict - 409`() {
+        restTemplate.postForEntity<Void>(
+            navRinasakerUrl,
+            navRinasakOpprettelse.httpEntity
+        )
+        val createResponse = restTemplate.postForEntity<Void>(
+            navRinasakerUrl,
+            navRinasakOpprettelse.httpEntity
+        )
+        assertThat(createResponse.statusCode.value()).isEqualTo(409)
+    }
+
+    @Test
     fun `POST rinasaker - ikke autentisert - 401`() {
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_JSON
