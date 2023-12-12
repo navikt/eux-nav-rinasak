@@ -5,7 +5,6 @@ import no.nav.eux.rinasak.webapp.common.httpEntity
 import no.nav.eux.rinasak.webapp.common.voidHttpEntity
 import no.nav.security.mock.oauth2.MockOAuth2Server
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -24,7 +23,6 @@ import org.springframework.test.jdbc.JdbcTestUtils
 abstract class AbstractRinasakerApiImplTest {
 
     @Autowired
-    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
     lateinit var mockOAuth2Server: MockOAuth2Server
 
     @Autowired

@@ -11,15 +11,15 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset.UTC
 import java.util.UUID.randomUUID
 
-val NavRinasakCreateType.navRinasakCreateRequest
-    get() = NavRinasakCreateRequest(
+fun navRinasakCreateRequest(createType: NavRinasakCreateType, bruker: String) =
+    NavRinasakCreateRequest(
         navRinasakUuid = randomUUID(),
-        rinasakId = rinasakId,
-        overstyrtEnhetsnummer = overstyrtEnhetsnummer,
-        opprettetBruker = "ukjent",
+        rinasakId = createType.rinasakId,
+        overstyrtEnhetsnummer = createType.overstyrtEnhetsnummer,
+        opprettetBruker = bruker,
         opprettetTidspunkt = LocalDateTime.now(),
-        initiellFagsak = initiellFagsak.toInitiellFagsakCreateRequest(),
-        dokumenter = dokumenter.toDokumentCreateRequests()
+        initiellFagsak = createType.initiellFagsak.toInitiellFagsakCreateRequest(),
+        dokumenter = createType.dokumenter.toDokumentCreateRequests()
     )
 
 val NavRinasakPatchType.navRinasakPatch

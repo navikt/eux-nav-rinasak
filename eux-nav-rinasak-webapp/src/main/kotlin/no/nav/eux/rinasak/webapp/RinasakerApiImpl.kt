@@ -5,6 +5,7 @@ import no.nav.eux.rinasak.openapi.model.DokumentCreateType
 import no.nav.eux.rinasak.openapi.model.NavRinasakCreateType
 import no.nav.eux.rinasak.openapi.model.NavRinasakPatchType
 import no.nav.eux.rinasak.openapi.model.NavRinasakSearchCriteriaType
+import no.nav.eux.rinasak.service.BrukerService
 import no.nav.eux.rinasak.service.DokumentService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.security.token.support.core.api.Protected
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class RinasakerApiImpl(
     val service: NavRinasakService,
-    val dokumentService: DokumentService
+    val dokumentService: DokumentService,
+    val brukerService: BrukerService,
 ) : RinasakerApi {
 
     @Protected
@@ -56,4 +58,10 @@ class RinasakerApiImpl(
     ) = toDokumentCreateRequest(rinasakId, dokumentCreateType)
         .let { dokumentService.createDokument(it) }
         .toCreatedEmptyResponseEntity()
+
+    val bruker
+        get() = brukerService.bruker()
+
+    val NavRinasakCreateType.navRinasakCreateRequest
+        get() = navRinasakCreateRequest(this, bruker)
 }
