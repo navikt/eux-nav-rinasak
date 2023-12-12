@@ -55,7 +55,7 @@ class RinasakerApiImpl(
     override fun opprettNyttDokument(
         rinasakId: Int,
         dokumentCreateType: DokumentCreateType
-    ) = toDokumentCreateRequest(rinasakId, dokumentCreateType)
+    ) = toDokumentCreateRequest(rinasakId, bruker, dokumentCreateType)
         .let { dokumentService.createDokument(it) }
         .toCreatedEmptyResponseEntity()
 

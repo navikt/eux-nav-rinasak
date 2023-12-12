@@ -35,6 +35,7 @@ class DokumentService(
                 sedVersjon = request.sedVersjon,
                 sedType = request.sedType,
                 dokumentInfoId = request.dokumentInfoId,
+                opprettetBruker = request.opprettetBruker
             )
         )
     }

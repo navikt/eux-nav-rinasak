@@ -4,7 +4,7 @@ import no.nav.eux.rinasak.model.dto.DokumentCreateRequest
 import no.nav.eux.rinasak.openapi.model.DokumentCreateType
 import java.util.UUID.randomUUID
 
-fun toDokumentCreateRequest(rinasakId: Int, dokument: DokumentCreateType) =
+fun toDokumentCreateRequest(rinasakId: Int, bruker: String, dokument: DokumentCreateType) =
     DokumentCreateRequest(
         rinasakId = rinasakId,
         sedId = dokument.sedId,
@@ -12,4 +12,5 @@ fun toDokumentCreateRequest(rinasakId: Int, dokument: DokumentCreateType) =
         sedType = dokument.sedType,
         dokumentInfoId = dokument.dokumentInfoId,
         dokumentUuid = randomUUID(),
+        opprettetBruker = bruker,
     )
