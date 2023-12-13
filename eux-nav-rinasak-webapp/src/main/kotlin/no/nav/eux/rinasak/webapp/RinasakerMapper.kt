@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset.UTC
 import java.util.UUID.randomUUID
 
-fun navRinasakCreateRequest(createType: NavRinasakCreateType, bruker: String) =
+fun toNavRinasakCreateRequest(createType: NavRinasakCreateType, bruker: String) =
     NavRinasakCreateRequest(
         navRinasakUuid = randomUUID(),
         rinasakId = createType.rinasakId,

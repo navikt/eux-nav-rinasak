@@ -3,7 +3,7 @@ id:
   minLength: 1
   maxLength: 35
   description: >
-    todo: Kanskje vi burde ta en prat med Ida Stenerud for å forstå dette
+    Id på fagsaken
 
 tema:
   type: string

@@ -1,5 +1,3 @@
-@file:Suppress("SpringDataRepositoryMethodParametersInspection")
-
 package no.nav.eux.rinasak.persistence
 
 import no.nav.eux.rinasak.model.entity.Dokument

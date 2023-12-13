@@ -19,8 +19,7 @@ spring:
         format_sql: false
 
   flyway:
-    clean-on-validation-error: true
-    clean-disabled: false
+    clean-disabled: true
 
 # noinspection SpringBootApplicationYaml
 no.nav.security.jwt:

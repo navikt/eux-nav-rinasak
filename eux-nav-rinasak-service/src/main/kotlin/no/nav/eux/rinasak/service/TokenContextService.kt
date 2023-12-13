@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service
 import kotlin.jvm.optionals.getOrNull
 
 @Service
-class BrukerService(
+class TokenContextService(
     val tokenValidationContextHolder: TokenValidationContextHolder
 ) {
-
-    fun bruker() =
-        tokenValidationContextHolder
+    val navIdent
+        get() = tokenValidationContextHolder
             .tokenValidationContext
             ?.firstValidToken
             ?.getOrNull()
