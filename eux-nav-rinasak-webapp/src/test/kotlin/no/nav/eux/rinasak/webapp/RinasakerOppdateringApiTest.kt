@@ -8,6 +8,7 @@ import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakOppdatering
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
+import no.nav.eux.rinasak.webapp.model.oppdatering.NavRinasakOppdatering
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.exchange
@@ -18,18 +19,18 @@ import org.springframework.http.HttpMethod
 class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
-    fun `POST rinasaker - forespørsel, oppdatering, finn med id - 200`() {
+    fun `PATCH rinasaker - forespørsel, oppdatering, finn med id - 200`() {
         restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             navRinasakOpprettelse.httpEntity
         )
-        val createResponse = restTemplate.exchange<Void>(
+        val updateResponse = restTemplate.exchange<Void>(
             url = navRinasakerUrl,
             method = HttpMethod.PATCH,
             requestEntity = navRinasakOppdatering
                 .httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        assertThat(updateResponse.statusCode.value()).isEqualTo(201)
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
@@ -60,5 +61,36 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
             assertThat(dokumentInfoId).isEqualTo("000000003")
             assertThat(sedType).isEqualTo("type")
         }
+    }
+
+    @Test
+    fun `PATCH rinasaker - forespørsel, oppdatering kun enhetsnummer, finn med id - 200`() {
+        restTemplate.postForEntity<Void>(
+            navRinasakerUrl,
+            navRinasakOpprettelse.httpEntity
+        )
+        val updateResponse = restTemplate.exchange<Void>(
+            url = navRinasakerUrl,
+            method = HttpMethod.PATCH,
+            requestEntity = NavRinasakOppdatering(
+                rinasakId = 1,
+                overstyrtEnhetsnummer = "5678",
+                initiellFagsak = null,
+                dokumenter = null
+            )
+                .httpEntity
+        )
+        assertThat(updateResponse.statusCode.value()).isEqualTo(201)
+        val navRinasak = restTemplate
+            .postForObject<NavRinasaker>(
+                url = navRinasakerFinnUrl,
+                request = NavRinasakFinnKriterier(rinasakId = 1).httpEntity
+            )!!
+            .navRinasaker
+            .single()
+        assertThat(navRinasak.rinasakId).isEqualTo(1)
+        assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("5678")
+        assertThat(navRinasak.initiellFagsak).isNotNull
+        assertThat(navRinasak.dokumenter!!).hasSize(1)
     }
 }
