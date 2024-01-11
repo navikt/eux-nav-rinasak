@@ -15,7 +15,7 @@ data class Dokument(
     val sedId: UUID,
     val sedVersjon: Int,
     val sedType: String,
-    val dokumentInfoId: String?,
+    val dokumentInfoId: String,
     @Column(updatable = false)
     val opprettetBruker: String = "ukjent",
     @Column(updatable = false)

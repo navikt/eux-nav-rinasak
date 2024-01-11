@@ -50,7 +50,7 @@ data class NavRinasakPatch(
                 sedId = sedId,
                 sedVersjon = sedVersjon,
                 navRinasakUuid = navRinasakUuid,
-                dokumentInfoId = dokumentInfoId,
+                dokumentInfoId = dokumentInfoId!!,
                 sedType = sedType,
             )
     }

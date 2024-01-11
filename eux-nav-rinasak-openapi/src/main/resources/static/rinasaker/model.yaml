@@ -110,6 +110,7 @@ NavRinasakDokumentCreateType:
     - sedId
     - sedVersjon
     - sedType
+    - dokumentInfoId
   properties:
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'

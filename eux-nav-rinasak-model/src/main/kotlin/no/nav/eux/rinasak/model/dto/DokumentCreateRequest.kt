@@ -8,6 +8,6 @@ data class DokumentCreateRequest(
     val sedVersjon: Int,
     val sedType: String,
     val dokumentUuid: UUID,
-    val dokumentInfoId: String?,
+    val dokumentInfoId: String,
     val opprettetBruker: String,
 )
