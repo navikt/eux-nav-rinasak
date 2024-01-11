@@ -96,10 +96,27 @@ class NavRinasakService(
     }
 
     fun List<Dokument>.oppdater(patch: NavRinasakPatch, navRinasakUuid: UUID) {
-        patch
-            .dokumenter
-            ?.filter { patchDokument -> any { patchDokument.sammeDokument(it) } }
-            ?.map { it.entity(navRinasakUuid) }
-            ?.forEach { dokumentRepository.save(it) }
+        filter { eksisterer(patch, it) }
+            .map { Pair(it, it.dokumentPatch(patch)) }
+            .map { it.tilOppdatering() }
+            .forEach { dokumentRepository.save(it) }
     }
+
+    fun Pair<Dokument, NavRinasakPatch.DokumentPatch?>.tilOppdatering() =
+        first.copy(
+            dokumentInfoId = second?.dokumentInfoId ?: first.dokumentInfoId,
+            sedType = second?.sedType ?: first.sedType
+        )
+
+    fun eksisterer(
+        patch: NavRinasakPatch,
+        dokument: Dokument
+    ) =
+        patch.dokumenter?.any { dokumentPatch -> dokumentPatch.sammeDokument(dokument) } == true
+
+    fun Dokument.dokumentPatch(
+        patch: NavRinasakPatch
+    ): NavRinasakPatch.DokumentPatch? =
+        patch.dokumenter?.single { it.sammeDokument(this) }
+
 }
