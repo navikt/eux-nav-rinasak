@@ -8,6 +8,7 @@ import no.nav.eux.rinasak.openapi.model.NavRinasakSearchCriteriaType
 import no.nav.eux.rinasak.service.DokumentService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.eux.rinasak.service.TokenContextService
+import no.nav.eux.rinasak.service.mdc
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.web.bind.annotation.RestController
 
@@ -22,6 +23,7 @@ class RinasakerApiImpl(
     override fun hentNavRinasak(
         rinasakId: Int
     ) = service
+        .mdc(rinasakId = rinasakId)
         .findNavRinasakId(rinasakId)
         .toNavRinasakType()
         .toOkResponseEntity()
@@ -31,6 +33,7 @@ class RinasakerApiImpl(
         navRinasakCreateType: NavRinasakCreateType,
         userId: String?
     ) = service
+        .mdc(rinasakId = navRinasakCreateType.rinasakId)
         .createNavRinasak(navRinasakCreateType.navRinasakCreateRequest)
         .toCreatedEmptyResponseEntity()
 
@@ -39,6 +42,7 @@ class RinasakerApiImpl(
         navRinasakPatchType: NavRinasakPatchType,
         userId: String?
     ) = service
+        .mdc(rinasakId = navRinasakPatchType.rinasakId)
         .patchNavRinasak(navRinasakPatchType.navRinasakPatch)
         .toCreatedEmptyResponseEntity()
 
@@ -47,6 +51,7 @@ class RinasakerApiImpl(
         navRinasakSearchCriteriaType: NavRinasakSearchCriteriaType,
         userId: String?
     ) = service
+        .mdc(rinasakId = navRinasakSearchCriteriaType.rinasakId)
         .findAllNavRinasaker(navRinasakSearchCriteriaType.navRinasakFinnRequest)
         .toNavRinasakSearchResponseType()
         .toOkResponseEntity()
@@ -56,6 +61,7 @@ class RinasakerApiImpl(
         rinasakId: Int,
         dokumentCreateType: DokumentCreateType
     ) = toDokumentCreateRequest(rinasakId, contextService.navIdent, dokumentCreateType)
+        .mdc(rinasakId = rinasakId, dokumentInfoId = dokumentCreateType.dokumentInfoId)
         .let { dokumentService.createDokument(it) }
         .toCreatedEmptyResponseEntity()
 
