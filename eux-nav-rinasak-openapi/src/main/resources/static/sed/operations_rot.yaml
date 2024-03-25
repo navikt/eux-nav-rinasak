@@ -1,0 +1,80 @@
+post:
+  tags:
+    - Nav Rinasak API
+  summary: Legg inn record for overvåkning av en SED sin journalstatus
+  description: Legg inn record for overvåkning av en SED sin journalstatus
+  operationId: opprettSedJournalstatus
+  requestBody:
+    required: true
+    content:
+      'application/json':
+        schema:
+          $ref: 'model.yaml#/SedJournalstatusCreateType'
+
+  responses:
+    '201':
+      $ref: '../common/responses.yaml#/201'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'
+
+patch:
+  tags:
+    - Nav Rinasak API
+  summary: Oppdater record for overvåkning av en SED sin journalstatus
+  description: Oppdater record for overvåkning av en SED sin journalstatus
+  operationId: oppdaterSedJournalstatus
+  requestBody:
+    required: true
+    content:
+      'application/json':
+        schema:
+          $ref: 'model.yaml#/SedJournalstatusPatchType'
+
+  responses:
+    '201':
+      $ref: '../common/responses.yaml#/204'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'
+
+put:
+  tags:
+    - Nav Rinasak API
+  summary: Sett record for overvåkning av en SED sin journalstatus
+  description: Oppdater record for overvåkning av en SED sin journalstatus
+  operationId: settSedJournalstatus
+  requestBody:
+    required: true
+    content:
+      'application/json':
+        schema:
+          $ref: 'model.yaml#/SedJournalstatusPutType'
+
+  responses:
+    '201':
+      $ref: '../common/responses.yaml#/204'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'

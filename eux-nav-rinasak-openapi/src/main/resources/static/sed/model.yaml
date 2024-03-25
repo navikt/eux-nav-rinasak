@@ -1,0 +1,89 @@
+SedJournalstatusType:
+  type: object
+  required:
+    - sedId
+    - sedVersjon
+    - sedJournalstatus
+    - status
+    - endretTidspunkt
+    - endretBruker
+    - opprettetTidspunkt
+    - opprettetBruker
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedVersjon:
+      $ref: '../properties/dokument.yaml#/sedVersjon'
+    sedJournalstatus:
+      $ref: '../properties/dokument.yaml#/sedJournalstatus'
+    endretBruker:
+      $ref: '../properties/meta.yaml#/endretBruker'
+    endretTidspunkt:
+      $ref: '../properties/meta.yaml#/endretTidspunkt'
+    opprettetBruker:
+      $ref: '../properties/meta.yaml#/opprettetBruker'
+    opprettetTidspunkt:
+      $ref: '../properties/meta.yaml#/opprettetTidspunkt'
+
+SedJournalstatusCreateType:
+  type: object
+  required:
+    - sedId
+    - sedVersjon
+    - sedJournalstatus
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedVersjon:
+      $ref: '../properties/dokument.yaml#/sedVersjon'
+    sedJournalstatus:
+      $ref: '../properties/dokument.yaml#/sedJournalstatus'
+
+SedJournalstatusPatchType:
+  type: object
+  required:
+    - sedId
+    - sedVersjon
+    - sedJournalstatus
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedVersjon:
+      $ref: '../properties/dokument.yaml#/sedVersjon'
+    sedJournalstatus:
+      $ref: '../properties/dokument.yaml#/sedJournalstatus'
+
+SedJournalstatusPutType:
+  type: object
+  required:
+    - sedId
+    - sedVersjon
+    - sedJournalstatus
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedVersjon:
+      $ref: '../properties/dokument.yaml#/sedVersjon'
+    sedJournalstatus:
+      $ref: '../properties/dokument.yaml#/sedJournalstatus'
+
+SedJournalstatusSearchCriteriaType:
+  type: object
+  required:
+    - sedId
+    - sedVersjon
+  properties:
+    sedId:
+      $ref: '../properties/dokument.yaml#/sedId'
+    sedVersjon:
+      $ref: '../properties/dokument.yaml#/sedVersjon'
+
+SedJournalstatusSearchResponseType:
+  type: object
+  properties:
+    sedJournalstatuser:
+      type: array
+      minItems: 0
+      maxItems: 500
+      items:
+        $ref: '#/SedJournalstatusType'

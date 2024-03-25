@@ -22,3 +22,7 @@ paths:
     $ref: 'rinasaker/operations_byRinasakId.yaml'
   '/rinasaker/{rinasakId}/dokumenter':
     $ref: 'dokumenter/operations_rot.yaml'
+  '/sed/journalstatuser':
+    $ref: 'sed/operations_rot.yaml'
+  '/sed/journalstatuser/finn':
+    $ref: 'sed/operations_finn.yaml'

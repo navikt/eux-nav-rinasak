@@ -6,3 +6,12 @@ opprettetTidspunkt:
 opprettetBruker:
   type: string
   description: Brukeren som opprettet entiteten. Kan være saksbehandler eller system.
+
+endretTidspunkt:
+  type: string
+  format: date-time
+  description: Tidspunkt da entiteten ble endret.
+
+endretBruker:
+  type: string
+  description: Brukeren som endret entiteten. Kan være saksbehandler eller system.
