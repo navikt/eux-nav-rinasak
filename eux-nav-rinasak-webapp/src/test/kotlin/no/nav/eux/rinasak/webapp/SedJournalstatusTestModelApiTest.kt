@@ -7,6 +7,7 @@ import no.nav.eux.rinasak.webapp.common.uuid1
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusPutTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatuserTestModel
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForObject
@@ -15,7 +16,7 @@ import org.springframework.http.HttpMethod
 class SedJournalstatusTestModelApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
-    fun `POST rinasaker - forespørsel, finn med id - 200`() {
+    fun `PUT sed journalstatuser - forespørsel, finn med id - 200`() {
         val createResponse = restTemplate.exchange<Void>(
             url = sedJournalstatuserUrl,
             method = HttpMethod.PUT,
@@ -26,8 +27,8 @@ class SedJournalstatusTestModelApiTest : AbstractRinasakerApiImplTest() {
             )
                 .httpEntity
         )
-        println("response:::   $createResponse")
-        val sedJournalstatuser = restTemplate
+        assertThat(createResponse.statusCode.value()).isEqualTo(200)
+        val sedJournalstatus = restTemplate
             .postForObject<SedJournalstatuserTestModel>(
                 url = sedJournalstatuserFinnUrl,
                 request = SedJournalstatusFinnKriterierTestModel(
@@ -38,6 +39,8 @@ class SedJournalstatusTestModelApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .sedJournalstatuser
             .single()
-        println(sedJournalstatuser)
+        assertThat(sedJournalstatus.sedId).isEqualTo(uuid1)
+        assertThat(sedJournalstatus.sedVersjon).isEqualTo(1)
+        assertThat(sedJournalstatus.sedJournalstatus).isEqualTo("UKJENT")
     }
 }
