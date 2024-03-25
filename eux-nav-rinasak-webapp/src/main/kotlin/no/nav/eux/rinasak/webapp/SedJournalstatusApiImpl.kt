@@ -6,6 +6,7 @@ import no.nav.eux.rinasak.openapi.model.SedJournalstatusPutType
 import no.nav.eux.rinasak.openapi.model.SedJournalstatusSearchCriteriaType
 import no.nav.eux.rinasak.service.SedJournalstatusService
 import no.nav.eux.rinasak.service.mdc
+import no.nav.security.token.support.core.api.Protected
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -13,6 +14,7 @@ class SedJournalstatusApiImpl(
     val service: SedJournalstatusService,
 ) : SedApi {
 
+    @Protected
     override fun settSedJournalstatus(
         sedJournalstatusPutType: SedJournalstatusPutType
     ) =
@@ -28,6 +30,7 @@ class SedJournalstatusApiImpl(
             )
             .toOkResponseEntity()
 
+    @Protected
     override fun sedJournalstatusFinn(
         sedJournalstatusSearchCriteriaType: SedJournalstatusSearchCriteriaType
     ) =

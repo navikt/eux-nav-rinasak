@@ -19,7 +19,10 @@ class SedJournalstatusService(
         sedVersjon: Int,
         status: SedJournalstatus.Status,
     ) {
+        println("finner.....")
         val current = repository.findBySedIdAndSedVersjon(sedId, sedVersjon)
+        println("current:::  $current")
+
         when {
             current == null -> create(sedId, sedVersjon, status)
             else -> repository.save(current.copy(status = status))
@@ -48,5 +51,6 @@ class SedJournalstatusService(
                 endretBruker = contextService.navIdent
             )
         )
+        println("                     laget!")
     }
 }

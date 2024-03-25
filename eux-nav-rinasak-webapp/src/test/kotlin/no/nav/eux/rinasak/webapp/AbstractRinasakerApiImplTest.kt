@@ -38,6 +38,7 @@ abstract class AbstractRinasakerApiImplTest {
             "dokument",
             "initiell_fagsak",
             "nav_rinasak",
+            "sed_journalstatus"
         )
     }
 
