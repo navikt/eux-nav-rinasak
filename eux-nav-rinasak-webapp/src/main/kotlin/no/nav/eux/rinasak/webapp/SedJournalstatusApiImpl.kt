@@ -41,7 +41,8 @@ class SedJournalstatusApiImpl(
             )
             .finn(
                 sedId = sedJournalstatusSearchCriteriaType.sedId,
-                sedVersjon = sedJournalstatusSearchCriteriaType.sedVersjon
+                sedVersjon = sedJournalstatusSearchCriteriaType.sedVersjon,
+                status = sedJournalstatusSearchCriteriaType.sedJournalstatus.toStatus()
             )
             .toSedJournalstatusSearchResponseType()
             .toOkResponseEntity()

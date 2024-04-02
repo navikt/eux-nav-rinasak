@@ -69,14 +69,13 @@ SedJournalstatusPutType:
 
 SedJournalstatusSearchCriteriaType:
   type: object
-  required:
-    - sedId
-    - sedVersjon
   properties:
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'
     sedVersjon:
       $ref: '../properties/dokument.yaml#/sedVersjon'
+    sedJournalstatus:
+      $ref: '../properties/dokument.yaml#/sedJournalstatus'
 
 SedJournalstatusSearchResponseType:
   type: object

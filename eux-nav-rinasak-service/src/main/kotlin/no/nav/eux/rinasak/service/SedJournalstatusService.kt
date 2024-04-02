@@ -19,7 +19,9 @@ class SedJournalstatusService(
         sedVersjon: Int,
         status: SedJournalstatus.Status,
     ) {
-        val current = repository.findBySedIdAndSedVersjon(sedId, sedVersjon)
+        val current = repository
+            .findBySedIdAndSedVersjon(sedId, sedVersjon)
+            .firstOrNull()
         when {
             current == null -> create(sedId, sedVersjon, status)
             else -> repository.save(current.copy(status = status))
@@ -27,11 +29,20 @@ class SedJournalstatusService(
     }
 
     fun finn(
-        sedId: UUID,
-        sedVersjon: Int
+        sedId: UUID?,
+        sedVersjon: Int?,
+        status: SedJournalstatus.Status?,
     ) =
-        repository
-            .findBySedIdAndSedVersjon(sedId, sedVersjon)
+        when {
+            sedId != null && sedVersjon != null -> finn(sedId, sedVersjon)
+            status != null -> repository.findByStatus(status)
+            else -> throw IllegalArgumentException(
+                "Enten sedId og sedVersjon eller status må være satt"
+            )
+        }
+
+    fun finn(sedId: UUID, sedVersjon: Int) =
+        repository.findBySedIdAndSedVersjon(sedId, sedVersjon)
 
     private fun create(
         sedId: UUID,

@@ -7,5 +7,6 @@ import java.util.*
 
 @Repository
 interface SedJournalstatusRepository : JpaRepository<SedJournalstatus, UUID> {
-    fun findBySedIdAndSedVersjon(sedId: UUID, sedVersjon: Int): SedJournalstatus?
+    fun findBySedIdAndSedVersjon(sedId: UUID, sedVersjon: Int): List<SedJournalstatus>
+    fun findByStatus(status: SedJournalstatus.Status): List<SedJournalstatus>
 }
