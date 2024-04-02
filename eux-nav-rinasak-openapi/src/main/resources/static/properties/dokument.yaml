@@ -23,3 +23,13 @@ dokumentInfoId:
   pattern: '^\d{9}$'
   description: >
     Unit identifikator på et bestemt dokument i Joark.
+
+sedJournalstatus:
+  type: string
+  enum:
+    - JOURNALFOERT
+    - UKJENT
+  description: |
+    Hvilken status det er på journalføringen til SED'en:
+      * `JOURNALFOERT` - Journalposten tilhørende SED'en er journalført
+      * `UKJENT` - Journalposten tilhørende SED'en har ukjent status
