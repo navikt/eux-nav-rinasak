@@ -17,6 +17,7 @@ fun List<SedJournalstatus>.toSedJournalstatuser() =
 
 fun SedJournalstatus.toSedJournalstatus() =
     SedJournalstatusType(
+        rinasakId = rinasakId,
         sedId = sedId,
         sedVersjon = sedVersjon,
         sedJournalstatus = status.name.toEnum(),

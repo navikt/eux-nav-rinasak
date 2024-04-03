@@ -24,6 +24,7 @@ class SedJournalstatusApiImpl(
                 sedVersjon = sedJournalstatusPutType.sedVersjon,
             )
             .save(
+                rinasakId = sedJournalstatusPutType.rinasakId,
                 sedId = sedJournalstatusPutType.sedId,
                 sedVersjon = sedJournalstatusPutType.sedVersjon,
                 status = sedJournalstatusPutType.sedJournalstatus.name.toEnum(),
