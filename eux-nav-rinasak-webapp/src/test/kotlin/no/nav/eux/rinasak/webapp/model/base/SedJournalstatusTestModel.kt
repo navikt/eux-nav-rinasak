@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 data class SedJournalstatusTestModel(
+    val rinasakId: Int,
     val sedId: UUID,
     val sedVersjon: Int,
     val sedJournalstatus: String,

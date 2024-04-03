@@ -22,6 +22,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             url = sedJournalstatuserUrl,
             method = HttpMethod.PUT,
             requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 1,
                 sedId = uuid1,
                 sedVersjon = 1,
                 sedJournalstatus = SedJournalstatus.uKJENT
@@ -40,6 +41,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .sedJournalstatuser
             .single()
+        assertThat(sedJournalstatus.rinasakId).isEqualTo(1)
         assertThat(sedJournalstatus.sedId).isEqualTo(uuid1)
         assertThat(sedJournalstatus.sedVersjon).isEqualTo(1)
         assertThat(sedJournalstatus.sedJournalstatus).isEqualTo("UKJENT")
@@ -51,6 +53,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             url = sedJournalstatuserUrl,
             method = HttpMethod.PUT,
             requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 1,
                 sedId = uuid1,
                 sedVersjon = 1,
                 sedJournalstatus = SedJournalstatus.uKJENT
@@ -79,6 +82,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             url = sedJournalstatuserUrl,
             method = HttpMethod.PUT,
             requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 1,
                 sedId = uuid1,
                 sedVersjon = 1,
                 sedJournalstatus = SedJournalstatus.uKJENT

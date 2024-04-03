@@ -1,6 +1,7 @@
 SedJournalstatusType:
   type: object
   required:
+    - rinasakId
     - sedId
     - sedVersjon
     - sedJournalstatus
@@ -10,6 +11,8 @@ SedJournalstatusType:
     - opprettetTidspunkt
     - opprettetBruker
   properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'
     sedVersjon:
@@ -28,10 +31,13 @@ SedJournalstatusType:
 SedJournalstatusCreateType:
   type: object
   required:
+    - rinasakId
     - sedId
     - sedVersjon
     - sedJournalstatus
   properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'
     sedVersjon:
@@ -56,10 +62,13 @@ SedJournalstatusPatchType:
 SedJournalstatusPutType:
   type: object
   required:
+    - rinasakId
     - sedId
     - sedVersjon
     - sedJournalstatus
   properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'
     sedVersjon:

@@ -9,6 +9,7 @@ import java.util.*
 data class SedJournalstatus(
     @Id
     val sedJournalstatusUuid: UUID,
+    val rinasakId: Int,
     val sedId: UUID,
     val sedVersjon: Int,
     @Enumerated(EnumType.STRING)
