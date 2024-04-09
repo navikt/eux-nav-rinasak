@@ -5,6 +5,7 @@ import java.util.*
 
 data class SedJournalstatusTestModel(
     val rinasakId: Int,
+    val dokumentInfoId: String,
     val sedId: UUID,
     val sedVersjon: Int,
     val sedJournalstatus: String,

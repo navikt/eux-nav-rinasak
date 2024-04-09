@@ -24,6 +24,11 @@ dokumentInfoId:
   description: >
     Unit identifikator på et bestemt dokument i Joark.
 
+journalpostId:
+  type: string
+  description: >
+    Id på tilknyttet journalpost
+
 sedJournalstatus:
   type: string
   enum:

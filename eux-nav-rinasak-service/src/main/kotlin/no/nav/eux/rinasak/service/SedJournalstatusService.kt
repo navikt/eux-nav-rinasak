@@ -16,6 +16,8 @@ class SedJournalstatusService(
     @Transactional
     fun save(
         rinasakId: Int,
+        dokumentInfoId: String?,
+        journalpostId: String?,
         sedId: UUID,
         sedVersjon: Int,
         status: SedJournalstatus.Status,
@@ -24,7 +26,14 @@ class SedJournalstatusService(
             .findBySedIdAndSedVersjon(sedId, sedVersjon)
             .firstOrNull()
         when {
-            current == null -> create(rinasakId, sedId, sedVersjon, status)
+            current == null -> create(
+                rinasakId = rinasakId,
+                dokumentInfoId = dokumentInfoId,
+                journalpostId = journalpostId,
+                sedId = sedId,
+                sedVersjon = sedVersjon,
+                status = status
+            )
             else -> repository.save(current.copy(status = status))
         }
     }
@@ -47,6 +56,8 @@ class SedJournalstatusService(
 
     private fun create(
         rinasakId: Int,
+        dokumentInfoId: String?,
+        journalpostId: String?,
         sedId: UUID,
         sedVersjon: Int,
         status: SedJournalstatus.Status,
@@ -54,6 +65,8 @@ class SedJournalstatusService(
         repository.save(
             SedJournalstatus(
                 rinasakId = rinasakId,
+                dokumentInfoId = dokumentInfoId,
+                journalpostId = journalpostId,
                 sedJournalstatusUuid = randomUUID(),
                 sedId = sedId,
                 sedVersjon = sedVersjon,

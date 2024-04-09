@@ -14,6 +14,8 @@ data class SedJournalstatus(
     val sedVersjon: Int,
     @Enumerated(EnumType.STRING)
     val status: Status,
+    val dokumentInfoId: String?,
+    val journalpostId: String?,
     val endretBruker: String = "ukjent",
     val endretTidspunkt: LocalDateTime = now(),
     @Column(updatable = false)
