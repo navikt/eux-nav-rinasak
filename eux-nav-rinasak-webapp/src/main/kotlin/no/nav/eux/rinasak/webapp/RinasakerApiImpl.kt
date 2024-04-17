@@ -1,5 +1,6 @@
 package no.nav.eux.rinasak.webapp
 
+import io.github.oshai.kotlinlogging.KotlinLogging.logger
 import no.nav.eux.rinasak.openapi.api.RinasakerApi
 import no.nav.eux.rinasak.openapi.model.DokumentCreateType
 import no.nav.eux.rinasak.openapi.model.NavRinasakCreateType
@@ -19,6 +20,8 @@ class RinasakerApiImpl(
     val contextService: TokenContextService,
 ) : RinasakerApi {
 
+    val log = logger {}
+
     @Protected
     override fun hentNavRinasak(
         rinasakId: Int
@@ -34,6 +37,7 @@ class RinasakerApiImpl(
         userId: String?
     ) = service
         .mdc(rinasakId = navRinasakCreateType.rinasakId)
+        .also { log.info { "oppretter nav rinasak" } }
         .createNavRinasak(navRinasakCreateType.navRinasakCreateRequest)
         .toCreatedEmptyResponseEntity()
 
@@ -43,6 +47,7 @@ class RinasakerApiImpl(
         userId: String?
     ) = service
         .mdc(rinasakId = navRinasakPatchType.rinasakId)
+        .also { log.info { "oppdaterer nav rinasak" } }
         .patchNavRinasak(navRinasakPatchType.navRinasakPatch)
         .toCreatedEmptyResponseEntity()
 
@@ -62,6 +67,7 @@ class RinasakerApiImpl(
         dokumentCreateType: DokumentCreateType
     ) = toDokumentCreateRequest(rinasakId, contextService.navIdent, dokumentCreateType)
         .mdc(rinasakId = rinasakId, dokumentInfoId = dokumentCreateType.dokumentInfoId)
+        .also { log.info { "oppretter nytt dokument i nav rinasak" } }
         .let { dokumentService.createDokument(it) }
         .toCreatedEmptyResponseEntity()
 

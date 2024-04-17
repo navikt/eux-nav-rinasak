@@ -1,5 +1,6 @@
 package no.nav.eux.rinasak.webapp
 
+import io.github.oshai.kotlinlogging.KotlinLogging.logger
 import no.nav.eux.rinasak.model.common.toEnum
 import no.nav.eux.rinasak.openapi.api.SedApi
 import no.nav.eux.rinasak.openapi.model.SedJournalstatusPutType
@@ -14,15 +15,19 @@ class SedJournalstatusApiImpl(
     val service: SedJournalstatusService,
 ) : SedApi {
 
+    val log = logger {}
+
     @Protected
     override fun settSedJournalstatus(
         sedJournalstatusPutType: SedJournalstatusPutType
     ) =
         service
             .mdc(
+                rinasakId = sedJournalstatusPutType.rinasakId,
                 sedId = sedJournalstatusPutType.sedId,
                 sedVersjon = sedJournalstatusPutType.sedVersjon,
             )
+            .also { log.info { "setter journalstatus til ${sedJournalstatusPutType.sedJournalstatus}"} }
             .save(
                 rinasakId = sedJournalstatusPutType.rinasakId,
                 sedId = sedJournalstatusPutType.sedId,
