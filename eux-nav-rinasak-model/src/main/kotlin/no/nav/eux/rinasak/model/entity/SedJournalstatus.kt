@@ -23,6 +23,6 @@ data class SedJournalstatus(
 ) {
 
     enum class Status {
-        JOURNALFOERT, UKJENT
+        JOURNALFOERT, UKJENT, KORRUPT
     }
 }

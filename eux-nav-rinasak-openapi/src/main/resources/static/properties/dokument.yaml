@@ -29,7 +29,9 @@ sedJournalstatus:
   enum:
     - JOURNALFOERT
     - UKJENT
+    - KORRUPT
   description: |
     Hvilken status det er på journalføringen til SED'en:
       * `JOURNALFOERT` - Journalposten tilhørende SED'en er journalført
       * `UKJENT` - Journalposten tilhørende SED'en har ukjent status
+      * `KORRUPT` - Rinasaken eller journalposten er tatt ut av overvåkning
