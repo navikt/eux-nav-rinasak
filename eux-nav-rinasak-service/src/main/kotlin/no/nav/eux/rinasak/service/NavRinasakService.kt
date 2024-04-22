@@ -35,7 +35,7 @@ class NavRinasakService(
 
     @Transactional
     fun patchNavRinasak(patch: NavRinasakPatch) {
-        val eksisterende = findAllNavRinasaker(NavRinasakFinnRequest(rinasakId = patch.rinasakId))
+        val eksisterende = findAllNavRinasaker(NavRinasakFinnRequest(rinasakId = patch.rinasakId, fagsakId = null))
             .singleOrNull()
             ?: throw ResponseStatusException(NOT_FOUND, "${patch.rinasakId} ikke funnet")
         navRinasakRepository.save(eksisterende.navRinasak.patch(patch))
@@ -72,19 +72,21 @@ class NavRinasakService(
     }
 
     fun findAllNavRinasaker(request: NavRinasakFinnRequest): List<NavRinasakFinnResponse> {
-        val navRinasakList = when {
-            request.rinasakId != null -> navRinasakRepository.findAllByRinasakId(request.rinasakId!!)
-            else -> navRinasakRepository.findAll()
-        }
-        val fagsakMap = fagsakRepository
-            .findAllById(navRinasakList.map { it.navRinasakUuid })
-            .associateBy { it.navRinasakUuid }
-        val sedMap = dokumentRepository
-            .findByNavRinasakUuidIn(navRinasakList.map { it.navRinasakUuid })
-            .groupBy { it.navRinasakUuid }
-        return navRinasakList.map {
-            NavRinasakFinnResponse(it, fagsakMap[it.navRinasakUuid], sedMap[it.navRinasakUuid])
-        }
+            val navRinasakList = when {
+                request.rinasakId != null && request.fagsakId != null -> navRinasakRepository.findAllByFagsakIdAndId(request.fagsakId!!, request.rinasakId!!)
+                request.fagsakId != null -> navRinasakRepository.findAllByFagsakId(request.fagsakId!!)
+                request.rinasakId != null -> navRinasakRepository.findAllByRinasakId(request.rinasakId!!)
+                else -> navRinasakRepository.findAll()
+            }
+            val fagsakMap = fagsakRepository
+                .findAllById(navRinasakList.map { it.navRinasakUuid })
+                .associateBy { it.navRinasakUuid }
+            val sedMap = dokumentRepository
+                .findByNavRinasakUuidIn(navRinasakList.map { it.navRinasakUuid })
+                .groupBy { it.navRinasakUuid }
+            return navRinasakList.map {
+                NavRinasakFinnResponse(it, fagsakMap[it.navRinasakUuid], sedMap[it.navRinasakUuid])
+            }
     }
 
     fun List<Dokument>.leggTil(patch: NavRinasakPatch, navRinasakUuid: UUID) {

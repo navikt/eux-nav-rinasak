@@ -21,6 +21,7 @@
         <groupId>no.nav.eux</groupId>
         <artifactId>parent-pom</artifactId>
         <version>1.0.13</version>
+        <relativePath/>
     </parent>
 
     <properties>

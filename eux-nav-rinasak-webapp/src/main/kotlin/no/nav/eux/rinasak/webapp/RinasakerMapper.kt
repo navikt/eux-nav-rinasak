@@ -32,7 +32,8 @@ val NavRinasakPatchType.navRinasakPatch
 
 val NavRinasakSearchCriteriaType.navRinasakFinnRequest
     get() = NavRinasakFinnRequest(
-        rinasakId = rinasakId
+        rinasakId = rinasakId,
+        fagsakId = fagsakId
     )
 
 fun NavRinasakFinnResponse.toNavRinasakType() =
