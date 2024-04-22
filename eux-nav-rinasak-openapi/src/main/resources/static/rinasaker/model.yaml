@@ -139,11 +139,11 @@ NavRinasakDokumentPatchType:
 
 NavRinasakSearchCriteriaType:
   type: object
-  required:
-    - rinasakId
   properties:
     rinasakId:
       $ref: '../properties/rinasak.yaml#/rinasakId'
+    fagsakId:
+      $ref: '../properties/fagsak.yaml#/id'
 
 NavRinasakSearchResponseType:
   type: object

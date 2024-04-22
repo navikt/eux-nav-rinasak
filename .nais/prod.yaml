@@ -19,6 +19,9 @@ application:
   eux-fagmodul-journalfoering:
     name: eux-fagmodul-journalfoering
     namespace: eessibasis
+  eux-barnetrygd:
+    name: eux-barnetrygd
+    namespace: eessibasis
 cluster:
   fss: prod-fss
   gcp: prod-gcp

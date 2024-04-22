@@ -82,3 +82,6 @@ spec:
         - application: {{ application.eux-fagmodul-journalfoering.name }}
           namespace: {{ application.eux-fagmodul-journalfoering.namespace }}
           cluster: {{ cluster.fss }}
+        - application: {{ application.eux-barnetrygd.name }}
+          namespace: {{ application.eux-barnetrygd.namespace }}
+          cluster: {{ cluster.fss }}
