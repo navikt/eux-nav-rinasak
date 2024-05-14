@@ -79,6 +79,8 @@ SedJournalstatusPutType:
 SedJournalstatusSearchCriteriaType:
   type: object
   properties:
+    rinasakId:
+      $ref: '../properties/rinasak.yaml#/rinasakId'
     sedId:
       $ref: '../properties/dokument.yaml#/sedId'
     sedVersjon:

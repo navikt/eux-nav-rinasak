@@ -82,3 +82,6 @@ spec:
         - application: {{ application.eux-fagmodul-journalfoering.name }}
           namespace: {{ application.eux-fagmodul-journalfoering.namespace }}
           cluster: {{ cluster.fss }}
+        - application: {{ application.melosys-eessi.name }}
+          namespace: {{ application.melosys-eessi.namespace }}
+          cluster: {{ cluster.fss }}

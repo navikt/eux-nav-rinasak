@@ -30,15 +30,17 @@ class SedJournalstatusService(
     }
 
     fun finn(
+        rinasakId: Int?,
         sedId: UUID?,
         sedVersjon: Int?,
         status: SedJournalstatus.Status?,
     ) =
         when {
             sedId != null && sedVersjon != null -> finn(sedId, sedVersjon)
+            rinasakId != null -> repository.findByRinasakId(rinasakId)
             status != null -> repository.findByStatus(status)
             else -> throw IllegalArgumentException(
-                "Enten sedId og sedVersjon eller status må være satt"
+                "sedId og sedVersjon, rinasakId eller status må være satt"
             )
         }
 

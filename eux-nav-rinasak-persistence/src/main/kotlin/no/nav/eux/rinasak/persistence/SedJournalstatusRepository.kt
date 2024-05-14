@@ -9,4 +9,5 @@ import java.util.*
 interface SedJournalstatusRepository : JpaRepository<SedJournalstatus, UUID> {
     fun findBySedIdAndSedVersjon(sedId: UUID, sedVersjon: Int): List<SedJournalstatus>
     fun findByStatus(status: SedJournalstatus.Status): List<SedJournalstatus>
+    fun findByRinasakId(rinasakId: Int): List<SedJournalstatus>
 }

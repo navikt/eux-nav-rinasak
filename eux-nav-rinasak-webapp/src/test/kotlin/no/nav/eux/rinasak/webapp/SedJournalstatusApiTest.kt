@@ -1,9 +1,9 @@
 package no.nav.eux.rinasak.webapp
 
-import no.nav.eux.rinasak.openapi.model.SedJournalstatus
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserFinnUrl
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
+import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierRinasakIdTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusPutTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatuserTestModel
@@ -25,7 +25,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
                 rinasakId = 1,
                 sedId = uuid1,
                 sedVersjon = 1,
-                sedJournalstatus = SedJournalstatus.uKJENT
+                sedJournalstatus = "UKJENT"
             )
                 .httpEntity
         )
@@ -56,7 +56,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
                 rinasakId = 1,
                 sedId = uuid1,
                 sedVersjon = 1,
-                sedJournalstatus = SedJournalstatus.uKJENT
+                sedJournalstatus = "UKJENT"
             )
                 .httpEntity
         )
@@ -76,6 +76,39 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
         assertThat(sedJournalstatus.sedJournalstatus).isEqualTo("UKJENT")
     }
 
+
+    @Test
+    fun `PUT sed journalstatuser - forespørsel, finn med rinasakId - 200`() {
+        val createResponse = restTemplate.exchange<Void>(
+            url = sedJournalstatuserUrl,
+            method = HttpMethod.PUT,
+            requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 3,
+                sedId = uuid1,
+                sedVersjon = 0,
+                sedJournalstatus = "MELOSYS_JOURNALFOERER"
+            )
+                .httpEntity
+        )
+        assertThat(createResponse.statusCode.value()).isEqualTo(200)
+        val sedJournalstatus = restTemplate
+            .postForObject<SedJournalstatuserTestModel>(
+                url = sedJournalstatuserFinnUrl,
+                request = SedJournalstatusFinnKriterierRinasakIdTestModel(
+                    rinasakId = 3
+                )
+                    .httpEntity
+            )!!
+            .sedJournalstatuser
+            .single()
+        with (sedJournalstatus) {
+            assertThat(rinasakId).isEqualTo(3)
+            assertThat(sedId).isEqualTo(uuid1)
+            assertThat(sedVersjon).isEqualTo(0)
+            assertThat(sedJournalstatus.sedJournalstatus).isEqualTo("MELOSYS_JOURNALFOERER")
+        }
+    }
+
     @Test
     fun `PUT sed journalstatuser - forespørsel, ikke funnet pga annen status - 200`() {
         val createResponse = restTemplate.exchange<Void>(
@@ -85,7 +118,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
                 rinasakId = 1,
                 sedId = uuid1,
                 sedVersjon = 1,
-                sedJournalstatus = SedJournalstatus.uKJENT
+                sedJournalstatus = "UKJENT"
             )
                 .httpEntity
         )

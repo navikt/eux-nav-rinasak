@@ -19,6 +19,9 @@ application:
   eux-fagmodul-journalfoering:
     name: eux-fagmodul-journalfoering
     namespace: eessibasis
+  melosys-eessi:
+    name: melosys-eessi
+    namespace: teammelosys
 cluster:
   fss: prod-fss
   gcp: prod-gcp

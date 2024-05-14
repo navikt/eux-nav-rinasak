@@ -46,6 +46,7 @@ class SedJournalstatusApiImpl(
                 sedVersjon = sedJournalstatusSearchCriteriaType.sedVersjon,
             )
             .finn(
+                rinasakId = sedJournalstatusSearchCriteriaType.rinasakId,
                 sedId = sedJournalstatusSearchCriteriaType.sedId,
                 sedVersjon = sedJournalstatusSearchCriteriaType.sedVersjon,
                 status = sedJournalstatusSearchCriteriaType.sedJournalstatus.toStatus()
