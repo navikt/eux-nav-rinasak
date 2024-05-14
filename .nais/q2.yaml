@@ -20,7 +20,7 @@ application:
     name: eux-fagmodul-journalfoering-q2
     namespace: eessibasis
   melosys-eessi:
-    name: melosys-eessi-q2
+    name: melosys-eessi
     namespace: teammelosys
 cluster:
   fss: dev-fss
