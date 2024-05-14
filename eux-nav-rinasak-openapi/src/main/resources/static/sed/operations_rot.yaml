@@ -64,7 +64,19 @@ put:
       'application/json':
         schema:
           $ref: 'model.yaml#/SedJournalstatusPutType'
-
+        examples:
+          ukjentTilOvervaking:
+            value:
+              rinasakId: "1234"
+              sedId: "00000000-0000-0000-0000-000000000001"
+              sedVersjon: 1
+              sedJournalstatus: "UKJENT"
+          melosys:
+            value:
+              rinasakId: "1234"
+              sedId: "00000000-0000-0000-0000-000000000001"
+              sedVersjon: 0
+              sedJournalstatus: "MELOSYS_JOURNALFOERER"
   responses:
     '201':
       $ref: '../common/responses.yaml#/204'

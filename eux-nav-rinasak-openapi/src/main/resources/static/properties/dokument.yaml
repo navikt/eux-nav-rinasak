@@ -31,9 +31,11 @@ sedJournalstatus:
     - UKJENT
     - FEILREGISTRERT
     - KORRUPT
+    - MELOSYS_JOURNALFOERER
   description: |
     Hvilken status det er på journalføringen til SED'en:
       * `JOURNALFOERT` - Journalposten tilhørende SED'en er journalført
-      * `UKJENT` - Journalposten tilhørende SED'en har ukjent status
+      * `UKJENT` - Journalposten tilhørende SED'en har ukjent status, og er derfor satt til overvåkning
       * `KORRUPT` - Rinasaken eller journalposten er tatt ut av overvåkning
       * `FEILREGISTRERT` - Journalposten tilhørende SED'en er feilregistrert
+      * `MELOSYS_JOURNALFOERER` - Melosys håndterer journalføring av SED'en
