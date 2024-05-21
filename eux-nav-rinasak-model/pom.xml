@@ -40,7 +40,6 @@
     </dependencies>
 
     <build>
-        <finalName>eux-relaterte-rinasaker</finalName>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <plugins>
             <plugin>
