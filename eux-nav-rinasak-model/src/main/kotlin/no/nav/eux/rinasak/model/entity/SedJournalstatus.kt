@@ -23,6 +23,11 @@ data class SedJournalstatus(
 ) {
 
     enum class Status {
-        JOURNALFOERT, UKJENT, FEILREGISTRERT, KORRUPT, MELOSYS_JOURNALFOERER
+        JOURNALFOERT,
+        UKJENT,
+        FEILREGISTRERT,
+        KORRUPT,
+        MELOSYS_JOURNALFOERER,
+        MANUELL_JOURNALFOERING
     }
 }
