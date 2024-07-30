@@ -126,8 +126,7 @@ ResponseStateType:
     originatingSystem:
       type: string
       description: >
-        Identifier of the system responsible for the returned state. May be internal ace deployment
-        id's or reference to an external system.
+        Identifier of the system responsible for the returned state.
     constraintViolations:
       type: object
       description: >
