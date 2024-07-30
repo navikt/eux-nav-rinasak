@@ -27,7 +27,6 @@ class SedJournalstatusApiImpl(
                 sedId = sedJournalstatusPutType.sedId,
                 sedVersjon = sedJournalstatusPutType.sedVersjon,
             )
-            .also { log.info { "setter journalstatus til ${sedJournalstatusPutType.sedJournalstatus}"} }
             .save(
                 rinasakId = sedJournalstatusPutType.rinasakId,
                 sedId = sedJournalstatusPutType.sedId,

@@ -1,5 +1,6 @@
 package no.nav.eux.rinasak.service
 
+import io.github.oshai.kotlinlogging.KotlinLogging.logger
 import no.nav.eux.rinasak.model.entity.SedJournalstatus
 import no.nav.eux.rinasak.persistence.SedJournalstatusRepository
 import org.springframework.stereotype.Service
@@ -12,6 +13,8 @@ class SedJournalstatusService(
     val repository: SedJournalstatusRepository,
     val contextService: TokenContextService,
 ) {
+
+    val log = logger {}
 
     @Transactional
     fun save(
@@ -27,6 +30,7 @@ class SedJournalstatusService(
             current == null -> create(rinasakId, sedId, sedVersjon, status)
             else -> repository.save(current.copy(status = status))
         }
+        log.info { "Sed journalstatus satt til $status" }
     }
 
     fun finn(
