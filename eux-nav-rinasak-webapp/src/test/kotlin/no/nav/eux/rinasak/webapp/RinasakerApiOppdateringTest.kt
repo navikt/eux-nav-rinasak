@@ -1,9 +1,9 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakOppdatering
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForEntity
@@ -25,7 +25,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
             method = HttpMethod.PATCH,
             requestEntity = navRinasakOppdatering.httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        createResponse.statusCode.value() shouldBe 201
     }
 
     @Test
@@ -38,7 +38,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
             method = HttpMethod.PATCH,
             requestEntity = entity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(401)
+        createResponse.statusCode.value() shouldBe 401
     }
 
     @Test
@@ -48,6 +48,6 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
             method = HttpMethod.PATCH,
             requestEntity =  ".".httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(400)
+        createResponse.statusCode.value() shouldBe 400
     }
 }

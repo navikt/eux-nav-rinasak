@@ -1,5 +1,8 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
@@ -9,7 +12,6 @@ import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import no.nav.eux.rinasak.webapp.model.oppdatering.NavRinasakOppdatering
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForEntity
@@ -30,7 +32,7 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
             requestEntity = navRinasakOppdatering
                 .httpEntity
         )
-        assertThat(updateResponse.statusCode.value()).isEqualTo(201)
+        updateResponse.statusCode.value() shouldBe 201
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
@@ -38,28 +40,28 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo(1)
-        assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("5678")
+        navRinasak.rinasakId shouldBe 1
+        navRinasak.overstyrtEnhetsnummer shouldBe "5678"
         with(navRinasak.initiellFagsak!!) {
-            assertThat(tema).isEqualTo("BBB")
-            assertThat(system).isEqualTo("oppdatertSystem")
-            assertThat(nr).isEqualTo("oppdatertNr")
-            assertThat(type).isEqualTo("endret")
-            assertThat(opprettetBruker).isEqualTo("ukjent")
-            assertThat(fnr).isEqualTo("03028700001")
+            tema shouldBe "BBB"
+            system shouldBe "oppdatertSystem"
+            nr shouldBe "oppdatertNr"
+            type shouldBe "endret"
+            opprettetBruker shouldBe "ukjent"
+            fnr shouldBe "03028700001"
         }
         val dokumentMap = navRinasak.dokumenter!!.associateBy { Pair(it.sedId, it.sedVersjon) }
         with(dokumentMap[Pair(uuid1, 1)]!!) {
-            assertThat(sedId).isEqualTo(uuid1)
-            assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("000000011")
-            assertThat(sedType).isEqualTo("oppdatert")
+            sedId shouldBe uuid1
+            sedVersjon shouldBe 1
+            dokumentInfoId shouldBe "000000011"
+            sedType shouldBe "oppdatert"
         }
         with(dokumentMap[Pair(uuid3, 1)]!!) {
-            assertThat(sedId).isEqualTo(uuid3)
-            assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("000000003")
-            assertThat(sedType).isEqualTo("type")
+            sedId shouldBe uuid3
+            sedVersjon shouldBe 1
+            dokumentInfoId shouldBe "000000003"
+            sedType shouldBe "type"
         }
     }
 
@@ -80,7 +82,7 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
             )
                 .httpEntity
         )
-        assertThat(updateResponse.statusCode.value()).isEqualTo(201)
+        updateResponse.statusCode.value() shouldBe 201
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
@@ -88,9 +90,9 @@ class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo(1)
-        assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("5678")
-        assertThat(navRinasak.initiellFagsak).isNotNull
-        assertThat(navRinasak.dokumenter!!).hasSize(1)
+        navRinasak.rinasakId shouldBe 1
+        navRinasak.overstyrtEnhetsnummer shouldBe "5678"
+        navRinasak.initiellFagsak.shouldNotBeNull()
+        navRinasak.dokumenter!!.shouldHaveSize(1)
     }
 }

@@ -1,5 +1,8 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
@@ -10,7 +13,6 @@ import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel3
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import no.nav.eux.rinasak.webapp.model.opprettelse.NavRinasakOpprettelse
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.boot.test.web.client.postForObject
@@ -23,7 +25,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             navRinasakerUrl,
             navRinasakOpprettelse.httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        createResponse.statusCode.value() shouldBe 201
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
@@ -31,22 +33,22 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo(1)
-        assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("1234")
+        navRinasak.rinasakId shouldBe 1
+        navRinasak.overstyrtEnhetsnummer shouldBe "1234"
         with(navRinasak.initiellFagsak!!) {
-            assertThat(tema).isEqualTo("AAA")
-            assertThat(system).isEqualTo("system")
-            assertThat(nr).isEqualTo("nr")
-            assertThat(type).isEqualTo("FAGSAK")
-            assertThat(opprettetBruker).isEqualTo("ukjent")
-            assertThat(fnr).isEqualTo("03028700001")
-            assertThat(arkiv).isEqualTo("PSAK")
+            tema shouldBe "AAA"
+            system shouldBe "system"
+            nr shouldBe "nr"
+            type shouldBe "FAGSAK"
+            opprettetBruker shouldBe "ukjent"
+            fnr shouldBe "03028700001"
+            arkiv shouldBe "PSAK"
         }
         with(navRinasak.dokumenter!!.single()) {
-            assertThat(sedId).isEqualTo(uuid1)
-            assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("000000001")
-            assertThat(sedType).isEqualTo("type")
+            sedId shouldBe uuid1
+            sedVersjon shouldBe 1
+            dokumentInfoId shouldBe "000000001"
+            sedType shouldBe "type"
         }
     }
 
@@ -56,7 +58,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             navRinasakerUrl,
             NavRinasakOpprettelse(initiellFagsak = null).httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        createResponse.statusCode.value() shouldBe 201
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
@@ -64,8 +66,8 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo(1)
-        assertThat(navRinasak.initiellFagsak).isNull()
+        navRinasak.rinasakId shouldBe 1
+        navRinasak.initiellFagsak.shouldBeNull()
     }
 
     @Test
@@ -74,14 +76,14 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             navRinasakerUrl,
             navRinasakOpprettelse.httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        createResponse.statusCode.value() shouldBe 201
         val navRinasaker = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
                 request = NavRinasakFinnKriterier(rinasakId = 0).httpEntity
             )!!
             .navRinasaker
-        assertThat(navRinasaker).isEmpty()
+        navRinasaker.shouldBeEmpty()
     }
 
     @Test
@@ -105,7 +107,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .navRinasaker
             .single()
-        assertThat(navRinasak.rinasakId).isEqualTo(2)
-        assertThat(navRinasak.initiellFagsak).isNull()
+        navRinasak.rinasakId shouldBe 2
+        navRinasak.initiellFagsak.shouldBeNull()
     }
 }

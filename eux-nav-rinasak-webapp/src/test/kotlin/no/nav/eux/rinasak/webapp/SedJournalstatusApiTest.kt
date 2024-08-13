@@ -1,5 +1,7 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserFinnUrl
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
@@ -7,7 +9,6 @@ import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierRinasak
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusPutTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatuserTestModel
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForObject
@@ -29,7 +30,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )
                 .httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(200)
+        createResponse.statusCode.value() shouldBe 200
         val sedJournalstatus = restTemplate
             .postForObject<SedJournalstatuserTestModel>(
                 url = sedJournalstatuserFinnUrl,
@@ -41,10 +42,10 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .sedJournalstatuser
             .single()
-        assertThat(sedJournalstatus.rinasakId).isEqualTo(1)
-        assertThat(sedJournalstatus.sedId).isEqualTo(uuid1)
-        assertThat(sedJournalstatus.sedVersjon).isEqualTo(1)
-        assertThat(sedJournalstatus.sedJournalstatus).isEqualTo("UKJENT")
+        sedJournalstatus.rinasakId shouldBe 1
+        sedJournalstatus.sedId shouldBe uuid1
+        sedJournalstatus.sedVersjon shouldBe 1
+        sedJournalstatus.sedJournalstatus shouldBe "UKJENT"
     }
 
     @Test
@@ -60,7 +61,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )
                 .httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(200)
+        createResponse.statusCode.value() shouldBe 200
         val sedJournalstatus = restTemplate
             .postForObject<SedJournalstatuserTestModel>(
                 url = sedJournalstatuserFinnUrl,
@@ -71,9 +72,9 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .sedJournalstatuser
             .single()
-        assertThat(sedJournalstatus.sedId).isEqualTo(uuid1)
-        assertThat(sedJournalstatus.sedVersjon).isEqualTo(1)
-        assertThat(sedJournalstatus.sedJournalstatus).isEqualTo("UKJENT")
+        sedJournalstatus.sedId shouldBe uuid1
+        sedJournalstatus.sedVersjon shouldBe 1
+        sedJournalstatus.sedJournalstatus shouldBe "UKJENT"
     }
 
 
@@ -90,7 +91,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )
                 .httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(200)
+        createResponse.statusCode.value() shouldBe 200
         val sedJournalstatus = restTemplate
             .postForObject<SedJournalstatuserTestModel>(
                 url = sedJournalstatuserFinnUrl,
@@ -101,11 +102,11 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )!!
             .sedJournalstatuser
             .single()
-        with (sedJournalstatus) {
-            assertThat(rinasakId).isEqualTo(3)
-            assertThat(sedId).isEqualTo(uuid1)
-            assertThat(sedVersjon).isEqualTo(0)
-            assertThat(sedJournalstatus.sedJournalstatus).isEqualTo("MELOSYS_JOURNALFOERER")
+        with(sedJournalstatus) {
+            rinasakId shouldBe 3
+            sedId shouldBe uuid1
+            sedVersjon shouldBe 0
+            sedJournalstatus.sedJournalstatus shouldBe "MELOSYS_JOURNALFOERER"
         }
     }
 
@@ -122,7 +123,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             )
                 .httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(200)
+        createResponse.statusCode.value() shouldBe 200
         val sedJournalstatus = restTemplate
             .postForObject<SedJournalstatuserTestModel>(
                 url = sedJournalstatuserFinnUrl,
@@ -132,7 +133,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
                     .httpEntity
             )!!
             .sedJournalstatuser
-        assertThat(sedJournalstatus).isEmpty()
+        sedJournalstatus.shouldBeEmpty()
     }
 
     @Test
@@ -143,6 +144,6 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             requestEntity = SedJournalstatusFinnKriterierTestModel()
                 .httpEntity
         )
-        assertThat(response.statusCode.value()).isEqualTo(400)
+        response.statusCode.value() shouldBe 400
     }
 }

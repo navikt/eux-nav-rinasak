@@ -1,12 +1,13 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.MediaType
 
 class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
@@ -17,7 +18,7 @@ class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
             navRinasakerUrl,
             navRinasakOpprettelse.httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        createResponse.statusCode shouldBe CREATED
     }
 
     @Test
@@ -30,7 +31,7 @@ class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
             navRinasakerUrl,
             navRinasakOpprettelse.httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(409)
+        createResponse.statusCode.value() shouldBe 409
     }
 
     @Test
@@ -42,7 +43,7 @@ class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
             navRinasakerUrl,
             entity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(401)
+        createResponse.statusCode.value() shouldBe 401
     }
 
     @Test
@@ -51,6 +52,6 @@ class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
             navRinasakerUrl,
             ".".httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(400)
+        createResponse.statusCode.value() shouldBe 400
     }
 }

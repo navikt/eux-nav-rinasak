@@ -46,4 +46,5 @@ abstract class AbstractRinasakerApiImplTest {
 
     val <T> T.httpEntity: HttpEntity<T>
         get() = httpEntity(mockOAuth2Server)
+
 }

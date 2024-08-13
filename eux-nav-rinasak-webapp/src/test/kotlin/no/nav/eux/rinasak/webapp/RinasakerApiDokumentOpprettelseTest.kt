@@ -1,5 +1,6 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
@@ -8,7 +9,6 @@ import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakDokumentOpprettel
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.boot.test.web.client.postForObject
@@ -28,7 +28,7 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             "$navRinasakerUrl/1/dokumenter",
             navRinasakDokumentOpprettelse.httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(201)
+        createResponse.statusCode.value() shouldBe 201
         val navRinasak = restTemplate
             .postForObject<NavRinasaker>(
                 url = navRinasakerFinnUrl,
@@ -38,16 +38,16 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             .single()
         val dokumentMap = navRinasak.dokumenter!!.associateBy { Pair(it.sedId, it.sedVersjon) }
         with(dokumentMap[Pair(uuid1, 1)]!!) {
-            assertThat(sedId).isEqualTo(uuid1)
-            assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("000000001")
-            assertThat(sedType).isEqualTo("type")
+            sedId shouldBe uuid1
+            sedVersjon shouldBe 1
+            dokumentInfoId shouldBe "000000001"
+            sedType shouldBe "type"
         }
         with(dokumentMap[Pair(uuid4, 1)]!!) {
-            assertThat(sedId).isEqualTo(uuid4)
-            assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("000000111")
-            assertThat(sedType).isEqualTo("type")
+            sedId shouldBe uuid4
+            sedVersjon shouldBe 1
+            dokumentInfoId shouldBe "000000111"
+            sedType shouldBe "type"
         }
     }
 
@@ -60,7 +60,7 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             "$navRinasakerUrl/1/dokumenter",
             entity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(401)
+        createResponse.statusCode.value() shouldBe 401
     }
 
     @Test
@@ -69,6 +69,6 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             "$navRinasakerUrl/1/dokumenter",
             ".".httpEntity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(400)
+        createResponse.statusCode.value() shouldBe 400
     }
 }

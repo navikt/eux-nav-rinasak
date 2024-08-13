@@ -1,6 +1,5 @@
 package no.nav.eux.rinasak.webapp
 
-import io.github.oshai.kotlinlogging.KotlinLogging.logger
 import no.nav.eux.rinasak.model.common.toEnum
 import no.nav.eux.rinasak.openapi.api.SedApi
 import no.nav.eux.rinasak.openapi.model.SedJournalstatusPutType
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController
 class SedJournalstatusApiImpl(
     val service: SedJournalstatusService,
 ) : SedApi {
-
-    val log = logger {}
 
     @Protected
     override fun settSedJournalstatus(

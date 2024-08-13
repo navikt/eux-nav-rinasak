@@ -1,8 +1,8 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.postForEntity
 import org.springframework.http.HttpEntity
@@ -17,7 +17,7 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
             navRinasakerFinnUrl,
             NavRinasakFinnKriterier().httpEntity
         )
-        assertThat(response.statusCode.value()).isEqualTo(200)
+        response.statusCode.value() shouldBe 200
     }
 
     @Test
@@ -29,7 +29,7 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
             navRinasakerFinnUrl,
             entity
         )
-        assertThat(createResponse.statusCode.value()).isEqualTo(401)
+        createResponse.statusCode.value() shouldBe 401
     }
 
     @Test
@@ -38,6 +38,6 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
             navRinasakerFinnUrl,
             ".".httpEntity
         )
-        assertThat(finnResponse.statusCode.value()).isEqualTo(400)
+        finnResponse.statusCode.value() shouldBe 400
     }
 }

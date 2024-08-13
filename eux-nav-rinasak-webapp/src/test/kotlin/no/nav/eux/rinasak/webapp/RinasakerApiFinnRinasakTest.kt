@@ -1,10 +1,10 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.uuid1
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasak
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.client.exchange
 import org.springframework.boot.test.web.client.postForEntity
@@ -27,24 +27,24 @@ class RinasakerApiFinnRinasakTest : AbstractRinasakerApiImplTest() {
             httpEntity(),
             NavRinasak::class.java
         )
-        assertThat(entity.statusCode.value()).isEqualTo(200)
+        entity.statusCode.value() shouldBe 200
         val navRinasak = entity.body!!
-        assertThat(navRinasak.rinasakId).isEqualTo(1)
-        assertThat(navRinasak.overstyrtEnhetsnummer).isEqualTo("1234")
+        navRinasak.rinasakId shouldBe 1
+        navRinasak.overstyrtEnhetsnummer shouldBe "1234"
         with(navRinasak.initiellFagsak!!) {
-            assertThat(tema).isEqualTo("AAA")
-            assertThat(system).isEqualTo("system")
-            assertThat(nr).isEqualTo("nr")
-            assertThat(type).isEqualTo("FAGSAK")
-            assertThat(opprettetBruker).isEqualTo("ukjent")
-            assertThat(fnr).isEqualTo("03028700001")
-            assertThat(arkiv).isEqualTo("PSAK")
+            tema shouldBe "AAA"
+            system shouldBe "system"
+            nr shouldBe "nr"
+            type shouldBe "FAGSAK"
+            opprettetBruker shouldBe "ukjent"
+            fnr shouldBe "03028700001"
+            arkiv shouldBe "PSAK"
         }
         with(navRinasak.dokumenter!!.single()) {
-            assertThat(sedId).isEqualTo(uuid1)
-            assertThat(sedVersjon).isEqualTo(1)
-            assertThat(dokumentInfoId).isEqualTo("000000001")
-            assertThat(sedType).isEqualTo("type")
+            sedId shouldBe uuid1
+            sedVersjon shouldBe 1
+            dokumentInfoId shouldBe "000000001"
+            sedType shouldBe "type"
         }
     }
 
@@ -55,7 +55,7 @@ class RinasakerApiFinnRinasakTest : AbstractRinasakerApiImplTest() {
             method = GET,
             requestEntity = httpEntity()
         )
-        assertThat(entity.statusCode.value()).isEqualTo(404)
+        entity.statusCode.value() shouldBe 404
     }
 
     @Test
@@ -67,6 +67,6 @@ class RinasakerApiFinnRinasakTest : AbstractRinasakerApiImplTest() {
             method = GET,
             requestEntity = HttpEntity<Void>(headers)
         )
-        assertThat(entity.statusCode.value()).isEqualTo(401)
+        entity.statusCode.value() shouldBe 401
     }
 }
