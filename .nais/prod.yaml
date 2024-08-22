@@ -1,8 +1,10 @@
 name: eux-nav-rinasak
 ingress: https://eux-nav-rinasak.intern.nav.no
+
 database:
   name: eux-nav-rinasak-db
   tier: db-custom-1-3840
+
 application:
   eux-neessi:
     name: eux-neessi
@@ -22,6 +24,17 @@ application:
   melosys-eessi:
     name: melosys-eessi
     namespace: teammelosys
+
 cluster:
   fss: prod-fss
   gcp: prod-gcp
+
+resources:
+  limits:
+    memory: 1Gi
+  requests:
+    memory: 1Gi
+
+replicas:
+  min: 2
+  max: 4
