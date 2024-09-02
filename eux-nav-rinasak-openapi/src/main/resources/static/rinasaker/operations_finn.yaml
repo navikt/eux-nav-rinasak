@@ -4,8 +4,6 @@ post:
   summary: Finn
   description: Finn NAV rinasaker som matcher kriteriene.
   operationId: navRinasakFinn
-  parameters:
-    - $ref: '../common/header.yaml#/UserId'
   requestBody:
     required: true
     content:

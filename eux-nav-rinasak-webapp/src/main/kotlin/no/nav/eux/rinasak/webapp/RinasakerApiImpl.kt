@@ -33,8 +33,7 @@ class RinasakerApiImpl(
 
     @Protected
     override fun opprettNavRinasak(
-        navRinasakCreateType: NavRinasakCreateType,
-        userId: String?
+        navRinasakCreateType: NavRinasakCreateType
     ) = service
         .mdc(rinasakId = navRinasakCreateType.rinasakId)
         .also { log.info { "oppretter nav rinasak" } }
@@ -43,8 +42,7 @@ class RinasakerApiImpl(
 
     @Protected
     override fun oppdaterNavRinasak(
-        navRinasakPatchType: NavRinasakPatchType,
-        userId: String?
+        navRinasakPatchType: NavRinasakPatchType
     ) = service
         .mdc(rinasakId = navRinasakPatchType.rinasakId)
         .also { log.info { "oppdaterer nav rinasak" } }
@@ -53,8 +51,7 @@ class RinasakerApiImpl(
 
     @Protected
     override fun navRinasakFinn(
-        navRinasakSearchCriteriaType: NavRinasakSearchCriteriaType,
-        userId: String?
+        navRinasakSearchCriteriaType: NavRinasakSearchCriteriaType
     ) = service
         .mdc(rinasakId = navRinasakSearchCriteriaType.rinasakId)
         .findAllNavRinasaker(navRinasakSearchCriteriaType.navRinasakFinnRequest)
