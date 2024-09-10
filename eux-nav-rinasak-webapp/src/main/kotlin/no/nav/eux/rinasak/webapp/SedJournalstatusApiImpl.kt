@@ -1,11 +1,11 @@
 package no.nav.eux.rinasak.webapp
 
+import no.nav.eux.logging.mdc
 import no.nav.eux.rinasak.model.common.toEnum
 import no.nav.eux.rinasak.openapi.api.SedApi
 import no.nav.eux.rinasak.openapi.model.SedJournalstatusPutType
 import no.nav.eux.rinasak.openapi.model.SedJournalstatusSearchCriteriaType
 import no.nav.eux.rinasak.service.SedJournalstatusService
-import no.nav.eux.rinasak.service.mdc
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.web.bind.annotation.RestController
 

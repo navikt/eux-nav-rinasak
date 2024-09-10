@@ -1,6 +1,7 @@
 package no.nav.eux.rinasak.webapp
 
 import io.github.oshai.kotlinlogging.KotlinLogging.logger
+import no.nav.eux.logging.mdc
 import no.nav.eux.rinasak.openapi.api.RinasakerApi
 import no.nav.eux.rinasak.openapi.model.DokumentCreateType
 import no.nav.eux.rinasak.openapi.model.NavRinasakCreateType
@@ -9,7 +10,6 @@ import no.nav.eux.rinasak.openapi.model.NavRinasakSearchCriteriaType
 import no.nav.eux.rinasak.service.DokumentService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.eux.rinasak.service.TokenContextService
-import no.nav.eux.rinasak.service.mdc
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.web.bind.annotation.RestController
 
