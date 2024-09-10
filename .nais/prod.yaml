@@ -31,7 +31,7 @@ cluster:
 
 resources:
   limits:
-    memory: 800Mi
+    memory: 900Mi
   requests:
     memory: 512Mi
 

@@ -41,7 +41,7 @@ spec:
       cpu: "1"
       memory: {{ resources.limits.memory }}
     requests:
-      cpu: 800m
+      cpu: 900m
       memory: {{ resources.requests.memory }}
   azure:
     application:
