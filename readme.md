@@ -71,5 +71,4 @@ class nav_rinasak {
 
 dokument  -->  nav_rinasak : nav_rinasak_uuid
 initiell_fagsak  -->  nav_rinasak : nav_rinasak_uuid
-
 ````
