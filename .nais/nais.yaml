@@ -35,7 +35,7 @@ spec:
   replicas:
     min: {{ replicas.min }}
     max: {{ replicas.max }}
-    cpuThresholdPercentage: 60
+    cpuThresholdPercentage: 80
   resources:
     limits:
       cpu: "1"
