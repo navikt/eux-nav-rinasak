@@ -30,7 +30,7 @@ spec:
   readiness:
     path: /actuator/health
     port: 8080
-    initialDelay: 45
+    initialDelay: 60
     timeout: 110
   replicas:
     min: {{ replicas.min }}
