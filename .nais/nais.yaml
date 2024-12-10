@@ -21,7 +21,7 @@ spec:
   liveness:
     path: /actuator/health
     port: 8080
-    initialDelay: 45
+    initialDelay: 60
     timeout: 110
   port: 8080
   prometheus:
