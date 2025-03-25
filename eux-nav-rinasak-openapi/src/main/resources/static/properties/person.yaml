@@ -4,7 +4,7 @@ aktoerId:
   minLength: 13
   maxLength: 13
   description: >
-    Automatisk generert NAV-intern ID for en person som kan brukes 
+    Automatisk generert Nav-intern ID for en person som kan brukes 
     som koblingsnøkkel for alle identer for en person. Alle personer 
     har en og bare en aktørId. pr 7.8.23 starter alle aktør ID'er fra 
     TPS på 1 og aktør ID'er allokert av PDL på 2. En aktør id kan 

@@ -27,7 +27,7 @@ class NavRinasakService(
     fun createNavRinasak(request: NavRinasakCreateRequest) {
         navRinasakRepository
             .findByRinasakId(request.rinasakId)
-            ?.let { throw ResponseStatusException(CONFLICT, "NAV Rinasak finnes alt: ${request.rinasakId}") }
+            ?.let { throw ResponseStatusException(CONFLICT, "Nav Rinasak finnes alt: ${request.rinasakId}") }
         navRinasakRepository.save(request.navRinasakEntity)
         request.initiellFagsakEntity?.let { fagsakRepository.save(it) }
         request.dokumentEntities.forEach { dokumentRepository.save(it) }
@@ -63,7 +63,7 @@ class NavRinasakService(
         val navRinasak = navRinasakRepository
             .findAllByRinasakId(rinasakId)
             .singleOrNull()
-            ?: throw ResponseStatusException(NOT_FOUND, "NAV Rinasak ikke funnet: $rinasakId")
+            ?: throw ResponseStatusException(NOT_FOUND, "Nav Rinasak ikke funnet: $rinasakId")
         val fagsak = fagsakRepository
             .findByIdOrNull(navRinasak.navRinasakUuid)
         val dokumenter = dokumentRepository

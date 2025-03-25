@@ -1,8 +1,8 @@
 post:
   tags:
-    - Nav Rinasak API
+    - Sed
   summary: Finn
-  description: Finn NAV SED journalstatuser som matcher kriteriene.
+  description: Finn Nav SED journalstatuser som matcher kriteriene.
   operationId: sedJournalstatusFinn
   requestBody:
     required: true

@@ -9,4 +9,4 @@ overstyrtEnhetsnummer:
   maxLength: 4
   pattern: '^\d{4}$'
   description: >
-    Unik identifikator på enhet i NAV allokert av NORG2 (arbeidsfordeling)
+    Unik identifikator på enhet i Nav allokert av NORG2 (arbeidsfordeling)

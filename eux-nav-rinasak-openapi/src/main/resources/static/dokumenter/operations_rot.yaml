@@ -1,8 +1,8 @@
 post:
   tags:
-    - Nav Rinasak API
+    - Rinasaker
   summary: Opprett Dokument
-  description: Opprett nytt dokument i NAV Rinasak
+  description: Opprett nytt dokument i Nav Rinasak
   operationId: opprettNyttDokument
   parameters:
     - in: path

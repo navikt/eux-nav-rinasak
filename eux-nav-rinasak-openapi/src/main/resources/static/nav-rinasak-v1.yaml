@@ -1,28 +1,31 @@
 openapi: 3.0.3
 info:
   title: Nav Rinasak API
-  description: API for å behandle NAV Rinasaker
+  description: API for å behandle Nav Rinasaker
   contact:
     name: vegard.lundeberg.hillestad@nav.no
   version: v1
 servers:
-  - url: 'http://localhost:8080/api/v1'
+  - url: '/'
 tags:
-  - name: Nav Rinasak API
+  - name: Rinasaker
     description: >-
-      API for å behandle NAV Rinasaker. En NAV Rinasak er en 
-      knytning mellom en fagsak i NAV og en Rinasak i RINA.
+      API for å behandle Nav Rinasaker. En Nav Rinasak er en 
+      knytning mellom en fagsak i Nav og en Rinasak i RINA.
+  - name: Sed
+    description: >-
+      API for å behandle Sed håndtering og journalstatus i Nav Rinasak
 
 paths:
-  '/rinasaker':
+  '/api/v1/rinasaker':
     $ref: 'rinasaker/operations_rot.yaml'
-  '/rinasaker/finn':
+  '/api/v1/rinasaker/finn':
     $ref: 'rinasaker/operations_finn.yaml'
-  '/rinasaker/{rinasakId}':
+  '/api/v1/rinasaker/{rinasakId}':
     $ref: 'rinasaker/operations_byRinasakId.yaml'
-  '/rinasaker/{rinasakId}/dokumenter':
+  '/api/v1/rinasaker/{rinasakId}/dokumenter':
     $ref: 'dokumenter/operations_rot.yaml'
-  '/sed/journalstatuser':
+  '/api/v1/sed/journalstatuser':
     $ref: 'sed/operations_rot.yaml'
-  '/sed/journalstatuser/finn':
+  '/api/v1/sed/journalstatuser/finn':
     $ref: 'sed/operations_finn.yaml'

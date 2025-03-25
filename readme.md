@@ -1,6 +1,6 @@
-### EUX NAV Rinasak
+### EUX Nav Rinasak
 
-Sammenknytning av NAV og Rina-saker.
+Sammenknytning av nav og Rina-saker.
 
 ## Brukte teknologier
 * Kotlin

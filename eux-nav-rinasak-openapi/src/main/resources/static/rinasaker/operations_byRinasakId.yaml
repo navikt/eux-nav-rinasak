@@ -1,8 +1,8 @@
 get:
   tags:
-    - Nav Rinasak API
+    - Rinasaker
   summary: Hent
-  description: Hent NAV Rinasak
+  description: Hent Nav Rinasak
   parameters:
     - name: rinasakId
       in: path

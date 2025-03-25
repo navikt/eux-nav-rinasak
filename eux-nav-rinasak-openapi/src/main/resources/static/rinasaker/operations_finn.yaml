@@ -1,8 +1,8 @@
 post:
   tags:
-    - Nav Rinasak API
+    - Rinasaker
   summary: Finn
-  description: Finn NAV rinasaker som matcher kriteriene.
+  description: Finn Nav rinasaker som matcher kriteriene.
   operationId: navRinasakFinn
   requestBody:
     required: true

@@ -1,6 +1,6 @@
 post:
   tags:
-    - Nav Rinasak API
+    - Sed
   summary: Legg inn record for overvåkning av en SED sin journalstatus
   description: Legg inn record for overvåkning av en SED sin journalstatus
   operationId: opprettSedJournalstatus
@@ -27,7 +27,7 @@ post:
 
 patch:
   tags:
-    - Nav Rinasak API
+    - Sed
   summary: Oppdater record for overvåkning av en SED sin journalstatus
   description: Oppdater record for overvåkning av en SED sin journalstatus
   operationId: oppdaterSedJournalstatus
@@ -54,7 +54,7 @@ patch:
 
 put:
   tags:
-    - Nav Rinasak API
+    - Sed
   summary: Sett record for overvåkning av en SED sin journalstatus
   description: Oppdater record for overvåkning av en SED sin journalstatus
   operationId: settSedJournalstatus
