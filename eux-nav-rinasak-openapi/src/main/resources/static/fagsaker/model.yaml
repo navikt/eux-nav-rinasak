@@ -3,6 +3,52 @@ FagsakType:
   required:
     - tema
     - type
+    - fnr
+    - opprettetBruker
+    - opprettetTidspunkt
+  properties:
+    tema:
+      $ref: '../properties/fagsak.yaml#/tema'
+    system:
+      $ref: '../properties/fagsak.yaml#/system'
+    nr:
+      $ref: '../properties/fagsak.yaml#/nr'
+    type:
+      $ref: '../properties/fagsak.yaml#/type'
+    fnr:
+      $ref: '../properties/person.yaml#/fnr'
+    opprettetBruker:
+      $ref: '../properties/meta.yaml#/opprettetBruker'
+    opprettetTidspunkt:
+      $ref: '../properties/meta.yaml#/opprettetTidspunkt'
+    endretBruker:
+      $ref: '../properties/meta.yaml#/endretBruker'
+    endretTidspunkt:
+      $ref: '../properties/meta.yaml#/endretTidspunkt'
+
+FagsakCreateType:
+  type: object
+  required:
+    - tema
+    - type
+    - fnr
+  properties:
+    tema:
+      $ref: '../properties/fagsak.yaml#/tema'
+    system:
+      $ref: '../properties/fagsak.yaml#/system'
+    nr:
+      $ref: '../properties/fagsak.yaml#/nr'
+    type:
+      $ref: '../properties/fagsak.yaml#/type'
+    fnr:
+      $ref: '../properties/person.yaml#/fnr'
+
+InitiellFagsakType:
+  type: object
+  required:
+    - tema
+    - type
     - arkiv
     - fnr
     - opprettetBruker

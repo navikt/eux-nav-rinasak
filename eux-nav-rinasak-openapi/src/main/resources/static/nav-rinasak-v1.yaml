@@ -25,6 +25,8 @@ paths:
     $ref: 'rinasaker/operations_byRinasakId.yaml'
   '/api/v1/rinasaker/{rinasakId}/dokumenter':
     $ref: 'dokumenter/operations_rot.yaml'
+  '/api/v1/rinasaker/{rinasakId}/fagsak':
+    $ref: 'fagsaker/operations_rot.yaml'
   '/api/v1/sed/journalstatuser':
     $ref: 'sed/operations_rot.yaml'
   '/api/v1/sed/journalstatuser/finn':
