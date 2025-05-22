@@ -7,6 +7,7 @@ import no.nav.eux.rinasak.model.dto.NavRinasakPatch
 import no.nav.eux.rinasak.model.entity.Dokument
 import no.nav.eux.rinasak.persistence.DokumentRepository
 import no.nav.eux.rinasak.persistence.FagsakRepository
+import no.nav.eux.rinasak.persistence.InitiellFagsakRepository
 import no.nav.eux.rinasak.persistence.NavRinasakRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus.CONFLICT
@@ -19,6 +20,7 @@ import java.util.*
 @Service
 class NavRinasakService(
     val navRinasakRepository: NavRinasakRepository,
+    val initiellFagsakRepository: InitiellFagsakRepository,
     val fagsakRepository: FagsakRepository,
     val dokumentRepository: DokumentRepository,
 ) {
@@ -29,7 +31,7 @@ class NavRinasakService(
             .findByRinasakId(request.rinasakId)
             ?.let { throw ResponseStatusException(CONFLICT, "Nav Rinasak finnes alt: ${request.rinasakId}") }
         navRinasakRepository.save(request.navRinasakEntity)
-        request.initiellFagsakEntity?.let { fagsakRepository.save(it) }
+        request.initiellFagsakEntity?.let { initiellFagsakRepository.save(it) }
         request.dokumentEntities.forEach { dokumentRepository.save(it) }
     }
 
@@ -56,7 +58,7 @@ class NavRinasakService(
             eksisterende.navRinasak.navRinasakUuid,
             eksisterende.navRinasak.opprettetBruker,
             eksisterende.navRinasak.opprettetTidspunkt
-        ).let { fagsakRepository.save(it) }
+        ).let { initiellFagsakRepository.save(it) }
     }
 
     fun findNavRinasakId(rinasakId: Int): NavRinasakFinnResponse {
@@ -66,9 +68,11 @@ class NavRinasakService(
             ?: throw ResponseStatusException(NOT_FOUND, "Nav Rinasak ikke funnet: $rinasakId")
         val fagsak = fagsakRepository
             .findByIdOrNull(navRinasak.navRinasakUuid)
+        val initiellFagsak = initiellFagsakRepository
+            .findByIdOrNull(navRinasak.navRinasakUuid)
         val dokumenter = dokumentRepository
             .findByNavRinasakUuid(navRinasak.navRinasakUuid)
-        return NavRinasakFinnResponse(navRinasak, fagsak, dokumenter)
+        return NavRinasakFinnResponse(navRinasak, fagsak, initiellFagsak, dokumenter)
     }
 
     fun findAllNavRinasaker(request: NavRinasakFinnRequest): List<NavRinasakFinnResponse> {
@@ -79,11 +83,19 @@ class NavRinasakService(
         val fagsakMap = fagsakRepository
             .findAllById(navRinasakList.map { it.navRinasakUuid })
             .associateBy { it.navRinasakUuid }
+        val initiellFagsakMap = initiellFagsakRepository
+            .findAllById(navRinasakList.map { it.navRinasakUuid })
+            .associateBy { it.navRinasakUuid }
         val sedMap = dokumentRepository
             .findByNavRinasakUuidIn(navRinasakList.map { it.navRinasakUuid })
             .groupBy { it.navRinasakUuid }
         return navRinasakList.map {
-            NavRinasakFinnResponse(it, fagsakMap[it.navRinasakUuid], sedMap[it.navRinasakUuid])
+            NavRinasakFinnResponse(
+                navRinasak = it,
+                fagsak = fagsakMap[it.navRinasakUuid],
+                initiellFagsak = initiellFagsakMap[it.navRinasakUuid],
+                dokumenter = sedMap[it.navRinasakUuid]
+            )
         }
     }
 

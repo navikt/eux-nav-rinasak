@@ -1,6 +1,7 @@
 package no.nav.eux.rinasak.persistence
 
 import no.nav.eux.rinasak.model.entity.Dokument
+import no.nav.eux.rinasak.model.entity.Fagsak
 import no.nav.eux.rinasak.model.entity.InitiellFagsak
 import no.nav.eux.rinasak.model.entity.NavRinasak
 import org.springframework.data.jpa.repository.JpaRepository
@@ -14,7 +15,10 @@ interface NavRinasakRepository : JpaRepository<NavRinasak, UUID> {
 }
 
 @Repository
-interface FagsakRepository : JpaRepository<InitiellFagsak, UUID>
+interface FagsakRepository : JpaRepository<Fagsak, UUID>
+
+@Repository
+interface InitiellFagsakRepository : JpaRepository<InitiellFagsak, UUID>
 
 @Repository
 interface DokumentRepository : JpaRepository<Dokument, UUID> {

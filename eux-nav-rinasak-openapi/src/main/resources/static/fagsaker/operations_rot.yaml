@@ -1,9 +1,9 @@
-post:
+patch:
   tags:
     - Rinasaker
-  summary: Opprett Fagsak
+  summary: Sett Fagsak knyttet til rinasaken
   description: Sett hvilken fagsak, tema og bruker som skal gjelde for rinasaken
-  operationId: opprettNyttDokument
+  operationId: patchFagsak
   parameters:
     - in: path
       name: rinasakId
@@ -17,7 +17,7 @@ post:
     content:
       'application/json':
         schema:
-          $ref: 'model.yaml#/FagsakCreateType'
+          $ref: 'model.yaml#/FagsakPatchType'
 
   responses:
     '201':

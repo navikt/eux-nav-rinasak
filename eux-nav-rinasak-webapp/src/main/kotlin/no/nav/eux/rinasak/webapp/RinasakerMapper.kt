@@ -1,10 +1,8 @@
 package no.nav.eux.rinasak.webapp
 
-import no.nav.eux.rinasak.model.dto.NavRinasakCreateRequest
-import no.nav.eux.rinasak.model.dto.NavRinasakFinnRequest
-import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
-import no.nav.eux.rinasak.model.dto.NavRinasakPatch
+import no.nav.eux.rinasak.model.dto.*
 import no.nav.eux.rinasak.model.entity.Dokument
+import no.nav.eux.rinasak.model.entity.Fagsak
 import no.nav.eux.rinasak.model.entity.InitiellFagsak
 import no.nav.eux.rinasak.openapi.model.*
 import java.time.LocalDateTime
@@ -41,6 +39,7 @@ fun NavRinasakFinnResponse.toNavRinasakType() =
         overstyrtEnhetsnummer = navRinasak.overstyrtEnhetsnummer,
         opprettetBruker = navRinasak.opprettetBruker,
         opprettetTidspunkt = navRinasak.opprettetTidspunkt.atOffset(UTC),
+        fagsak = fagsak?.toFagsakType(),
         initiellFagsak = initiellFagsak?.toInitiellFagsakType(),
         dokumenter = dokumenter?.map { it.toDokumentType() }
     )
@@ -111,7 +110,7 @@ fun Dokument.toDokumentType() =
     )
 
 fun InitiellFagsak.toInitiellFagsakType() =
-    FagsakType(
+    InitiellFagsakType(
         id = id,
         tema = tema,
         system = system,
@@ -121,4 +120,25 @@ fun InitiellFagsak.toInitiellFagsakType() =
         arkiv = arkiv,
         opprettetBruker = opprettetBruker,
         opprettetTidspunkt = opprettetTidspunkt.atOffset(UTC),
+    )
+
+fun Fagsak.toFagsakType() =
+    FagsakType(
+        tema = tema,
+        system = system,
+        nr = nr,
+        type = type,
+        fnr = fnr,
+        opprettetBruker = opprettetBruker,
+        opprettetTidspunkt = opprettetTidspunkt.atOffset(UTC),
+    )
+
+fun FagsakPatchType.toFagsakPatchType(bruker: String) =
+    FagsakPatchRequest(
+        tema = tema,
+        type = type,
+        system = system,
+        nr = nr,
+        fnr = fnr,
+        bruker = bruker,
     )
