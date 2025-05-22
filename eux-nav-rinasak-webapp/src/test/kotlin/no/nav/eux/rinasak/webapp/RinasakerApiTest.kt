@@ -179,7 +179,7 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
     }
 
     @Test
-    fun `POST rinasaker fagsak - non-existent rinasak - 404`() {
+    fun `PATCH rinasaker fagsak - non-existent rinasak - 404`() {
         val nonExistentRinasakId = 999
         val fagsakOpprettelse = FagsakOpprettelse(
             tema = "AAA",
