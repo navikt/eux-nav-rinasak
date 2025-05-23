@@ -37,6 +37,7 @@ abstract class AbstractRinasakerApiImplTest {
             jdbcTemplate,
             "dokument",
             "initiell_fagsak",
+            "fagsak",
             "nav_rinasak",
             "sed_journalstatus"
         )

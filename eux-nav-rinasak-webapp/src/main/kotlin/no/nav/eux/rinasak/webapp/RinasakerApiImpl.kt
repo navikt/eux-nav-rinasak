@@ -3,11 +3,9 @@ package no.nav.eux.rinasak.webapp
 import io.github.oshai.kotlinlogging.KotlinLogging.logger
 import no.nav.eux.logging.mdc
 import no.nav.eux.rinasak.openapi.api.RinasakerApi
-import no.nav.eux.rinasak.openapi.model.DokumentCreateType
-import no.nav.eux.rinasak.openapi.model.NavRinasakCreateType
-import no.nav.eux.rinasak.openapi.model.NavRinasakPatchType
-import no.nav.eux.rinasak.openapi.model.NavRinasakSearchCriteriaType
+import no.nav.eux.rinasak.openapi.model.*
 import no.nav.eux.rinasak.service.DokumentService
+import no.nav.eux.rinasak.service.FagsakService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.eux.rinasak.service.TokenContextService
 import no.nav.security.token.support.core.api.Protected
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 class RinasakerApiImpl(
     val service: NavRinasakService,
     val dokumentService: DokumentService,
+    val fagsakService: FagsakService,
     val contextService: TokenContextService,
 ) : RinasakerApi {
 
@@ -66,6 +65,14 @@ class RinasakerApiImpl(
         .mdc(rinasakId = rinasakId, dokumentInfoId = dokumentCreateType.dokumentInfoId)
         .also { log.info { "oppretter nytt dokument i nav rinasak" } }
         .let { dokumentService.createDokument(it) }
+        .toCreatedEmptyResponseEntity()
+
+    @Protected
+    override fun patchFagsak(
+        rinasakId: Int,
+        fagsakPatchType: FagsakPatchType
+    ) = fagsakService
+        .patch(fagsakPatchType.toFagsakPatchType(contextService.navIdent), rinasakId)
         .toCreatedEmptyResponseEntity()
 
     val NavRinasakCreateType.navRinasakCreateRequest

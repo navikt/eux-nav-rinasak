@@ -1,0 +1,34 @@
+patch:
+  tags:
+    - Rinasaker
+  summary: Sett Fagsak knyttet til rinasaken
+  description: Sett hvilken fagsak, tema og bruker som skal gjelde for rinasaken
+  operationId: patchFagsak
+  parameters:
+    - in: path
+      name: rinasakId
+      schema:
+        type: integer
+      required: true
+      description: Unik identifikator på Rinasak allokert av RINA.
+
+  requestBody:
+    required: true
+    content:
+      'application/json':
+        schema:
+          $ref: 'model.yaml#/FagsakPatchType'
+
+  responses:
+    '201':
+      $ref: '../common/responses.yaml#/201'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'
