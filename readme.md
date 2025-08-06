@@ -1,74 +1,124 @@
-### EUX Nav Rinasak
+# EUX Nav Rinasak
 
-Sammenknytning av nav og Rina-saker.
+A service for linking NAV and RINA cases (Sammenknytning av nav og Rina-saker).
 
-## Brukte teknologier
+## Technologies
 * Kotlin
-* Spring
+* Spring Boot
 * Maven
+* PostgreSQL
+* Flyway (Database migrations)
 
-#### Avhengigheter
+## Prerequisites
 
 * JDK 21
+* PostgreSQL database
 
-#### Kjøring av tester lokalt
+## Local Development
 
-Kjøring av database-tester krever en kjørende PostgreSQL database med følgende variabler satt korrekt:
+### Database Setup
 
+For running database tests locally, ensure PostgreSQL is running and set the following environment variables:
+
+```bash
+export DATABASE_HOST=localhost
+export DATABASE_USERNAME=postgres
+export DATABASE_DATABASE=postgres
+export DATABASE_PORT=5432
 ```
-set -x DATABASE_HOST localhost
-set -x DATABASE_USERNAME postgres
-set -x DATABASE_DATABASE postgres
-set -x DATABASE_PORT 5432
+
+### Running Tests
+
+```bash
+mvn test
 ```
 
-## Database
+### Building the Application
 
-````mermaid
-classDiagram
-direction BT
-class dokument {
-   varchar(100) dokument_info_id
-   uuid sed_id
-   integer sed_versjon
-   varchar(100) sed_type
-   uuid nav_rinasak_uuid
-   varchar(100) opprettet_bruker
-   timestamp opprettet_tidspunkt
-   uuid dokument_uuid
-}
-class flyway_schema_history {
-   varchar(50) version
-   varchar(200) description
-   varchar(20) type
-   varchar(1000) script
-   integer checksum
-   varchar(100) installed_by
-   timestamp installed_on
-   integer execution_time
-   boolean success
-   integer installed_rank
-}
-class initiell_fagsak {
-   varchar(100) id
-   varchar(100) tema
-   varchar(100) system
-   varchar(100) nr
-   varchar(100) type
-   varchar(100) arkiv
-   varchar(100) fnr
-   varchar(100) opprettet_bruker
-   timestamp opprettet_tidspunkt
-   uuid nav_rinasak_uuid
-}
-class nav_rinasak {
-   integer rinasak_id
-   varchar(31) overstyrt_enhetsnummer
-   varchar(100) opprettet_bruker
-   timestamp opprettet_tidspunkt
-   uuid nav_rinasak_uuid
-}
+```bash
+mvn clean install
+```
 
-dokument  -->  nav_rinasak : nav_rinasak_uuid
-initiell_fagsak  -->  nav_rinasak : nav_rinasak_uuid
-````
+## Project Structure
+
+This is a multi-module Maven project with the following modules:
+
+- **eux-nav-rinasak-model** - Domain models and DTOs
+- **eux-nav-rinasak-persistence** - Database entities and repositories
+- **eux-nav-rinasak-service** - Business logic and services
+- **eux-nav-rinasak-openapi** - OpenAPI specification and generated code
+- **eux-nav-rinasak-webapp** - REST API and web application
+
+## Database Schema
+
+```mermaid
+erDiagram
+    nav_rinasak {
+        uuid nav_rinasak_uuid PK
+        integer rinasak_id UK "UNIQUE"
+        varchar overstyrt_enhetsnummer
+        varchar opprettet_bruker
+        timestamp opprettet_tidspunkt
+    }
+    
+    initiell_fagsak {
+        uuid nav_rinasak_uuid PK,FK
+        varchar id
+        varchar tema
+        varchar system
+        varchar nr
+        varchar type
+        varchar arkiv
+        varchar fnr
+        varchar opprettet_bruker
+        timestamp opprettet_tidspunkt
+    }
+    
+    fagsak {
+        uuid nav_rinasak_uuid PK,FK
+        varchar type
+        varchar tema
+        varchar system
+        varchar nr
+        varchar fnr
+        varchar opprettet_bruker
+        timestamp opprettet_tidspunkt
+        varchar endret_bruker
+        timestamp endret_tidspunkt
+    }
+    
+    dokument {
+        uuid dokument_uuid PK
+        varchar dokument_info_id
+        uuid sed_id
+        integer sed_versjon
+        varchar sed_type
+        uuid nav_rinasak_uuid FK
+        varchar opprettet_bruker
+        timestamp opprettet_tidspunkt
+    }
+    
+    sed_journalstatus {
+        uuid sed_journalstatus_uuid PK
+        text status
+        uuid sed_id UK
+        integer sed_versjon UK
+        text opprettet_bruker
+        timestamp opprettet_tidspunkt
+        text endret_bruker
+        timestamp endret_tidspunkt
+    }
+
+    nav_rinasak ||--o| initiell_fagsak : "has initial case"
+    nav_rinasak ||--o| fagsak : "has current case"
+    nav_rinasak ||--o{ dokument : "contains documents"
+    dokument }o--|| sed_journalstatus : "tracks journal status"
+```
+
+### Database Relationships
+
+- **nav_rinasak** is the central entity representing a RINA case in NAV
+- **initiell_fagsak** stores the initial case information (one-to-one with nav_rinasak)
+- **fagsak** stores the current/updated case information (one-to-one with nav_rinasak)
+- **dokument** stores documents associated with a RINA case (one-to-many with nav_rinasak)
+- **sed_journalstatus** tracks the journal status of SED documents (related to dokument via sed_id and sed_versjon)
