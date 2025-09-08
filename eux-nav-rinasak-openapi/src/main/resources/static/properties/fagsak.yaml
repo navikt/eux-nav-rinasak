@@ -41,7 +41,7 @@ nr:
   minLength: 1
   maxLength: 100
   description: >
-    Unikt saksnummer i `system`/`tema`. Allokert av fagsystemet. 
+    Unikt saksnummer i `system`/`tema`. Allokert av fagsystemet.
     Også kjent som saksreferanse. `fagsakId` i joark,
 
 type:
@@ -52,7 +52,7 @@ type:
     Type fagsak. `sakstype` i joark. Lovlige verdier inkluderer:
       * `FAGSAK` vil si at dokumentene tilhører en sak i et fagsystem. Dersom FAGSAK velges, må `nr` og 
           `system` oppgis.
-      * `GENERELL_SAK` kan brukes for dokumenter som skal journalføres, men som ikke tilhører en konkret 
+      * `GENERELL_SAK` kan brukes for dokumenter som skal journalføres, men som ikke tilhører en konkret
           fagsak. Generell sak kan ses på som brukerens "mappe" på et gitt tema.
 
 arkiv:
