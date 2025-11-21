@@ -23,4 +23,8 @@ data class NavRinasak(
         this.copy(
             overstyrtEnhetsnummer = patch.overstyrtEnhetsnummer ?: overstyrtEnhetsnummer
         )
+    fun deleteOverstyrtEnhetsnummer() =
+        this.copy(
+            overstyrtEnhetsnummer = null
+        )
 }

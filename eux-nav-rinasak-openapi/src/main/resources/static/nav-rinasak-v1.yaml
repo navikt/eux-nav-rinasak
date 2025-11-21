@@ -23,6 +23,8 @@ paths:
     $ref: 'rinasaker/operations_finn.yaml'
   '/api/v1/rinasaker/{rinasakId}':
     $ref: 'rinasaker/operations_byRinasakId.yaml'
+  '/api/v1/rinasaker/{rinasakId}/overstyrtEnhetsnummer':
+    $ref: 'rinasaker/operations_overstyrtEnhetsnummer.yaml'
   '/api/v1/rinasaker/{rinasakId}/dokumenter':
     $ref: 'dokumenter/operations_rot.yaml'
   '/api/v1/rinasaker/{rinasakId}/fagsak':
