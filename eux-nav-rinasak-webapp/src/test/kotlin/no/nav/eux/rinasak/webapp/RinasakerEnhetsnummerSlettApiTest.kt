@@ -56,7 +56,7 @@ class RinasakerEnhetsnummerSlettApiTest : AbstractRinasakerApiImplTest() {
             httpEntity(),
             NavRinasak::class.java
         )
-        val updatedNavRinasak = entity.body!!
+        val updatedNavRinasak = updatedEntity.body!!
         updatedNavRinasak.overstyrtEnhetsnummer shouldBe null
     }
 }
