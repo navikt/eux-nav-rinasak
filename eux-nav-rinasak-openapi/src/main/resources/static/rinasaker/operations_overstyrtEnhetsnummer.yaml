@@ -1,0 +1,28 @@
+delete:
+  tags:
+    - Rinasaker
+  summary: Slett
+  description: Slett overtstyrt enhetsnummer for Rinasak
+  parameters:
+    - name: rinasakId
+      in: path
+      required: true
+      schema:
+        $ref: '../properties/rinasak.yaml#/rinasakId'
+  operationId: slettOverstyrtEnhetsnummer
+  requestBody:
+    required: false
+
+  responses:
+    '204':
+      $ref: '../common/responses.yaml#/204'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '409':
+      $ref: '../common/responses.yaml#/409'
+    '500':
+      $ref: '../common/responses.yaml#/500'

@@ -48,6 +48,14 @@ class NavRinasakService(
         }
     }
 
+    @Transactional
+    fun slettOverstyrtEnhetsnummer(rinasakId: Int) {
+        val eksisterende = findAllNavRinasaker(NavRinasakFinnRequest(rinasakId = rinasakId))
+            .singleOrNull()
+            ?: throw ResponseStatusException(NOT_FOUND, "${rinasakId} ikke funnet")
+        navRinasakRepository.save(eksisterende.navRinasak.deleteOverstyrtEnhetsnummer())
+    }
+
     fun NavRinasakPatch.DokumentPatch.sammeDokument(dokument: Dokument) =
         this.sedId == dokument.sedId && this.sedVersjon == dokument.sedVersjon
 

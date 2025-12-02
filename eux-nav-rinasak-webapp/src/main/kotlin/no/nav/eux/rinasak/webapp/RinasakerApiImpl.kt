@@ -9,6 +9,7 @@ import no.nav.eux.rinasak.service.FagsakService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.eux.rinasak.service.TokenContextService
 import no.nav.security.token.support.core.api.Protected
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -77,4 +78,13 @@ class RinasakerApiImpl(
 
     val NavRinasakCreateType.navRinasakCreateRequest
         get() = toNavRinasakCreateRequest(this, contextService.navIdent)
+
+    @Protected
+    override fun slettOverstyrtEnhetsnummer(
+        rinasakId: Int
+    ) = service
+        .mdc(rinasakId = rinasakId)
+        .also { log.info { "sletter overstyrtEnhetsnummer" } }
+        .slettOverstyrtEnhetsnummer(rinasakId)
+        .toNoContentEmptyResponseEntity()
 }
