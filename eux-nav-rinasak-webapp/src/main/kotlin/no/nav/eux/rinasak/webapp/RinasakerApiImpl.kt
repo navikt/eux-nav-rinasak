@@ -83,10 +83,8 @@ class RinasakerApiImpl(
     override fun slettOverstyrtEnhetsnummer(
         rinasakId: Int
     ) = service
-    .mdc(rinasakId = rinasakId)
-    .also { log.info { "sletter overstyrtEnhetsnummer" } }
-    .slettOverstyrtEnhetsnummer(rinasakId)
-    .toCreatedEmptyResponseEntity()
-
-
+        .mdc(rinasakId = rinasakId)
+        .also { log.info { "sletter overstyrtEnhetsnummer" } }
+        .slettOverstyrtEnhetsnummer(rinasakId)
+        .toNoContentEmptyResponseEntity()
 }
