@@ -5,8 +5,8 @@ import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakOppdatering
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.exchange
-import org.springframework.boot.test.web.client.postForEntity
+import org.springframework.boot.resttestclient.exchange
+import org.springframework.boot.resttestclient.postForEntity
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -32,7 +32,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
     fun `PATCH rinasaker - ikke autentisert - 401`() {
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_JSON
-        val entity = HttpEntity<String>("{}", headers)
+        val entity = HttpEntity("{}", headers)
         val createResponse = restTemplate.exchange<Void>(
             url = navRinasakerUrl,
             method = HttpMethod.PATCH,

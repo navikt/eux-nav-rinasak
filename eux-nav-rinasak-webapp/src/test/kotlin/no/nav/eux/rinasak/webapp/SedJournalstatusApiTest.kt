@@ -10,8 +10,8 @@ import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierTestMod
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusPutTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatuserTestModel
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.exchange
-import org.springframework.boot.test.web.client.postForObject
+import org.springframework.boot.resttestclient.exchange
+import org.springframework.boot.resttestclient.postForObject
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpMethod.POST
 

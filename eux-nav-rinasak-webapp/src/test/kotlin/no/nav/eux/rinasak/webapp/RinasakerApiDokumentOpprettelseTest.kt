@@ -10,8 +10,8 @@ import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.postForEntity
-import org.springframework.boot.test.web.client.postForObject
+import org.springframework.boot.resttestclient.postForEntity
+import org.springframework.boot.resttestclient.postForObject
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType

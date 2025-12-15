@@ -13,9 +13,9 @@ import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import no.nav.eux.rinasak.webapp.model.oppdatering.NavRinasakOppdatering
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.exchange
-import org.springframework.boot.test.web.client.postForEntity
-import org.springframework.boot.test.web.client.postForObject
+import org.springframework.boot.resttestclient.exchange
+import org.springframework.boot.resttestclient.postForEntity
+import org.springframework.boot.resttestclient.postForObject
 import org.springframework.http.HttpMethod
 
 class RinasakerOppdateringApiTest : AbstractRinasakerApiImplTest() {

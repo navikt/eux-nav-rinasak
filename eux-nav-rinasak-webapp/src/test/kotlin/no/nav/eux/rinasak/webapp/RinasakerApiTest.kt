@@ -15,8 +15,8 @@ import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import no.nav.eux.rinasak.webapp.model.opprettelse.FagsakOpprettelse
 import no.nav.eux.rinasak.webapp.model.opprettelse.NavRinasakOpprettelse
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.postForEntity
-import org.springframework.boot.test.web.client.postForObject
+import org.springframework.boot.resttestclient.postForEntity
+import org.springframework.boot.resttestclient.postForObject
 import org.springframework.http.HttpMethod
 
 class RinasakerApiTest : AbstractRinasakerApiImplTest() {
