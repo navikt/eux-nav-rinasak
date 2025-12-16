@@ -5,7 +5,7 @@ import no.nav.eux.rinasak.advice.MethodArgumentNotValidExceptionAdvice
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseInvalid
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.postForEntity
+import org.springframework.boot.resttestclient.postForEntity
 
 class RinasakerApiValidationTest : AbstractRinasakerApiImplTest() {
 

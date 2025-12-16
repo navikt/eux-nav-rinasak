@@ -1,26 +1,14 @@
 package no.nav.eux.rinasak.webapp
 
-import io.kotest.matchers.collections.shouldHaveSize
-import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerEnhetsnummerUrl
-import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
-import no.nav.eux.rinasak.webapp.common.uuid1
-import no.nav.eux.rinasak.webapp.common.uuid3
-import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakOppdatering
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasak
-import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
-import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
-import no.nav.eux.rinasak.webapp.model.oppdatering.NavRinasakOppdatering
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.exchange
-import org.springframework.boot.test.web.client.postForEntity
-import org.springframework.boot.test.web.client.postForObject
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpMethod.GET
+import org.springframework.boot.resttestclient.postForEntity
 import org.springframework.http.HttpMethod.DELETE
+import org.springframework.http.HttpMethod.GET
 
 class RinasakerEnhetsnummerSlettApiTest : AbstractRinasakerApiImplTest() {
 

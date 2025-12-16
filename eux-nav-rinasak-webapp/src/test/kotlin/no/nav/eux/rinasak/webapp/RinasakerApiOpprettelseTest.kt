@@ -4,7 +4,7 @@ import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.web.client.postForEntity
+import org.springframework.boot.resttestclient.postForEntity
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus.CREATED
@@ -14,7 +14,7 @@ class RinasakerApiOpprettelseTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `POST rinasaker - gyldig forespørsel - 201`() {
-        val createResponse = restTemplate.postForEntity<Void>(
+            val createResponse = restTemplate.postForEntity<Void>(
             navRinasakerUrl,
             navRinasakOpprettelse.httpEntity
         )
