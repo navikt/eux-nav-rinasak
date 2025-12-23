@@ -39,3 +39,5 @@ no.nav.security.jwt:
     azuread:
       discoveryurl: ${AZURE_APP_WELL_KNOWN_URL}
       accepted-audience: ${AZURE_APP_CLIENT_ID}
+
+logging.level.org.hibernate.orm.connections.pooling: warn
