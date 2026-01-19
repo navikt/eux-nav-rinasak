@@ -6,7 +6,6 @@ import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.web.context.request.WebRequest
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 
@@ -15,9 +14,8 @@ class MethodArgumentNotValidExceptionAdvice {
 
     @ExceptionHandler(value = [MethodArgumentNotValidException::class])
     fun handleMethodArgumentValidationExceptions(
-        exception: MethodArgumentNotValidException,
-        webRequest: WebRequest
-    ) = ResponseEntity
+        exception: MethodArgumentNotValidException
+    ): ResponseEntity<ApiError> = ResponseEntity
         .status(BAD_REQUEST)
         .body(exception.apiError)
 

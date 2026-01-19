@@ -11,7 +11,7 @@ import java.time.LocalDateTime.now
 class IllegalArgumentExceptionAdvice {
 
     @ExceptionHandler(value = [IllegalArgumentException::class])
-    fun handleIllegalArgumentExceptions(exception: IllegalArgumentException) =
+    fun handleIllegalArgumentExceptions(exception: IllegalArgumentException): ResponseEntity<ApiError> =
         ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .body(exception.apiError)
