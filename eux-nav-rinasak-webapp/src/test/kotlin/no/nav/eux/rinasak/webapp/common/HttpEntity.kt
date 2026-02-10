@@ -32,6 +32,6 @@ var defaultOAuth2TokenCallback =
         "subject1",
         JOSEObjectType.JWT.type,
         listOf("demoapplication"),
-        emptyMap(),
+        mapOf("NAVident" to "TestUser"),
         3600
     )
