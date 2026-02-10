@@ -8,8 +8,6 @@ import no.nav.eux.rinasak.service.DokumentService
 import no.nav.eux.rinasak.service.FagsakService
 import no.nav.eux.rinasak.service.NavRinasakService
 import no.nav.eux.rinasak.service.TokenContextService
-import no.nav.security.token.support.core.api.Protected
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -22,7 +20,6 @@ class RinasakerApiImpl(
 
     val log = logger {}
 
-    @Protected
     override fun hentNavRinasak(
         rinasakId: Int
     ) = service
@@ -31,7 +28,6 @@ class RinasakerApiImpl(
         .toNavRinasakType()
         .toOkResponseEntity()
 
-    @Protected
     override fun opprettNavRinasak(
         navRinasakCreateType: NavRinasakCreateType
     ) = service
@@ -40,7 +36,6 @@ class RinasakerApiImpl(
         .createNavRinasak(navRinasakCreateType.navRinasakCreateRequest)
         .toCreatedEmptyResponseEntity()
 
-    @Protected
     override fun oppdaterNavRinasak(
         navRinasakPatchType: NavRinasakPatchType
     ) = service
@@ -49,7 +44,6 @@ class RinasakerApiImpl(
         .patchNavRinasak(navRinasakPatchType.navRinasakPatch)
         .toCreatedEmptyResponseEntity()
 
-    @Protected
     override fun navRinasakFinn(
         navRinasakSearchCriteriaType: NavRinasakSearchCriteriaType
     ) = service
@@ -58,7 +52,6 @@ class RinasakerApiImpl(
         .toNavRinasakSearchResponseType()
         .toOkResponseEntity()
 
-    @Protected
     override fun opprettNyttDokument(
         rinasakId: Int,
         dokumentCreateType: DokumentCreateType
@@ -68,7 +61,6 @@ class RinasakerApiImpl(
         .let { dokumentService.createDokument(it) }
         .toCreatedEmptyResponseEntity()
 
-    @Protected
     override fun patchFagsak(
         rinasakId: Int,
         fagsakPatchType: FagsakPatchType
@@ -79,7 +71,6 @@ class RinasakerApiImpl(
     val NavRinasakCreateType.navRinasakCreateRequest
         get() = toNavRinasakCreateRequest(this, contextService.navIdent)
 
-    @Protected
     override fun slettOverstyrtEnhetsnummer(
         rinasakId: Int
     ) = service
