@@ -1,5 +1,13 @@
 spring:
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AZURE_OPENID_CONFIG_ISSUER}
+          audiences:
+            - ${AZURE_APP_CLIENT_ID}
+
   datasource:
     hikari:
       jdbc-url: "jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_DATABASE}"
@@ -33,11 +41,5 @@ logging:
     format:
       console: logstash
 
-# noinspection SpringBootApplicationYaml
-no.nav.security.jwt:
-  issuer:
-    azuread:
-      discoveryurl: ${AZURE_APP_WELL_KNOWN_URL}
-      accepted-audience: ${AZURE_APP_CLIENT_ID}
 
 logging.level.org.hibernate.orm.connections.pooling: warn

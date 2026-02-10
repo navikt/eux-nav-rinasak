@@ -1,18 +1,13 @@
 package no.nav.eux.rinasak.service
 
-import no.nav.security.token.support.core.context.TokenValidationContextHolder
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.stereotype.Service
 
 @Service
-class TokenContextService(
-    val tokenValidationContextHolder: TokenValidationContextHolder
-) {
-    val navIdent
-        get() = tokenValidationContextHolder
-            .getTokenValidationContext()
-            .firstValidToken
-            ?.jwtTokenClaims
-            ?.get("NAVident")
-            ?.toString()
+class TokenContextService {
+    val navIdent: String
+        get() = (SecurityContextHolder.getContext().authentication?.principal as? Jwt)
+            ?.getClaim<String>("NAVident")
             ?: "ukjent"
 }
