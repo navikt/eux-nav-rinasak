@@ -9,11 +9,6 @@ class TokenContextService {
     val navIdent: String
         get() {
             val authentication = SecurityContextHolder.getContext().authentication
-            return if (authentication?.principal is Jwt) {
-                val jwt = authentication.principal as Jwt
-                jwt.getClaimAsString("NAVident") ?: "ukjent"
-            } else {
-                "ukjent"
-            }
+            return (authentication?.principal as? Jwt)?.getClaimAsString("NAVident") ?: "ukjent"
         }
 }
