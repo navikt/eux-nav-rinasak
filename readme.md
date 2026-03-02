@@ -11,7 +11,7 @@ A service for linking NAV and RINA cases (Sammenknytning av nav og Rina-saker).
 
 ## Prerequisites
 
-* JDK 21
+* JDK 25
 * PostgreSQL database
 
 ## Local Development
@@ -89,9 +89,9 @@ erDiagram
     
     dokument {
         uuid dokument_uuid PK
-        varchar dokument_info_id
-        uuid sed_id
-        integer sed_versjon
+        varchar dokument_info_id UK
+        uuid sed_id UK "UNIQUE(sed_id, sed_versjon)"
+        integer sed_versjon UK "UNIQUE(sed_id, sed_versjon)"
         varchar sed_type
         uuid nav_rinasak_uuid FK
         varchar opprettet_bruker
@@ -101,8 +101,9 @@ erDiagram
     sed_journalstatus {
         uuid sed_journalstatus_uuid PK
         text status
-        uuid sed_id UK
-        integer sed_versjon UK
+        uuid sed_id UK "UNIQUE(sed_id, sed_versjon)"
+        integer sed_versjon UK "UNIQUE(sed_id, sed_versjon)"
+        integer rinasak_id
         text opprettet_bruker
         timestamp opprettet_tidspunkt
         text endret_bruker
