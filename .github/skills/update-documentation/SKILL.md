@@ -1,3 +1,8 @@
+---
+name: update-documentation
+description: Update the project documentation in readme.md to reflect the current implementation. Use this when asked to update or refresh the project documentation.
+---
+
 # Skill: Update Documentation
 
 Update the project documentation in `readme.md` to reflect the current implementation.
