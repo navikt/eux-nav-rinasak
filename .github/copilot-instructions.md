@@ -1,30 +1,10 @@
 # Copilot Instructions for eux-nav-rinasak
 
-## Build & Test
+## Git workflow
 
-```bash
-# Full build (requires PostgreSQL running on localhost:5432)
-mvn clean install
-
-# Run a single test class
-mvn test -pl eux-nav-rinasak-webapp -Dtest="RinasakerApiOpprettelseTest"
-
-# Run a single test method
-mvn test -pl eux-nav-rinasak-webapp -Dtest="RinasakerApiOpprettelseTest#POST rinasaker - gyldig forespørsel - 201"
-
-# Fast build (skip tests)
-mvn clean install -DskipTests
-```
-
-Tests require a PostgreSQL database. Set these environment variables:
-
-```bash
-export DATABASE_HOST=localhost
-export DATABASE_PORT=5432
-export DATABASE_DATABASE=postgres
-export DATABASE_USERNAME=postgres
-export DATABASE_PASSWORD=postgres
-```
+- **NEVER** commit to `main`
+- **NEVER** push `main`
+- Always work on a branch
 
 ## Architecture
 
