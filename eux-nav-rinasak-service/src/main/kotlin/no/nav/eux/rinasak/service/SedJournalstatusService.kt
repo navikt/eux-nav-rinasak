@@ -22,13 +22,14 @@ class SedJournalstatusService(
         sedId: UUID,
         sedVersjon: Int,
         status: SedJournalstatus.Status,
+        feilmelding: String? = null,
     ) {
         val current = repository
             .findBySedIdAndSedVersjon(sedId, sedVersjon)
             .firstOrNull()
         when {
-            current == null -> create(rinasakId, sedId, sedVersjon, status)
-            else -> repository.save(current.copy(status = status))
+            current == null -> create(rinasakId, sedId, sedVersjon, status, feilmelding)
+            else -> repository.save(current.copy(status = status, feilmelding = feilmelding))
         }
         log.info { "Sed journalstatus satt til $status" }
     }
@@ -56,6 +57,7 @@ class SedJournalstatusService(
         sedId: UUID,
         sedVersjon: Int,
         status: SedJournalstatus.Status,
+        feilmelding: String? = null,
     ) {
         repository.save(
             SedJournalstatus(
@@ -64,6 +66,7 @@ class SedJournalstatusService(
                 sedId = sedId,
                 sedVersjon = sedVersjon,
                 status = status,
+                feilmelding = feilmelding,
                 opprettetBruker = contextService.navIdent,
                 endretBruker = contextService.navIdent
             )

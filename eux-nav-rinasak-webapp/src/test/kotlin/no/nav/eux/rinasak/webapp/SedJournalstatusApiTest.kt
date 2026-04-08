@@ -146,4 +146,105 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
         )
         response.statusCode.value() shouldBe 400
     }
+
+    @Test
+    fun `PUT sed journalstatuser med feilmelding - forespørsel, finn med id - 200`() {
+        val createResponse = restTemplate.exchange<Void>(
+            url = sedJournalstatuserUrl,
+            method = HttpMethod.PUT,
+            requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 1,
+                sedId = uuid1,
+                sedVersjon = 1,
+                sedJournalstatus = "FEILET_FERDIGSTILL",
+                feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
+            )
+                .httpEntity
+        )
+        createResponse.statusCode.value() shouldBe 200
+        val sedJournalstatus = restTemplate
+            .postForObject<SedJournalstatuserTestModel>(
+                url = sedJournalstatuserFinnUrl,
+                request = SedJournalstatusFinnKriterierTestModel(
+                    sedId = uuid1,
+                    sedVersjon = 1
+                )
+                    .httpEntity
+            )!!
+            .sedJournalstatuser
+            .single()
+        sedJournalstatus.rinasakId shouldBe 1
+        sedJournalstatus.sedId shouldBe uuid1
+        sedJournalstatus.sedVersjon shouldBe 1
+        sedJournalstatus.sedJournalstatus shouldBe "FEILET_FERDIGSTILL"
+        sedJournalstatus.feilmelding shouldBe "Ferdigstilling feilet: 500 Internal Server Error"
+    }
+
+    @Test
+    fun `PUT sed journalstatuser uten feilmelding - feilmelding er null - 200`() {
+        val createResponse = restTemplate.exchange<Void>(
+            url = sedJournalstatuserUrl,
+            method = HttpMethod.PUT,
+            requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 1,
+                sedId = uuid1,
+                sedVersjon = 1,
+                sedJournalstatus = "UKJENT"
+            )
+                .httpEntity
+        )
+        createResponse.statusCode.value() shouldBe 200
+        val sedJournalstatus = restTemplate
+            .postForObject<SedJournalstatuserTestModel>(
+                url = sedJournalstatuserFinnUrl,
+                request = SedJournalstatusFinnKriterierTestModel(
+                    sedId = uuid1,
+                    sedVersjon = 1
+                )
+                    .httpEntity
+            )!!
+            .sedJournalstatuser
+            .single()
+        sedJournalstatus.feilmelding shouldBe null
+    }
+
+    @Test
+    fun `PUT sed journalstatuser - oppdater eksisterende med feilmelding - 200`() {
+        restTemplate.exchange<Void>(
+            url = sedJournalstatuserUrl,
+            method = HttpMethod.PUT,
+            requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 1,
+                sedId = uuid1,
+                sedVersjon = 1,
+                sedJournalstatus = "UKJENT"
+            )
+                .httpEntity
+        )
+        restTemplate.exchange<Void>(
+            url = sedJournalstatuserUrl,
+            method = HttpMethod.PUT,
+            requestEntity = SedJournalstatusPutTestModel(
+                rinasakId = 1,
+                sedId = uuid1,
+                sedVersjon = 1,
+                sedJournalstatus = "FEILET_FERDIGSTILL",
+                feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
+            )
+                .httpEntity
+        )
+        val sedJournalstatus = restTemplate
+            .postForObject<SedJournalstatuserTestModel>(
+                url = sedJournalstatuserFinnUrl,
+                request = SedJournalstatusFinnKriterierTestModel(
+                    sedId = uuid1,
+                    sedVersjon = 1
+                )
+                    .httpEntity
+            )!!
+            .sedJournalstatuser
+            .single()
+        sedJournalstatus.sedJournalstatus shouldBe "FEILET_FERDIGSTILL"
+        sedJournalstatus.feilmelding shouldBe "Ferdigstilling feilet: 500 Internal Server Error"
+    }
 }

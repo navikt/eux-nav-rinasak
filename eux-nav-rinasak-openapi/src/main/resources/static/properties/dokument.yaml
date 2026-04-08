@@ -33,6 +33,8 @@ sedJournalstatus:
     - KORRUPT
     - MELOSYS_JOURNALFOERER
     - MANUELL_JOURNALFOERING
+    - FEILET_FERDIGSTILL
+    - FEILET_FEILREGISTRER
   description: |
     Hvilken status det er på journalføringen til SED'en:
       * `JOURNALFOERT` - Journalposten tilhørende SED'en er journalført
@@ -41,3 +43,10 @@ sedJournalstatus:
       * `FEILREGISTRERT` - Journalposten tilhørende SED'en er feilregistrert
       * `MELOSYS_JOURNALFOERER` - Melosys håndterer journalføring av SED'en
       * `MANUELL_JOURNALFOERING` - Journalføring gjøres manuelt av saksbehandler
+      * `FEILET_FERDIGSTILL` - Ferdigstilling av journalpost feilet, planlagt for nytt forsøk
+      * `FEILET_FEILREGISTRER` - Feilregistrering av journalpost feilet, planlagt for nytt forsøk
+
+feilmelding:
+  type: string
+  description: >
+    Feilmelding fra siste forsøk på ferdigstilling eller feilregistrering av journalpost.

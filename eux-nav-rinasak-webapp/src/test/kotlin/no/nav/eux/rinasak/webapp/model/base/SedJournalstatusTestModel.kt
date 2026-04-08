@@ -8,6 +8,7 @@ data class SedJournalstatusTestModel(
     val sedId: UUID,
     val sedVersjon: Int,
     val sedJournalstatus: String,
+    val feilmelding: String?,
     val endretBruker: String,
     val endretTidspunkt: LocalDateTime,
     val opprettetBruker: String,

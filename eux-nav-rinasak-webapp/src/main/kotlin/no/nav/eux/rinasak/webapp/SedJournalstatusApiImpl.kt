@@ -27,6 +27,7 @@ class SedJournalstatusApiImpl(
                 sedId = sedJournalstatusPutType.sedId,
                 sedVersjon = sedJournalstatusPutType.sedVersjon,
                 status = sedJournalstatusPutType.sedJournalstatus.name.toEnum(),
+                feilmelding = sedJournalstatusPutType.feilmelding,
             )
             .toOkResponseEntity()
 

@@ -14,6 +14,7 @@ data class SedJournalstatus(
     val sedVersjon: Int,
     @Enumerated(EnumType.STRING)
     val status: Status,
+    val feilmelding: String? = null,
     val endretBruker: String = "ukjent",
     val endretTidspunkt: LocalDateTime = now(),
     @Column(updatable = false)
@@ -28,6 +29,8 @@ data class SedJournalstatus(
         FEILREGISTRERT,
         KORRUPT,
         MELOSYS_JOURNALFOERER,
-        MANUELL_JOURNALFOERING
+        MANUELL_JOURNALFOERING,
+        FEILET_FERDIGSTILL,
+        FEILET_FEILREGISTRER
     }
 }
