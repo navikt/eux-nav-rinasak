@@ -5,6 +5,7 @@ import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
+import no.nav.eux.rinasak.webapp.common.token
 import no.nav.eux.rinasak.webapp.common.uuid1
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel1
@@ -15,24 +16,22 @@ import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import no.nav.eux.rinasak.webapp.model.opprettelse.FagsakOpprettelse
 import no.nav.eux.rinasak.webapp.model.opprettelse.NavRinasakOpprettelse
 import org.junit.jupiter.api.Test
-import org.springframework.boot.resttestclient.postForEntity
-import org.springframework.boot.resttestclient.postForObject
-import org.springframework.http.HttpMethod
 
 class RinasakerApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `POST rinasaker - forespørsel, finn med id - 200`() {
-        val createResponse = restTemplate.postForEntity<Void>(
-            navRinasakerUrl,
-            navRinasakOpprettelse.httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 201
-        val navRinasak = restTemplate
-            .postForObject<NavRinasaker>(
-                url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = 1).httpEntity
-            )!!
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        val navRinasak = restTestClient.post().uri(navRinasakerFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakFinnKriterier(rinasakId = 1))
+            .exchange()
+            .expectBody(NavRinasaker::class.java)
+            .returnResult().responseBody!!
             .navRinasaker
             .single()
         navRinasak.rinasakId shouldBe 1
@@ -56,16 +55,17 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `POST rinasaker - forespørsel, uten fagsak og sed finn med id - 200`() {
-        val createResponse = restTemplate.postForEntity<Void>(
-            navRinasakerUrl,
-            NavRinasakOpprettelse(initiellFagsak = null).httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 201
-        val navRinasak = restTemplate
-            .postForObject<NavRinasaker>(
-                url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = 1).httpEntity
-            )!!
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakOpprettelse(initiellFagsak = null))
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        val navRinasak = restTestClient.post().uri(navRinasakerFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakFinnKriterier(rinasakId = 1))
+            .exchange()
+            .expectBody(NavRinasaker::class.java)
+            .returnResult().responseBody!!
             .navRinasaker
             .single()
         navRinasak.rinasakId shouldBe 1
@@ -74,39 +74,41 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `POST rinasaker finn - forespørsel, ikke funnet med feil id - 200`() {
-        val createResponse = restTemplate.postForEntity<Void>(
-            navRinasakerUrl,
-            navRinasakOpprettelse.httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 201
-        val navRinasaker = restTemplate
-            .postForObject<NavRinasaker>(
-                url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = 0).httpEntity
-            )!!
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        val navRinasaker = restTestClient.post().uri(navRinasakerFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakFinnKriterier(rinasakId = 0))
+            .exchange()
+            .expectBody(NavRinasaker::class.java)
+            .returnResult().responseBody!!
             .navRinasaker
         navRinasaker.shouldBeEmpty()
     }
 
     @Test
     fun `POST rinasaker finn - forespørsel, 3 enkle, hent ved rinasakId - 200`() {
-        restTemplate.postForEntity<Void>(
-            navRinasakerUrl,
-            navRinasakOpprettelseEnkel1.httpEntity
-        )
-        restTemplate.postForEntity<Void>(
-            navRinasakerUrl,
-            navRinasakOpprettelseEnkel2.httpEntity
-        )
-        restTemplate.postForEntity<Void>(
-            navRinasakerUrl,
-            navRinasakOpprettelseEnkel3.httpEntity
-        )
-        val navRinasak = restTemplate
-            .postForObject<NavRinasaker>(
-                url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = 2).httpEntity
-            )!!
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakOpprettelseEnkel1)
+            .exchange()
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakOpprettelseEnkel2)
+            .exchange()
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakOpprettelseEnkel3)
+            .exchange()
+        val navRinasak = restTestClient.post().uri(navRinasakerFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakFinnKriterier(rinasakId = 2))
+            .exchange()
+            .expectBody(NavRinasaker::class.java)
+            .returnResult().responseBody!!
             .navRinasaker
             .single()
         navRinasak.rinasakId shouldBe 2
@@ -115,11 +117,11 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `PATCH rinasaker fagsak - update existing fagsak - 201`() {
-        val createRinasakResponse = restTemplate.postForEntity<Void>(
-            navRinasakerUrl,
-            NavRinasakOpprettelse(initiellFagsak = null).httpEntity
-        )
-        createRinasakResponse.statusCode.value() shouldBe 201
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakOpprettelse(initiellFagsak = null))
+            .exchange()
+            .expectStatus().isEqualTo(201)
         val initialFagsakOpprettelse = FagsakOpprettelse(
             tema = "AAA",
             type = "FAGSAK",
@@ -127,18 +129,17 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             nr = "nr",
             fnr = "03028700001"
         )
-        val initialResponse = restTemplate.exchange(
-            "$navRinasakerUrl/1/fagsak",
-            HttpMethod.PATCH,
-            initialFagsakOpprettelse.httpEntity,
-            Void::class.java
-        )
-        initialResponse.statusCode.value() shouldBe 201
-        val initialNavRinasak = restTemplate
-            .postForObject<NavRinasaker>(
-                url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = 1).httpEntity
-            )!!
+        restTestClient.patch().uri("$navRinasakerUrl/1/fagsak")
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(initialFagsakOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        val initialNavRinasak = restTestClient.post().uri(navRinasakerFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakFinnKriterier(rinasakId = 1))
+            .exchange()
+            .expectBody(NavRinasaker::class.java)
+            .returnResult().responseBody!!
             .navRinasaker
             .single()
         with(initialNavRinasak.fagsak!!) {
@@ -155,18 +156,17 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             nr = "updated-nr",
             fnr = "12345678901"
         )
-        val updateResponse = restTemplate.exchange(
-            "$navRinasakerUrl/1/fagsak",
-            HttpMethod.PATCH,
-            updatedFagsakOpprettelse.httpEntity,
-            Void::class.java
-        )
-        updateResponse.statusCode.value() shouldBe 201
-        val updatedNavRinasak = restTemplate
-            .postForObject<NavRinasaker>(
-                url = navRinasakerFinnUrl,
-                request = NavRinasakFinnKriterier(rinasakId = 1).httpEntity
-            )!!
+        restTestClient.patch().uri("$navRinasakerUrl/1/fagsak")
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(updatedFagsakOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        val updatedNavRinasak = restTestClient.post().uri(navRinasakerFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakFinnKriterier(rinasakId = 1))
+            .exchange()
+            .expectBody(NavRinasaker::class.java)
+            .returnResult().responseBody!!
             .navRinasaker
             .single()
         with(updatedNavRinasak.fagsak!!) {
@@ -188,12 +188,10 @@ class RinasakerApiTest : AbstractRinasakerApiImplTest() {
             nr = "nr",
             fnr = "03028700001"
         )
-        val response = restTemplate.exchange(
-            "$navRinasakerUrl/$nonExistentRinasakId/fagsak",
-            HttpMethod.PATCH,
-            fagsakOpprettelse.httpEntity,
-            Void::class.java
-        )
-        response.statusCode.value() shouldBe 404
+        restTestClient.patch().uri("$navRinasakerUrl/$nonExistentRinasakId/fagsak")
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(fagsakOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(404)
     }
 }
