@@ -19,6 +19,8 @@ SedJournalstatusType:
       $ref: '../properties/dokument.yaml#/sedVersjon'
     sedJournalstatus:
       $ref: '../properties/dokument.yaml#/sedJournalstatus'
+    feilmelding:
+      $ref: '../properties/dokument.yaml#/feilmelding'
     endretBruker:
       $ref: '../properties/meta.yaml#/endretBruker'
     endretTidspunkt:
@@ -44,6 +46,8 @@ SedJournalstatusCreateType:
       $ref: '../properties/dokument.yaml#/sedVersjon'
     sedJournalstatus:
       $ref: '../properties/dokument.yaml#/sedJournalstatus'
+    feilmelding:
+      $ref: '../properties/dokument.yaml#/feilmelding'
 
 SedJournalstatusPatchType:
   type: object
@@ -58,6 +62,8 @@ SedJournalstatusPatchType:
       $ref: '../properties/dokument.yaml#/sedVersjon'
     sedJournalstatus:
       $ref: '../properties/dokument.yaml#/sedJournalstatus'
+    feilmelding:
+      $ref: '../properties/dokument.yaml#/feilmelding'
 
 SedJournalstatusPutType:
   type: object
@@ -75,6 +81,8 @@ SedJournalstatusPutType:
       $ref: '../properties/dokument.yaml#/sedVersjon'
     sedJournalstatus:
       $ref: '../properties/dokument.yaml#/sedJournalstatus'
+    feilmelding:
+      $ref: '../properties/dokument.yaml#/feilmelding'
 
 SedJournalstatusSearchCriteriaType:
   type: object

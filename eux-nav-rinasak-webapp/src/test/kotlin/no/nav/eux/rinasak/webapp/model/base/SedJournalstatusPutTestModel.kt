@@ -4,5 +4,6 @@ data class SedJournalstatusPutTestModel(
     val rinasakId: Int,
     val sedId: java.util.UUID,
     val sedVersjon: Int,
-    val sedJournalstatus: String
+    val sedJournalstatus: String,
+    val feilmelding: String? = null,
 )

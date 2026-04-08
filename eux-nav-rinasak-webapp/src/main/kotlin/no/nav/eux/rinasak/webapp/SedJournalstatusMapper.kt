@@ -21,6 +21,7 @@ fun SedJournalstatus.toSedJournalstatus() =
         sedId = sedId,
         sedVersjon = sedVersjon,
         sedJournalstatus = status.name.toEnum(),
+        feilmelding = feilmelding,
         endretBruker = endretBruker,
         endretTidspunkt = endretTidspunkt.atOffset(UTC),
         opprettetBruker = opprettetBruker,
