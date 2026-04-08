@@ -1,19 +1,16 @@
 package no.nav.eux.rinasak.webapp
 
 import no.nav.eux.rinasak.Application
-import no.nav.eux.rinasak.webapp.common.httpEntity
-import no.nav.eux.rinasak.webapp.common.voidHttpEntity
 import no.nav.security.mock.oauth2.MockOAuth2Server
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.resttestclient.TestRestTemplate
-import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.HttpEntity
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.jdbc.JdbcTestUtils
+import org.springframework.test.web.servlet.client.RestTestClient
 
 @SpringBootTest(
     classes = [Application::class],
@@ -21,14 +18,14 @@ import org.springframework.test.jdbc.JdbcTestUtils
 )
 @ActiveProfiles("test")
 @EnableMockOAuth2Server
-@AutoConfigureTestRestTemplate
+@AutoConfigureRestTestClient
 abstract class AbstractRinasakerApiImplTest {
 
     @Autowired
     lateinit var mockOAuth2Server: MockOAuth2Server
 
     @Autowired
-    lateinit var restTemplate: TestRestTemplate
+    lateinit var restTestClient: RestTestClient
 
     @Autowired
     lateinit var jdbcTemplate: JdbcTemplate
@@ -44,10 +41,5 @@ abstract class AbstractRinasakerApiImplTest {
             "sed_journalstatus"
         )
     }
-
-    fun httpEntity() = voidHttpEntity(mockOAuth2Server)
-
-    val <T : Any> T.httpEntity: HttpEntity<T>
-        get() = httpEntity(mockOAuth2Server)
 
 }

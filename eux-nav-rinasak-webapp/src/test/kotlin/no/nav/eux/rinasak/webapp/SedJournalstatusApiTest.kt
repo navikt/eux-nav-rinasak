@@ -4,42 +4,41 @@ import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserFinnUrl
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserUrl
+import no.nav.eux.rinasak.webapp.common.token
 import no.nav.eux.rinasak.webapp.common.uuid1
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierRinasakIdTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusPutTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatuserTestModel
 import org.junit.jupiter.api.Test
-import org.springframework.boot.resttestclient.exchange
-import org.springframework.boot.resttestclient.postForObject
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpMethod.POST
 
 class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `PUT sed journalstatuser - forespørsel, finn med id - 200`() {
-        val createResponse = restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 1,
-                sedId = uuid1,
-                sedVersjon = 1,
-                sedJournalstatus = "UKJENT"
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 1,
+                    sedId = uuid1,
+                    sedVersjon = 1,
+                    sedJournalstatus = "UKJENT"
+                )
             )
-                .httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 200
-        val sedJournalstatus = restTemplate
-            .postForObject<SedJournalstatuserTestModel>(
-                url = sedJournalstatuserFinnUrl,
-                request = SedJournalstatusFinnKriterierTestModel(
+            .exchange()
+            .expectStatus().isEqualTo(200)
+        val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusFinnKriterierTestModel(
                     sedId = uuid1,
                     sedVersjon = 1
                 )
-                    .httpEntity
-            )!!
+            )
+            .exchange()
+            .expectBody(SedJournalstatuserTestModel::class.java)
+            .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         sedJournalstatus.rinasakId shouldBe 1
@@ -50,26 +49,28 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `PUT sed journalstatuser - forespørsel, finn med status - 200`() {
-        val createResponse = restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 1,
-                sedId = uuid1,
-                sedVersjon = 1,
-                sedJournalstatus = "UKJENT"
-            )
-                .httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 200
-        val sedJournalstatus = restTemplate
-            .postForObject<SedJournalstatuserTestModel>(
-                url = sedJournalstatuserFinnUrl,
-                request = SedJournalstatusFinnKriterierTestModel(
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 1,
+                    sedId = uuid1,
+                    sedVersjon = 1,
                     sedJournalstatus = "UKJENT"
                 )
-                    .httpEntity
-            )!!
+            )
+            .exchange()
+            .expectStatus().isEqualTo(200)
+        val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusFinnKriterierTestModel(
+                    sedJournalstatus = "UKJENT"
+                )
+            )
+            .exchange()
+            .expectBody(SedJournalstatuserTestModel::class.java)
+            .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         sedJournalstatus.sedId shouldBe uuid1
@@ -80,26 +81,28 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `PUT sed journalstatuser - forespørsel, finn med rinasakId - 200`() {
-        val createResponse = restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 3,
-                sedId = uuid1,
-                sedVersjon = 0,
-                sedJournalstatus = "MELOSYS_JOURNALFOERER"
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 3,
+                    sedId = uuid1,
+                    sedVersjon = 0,
+                    sedJournalstatus = "MELOSYS_JOURNALFOERER"
+                )
             )
-                .httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 200
-        val sedJournalstatus = restTemplate
-            .postForObject<SedJournalstatuserTestModel>(
-                url = sedJournalstatuserFinnUrl,
-                request = SedJournalstatusFinnKriterierRinasakIdTestModel(
+            .exchange()
+            .expectStatus().isEqualTo(200)
+        val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusFinnKriterierRinasakIdTestModel(
                     rinasakId = 3
                 )
-                    .httpEntity
-            )!!
+            )
+            .exchange()
+            .expectBody(SedJournalstatuserTestModel::class.java)
+            .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         with(sedJournalstatus) {
@@ -112,65 +115,67 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `PUT sed journalstatuser - forespørsel, ikke funnet pga annen status - 200`() {
-        val createResponse = restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 1,
-                sedId = uuid1,
-                sedVersjon = 1,
-                sedJournalstatus = "UKJENT"
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 1,
+                    sedId = uuid1,
+                    sedVersjon = 1,
+                    sedJournalstatus = "UKJENT"
+                )
             )
-                .httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 200
-        val sedJournalstatus = restTemplate
-            .postForObject<SedJournalstatuserTestModel>(
-                url = sedJournalstatuserFinnUrl,
-                request = SedJournalstatusFinnKriterierTestModel(
+            .exchange()
+            .expectStatus().isEqualTo(200)
+        val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusFinnKriterierTestModel(
                     sedJournalstatus = "JOURNALFOERT"
                 )
-                    .httpEntity
-            )!!
+            )
+            .exchange()
+            .expectBody(SedJournalstatuserTestModel::class.java)
+            .returnResult().responseBody!!
             .sedJournalstatuser
         sedJournalstatus.shouldBeEmpty()
     }
 
     @Test
     fun `POST sed journalstatuser finn - forespørsel, finn uten argumenter - 400`() {
-        val response = restTemplate.exchange<Void>(
-            url = sedJournalstatuserFinnUrl,
-            method = POST,
-            requestEntity = SedJournalstatusFinnKriterierTestModel()
-                .httpEntity
-        )
-        response.statusCode.value() shouldBe 400
+        restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(SedJournalstatusFinnKriterierTestModel())
+            .exchange()
+            .expectStatus().isEqualTo(400)
     }
 
     @Test
     fun `PUT sed journalstatuser med feilmelding - forespørsel, finn med id - 200`() {
-        val createResponse = restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 1,
-                sedId = uuid1,
-                sedVersjon = 1,
-                sedJournalstatus = "FEILET_FERDIGSTILL",
-                feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 1,
+                    sedId = uuid1,
+                    sedVersjon = 1,
+                    sedJournalstatus = "FEILET_FERDIGSTILL",
+                    feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
+                )
             )
-                .httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 200
-        val sedJournalstatus = restTemplate
-            .postForObject<SedJournalstatuserTestModel>(
-                url = sedJournalstatuserFinnUrl,
-                request = SedJournalstatusFinnKriterierTestModel(
+            .exchange()
+            .expectStatus().isEqualTo(200)
+        val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusFinnKriterierTestModel(
                     sedId = uuid1,
                     sedVersjon = 1
                 )
-                    .httpEntity
-            )!!
+            )
+            .exchange()
+            .expectBody(SedJournalstatuserTestModel::class.java)
+            .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         sedJournalstatus.rinasakId shouldBe 1
@@ -182,27 +187,29 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `PUT sed journalstatuser uten feilmelding - feilmelding er null - 200`() {
-        val createResponse = restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 1,
-                sedId = uuid1,
-                sedVersjon = 1,
-                sedJournalstatus = "UKJENT"
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 1,
+                    sedId = uuid1,
+                    sedVersjon = 1,
+                    sedJournalstatus = "UKJENT"
+                )
             )
-                .httpEntity
-        )
-        createResponse.statusCode.value() shouldBe 200
-        val sedJournalstatus = restTemplate
-            .postForObject<SedJournalstatuserTestModel>(
-                url = sedJournalstatuserFinnUrl,
-                request = SedJournalstatusFinnKriterierTestModel(
+            .exchange()
+            .expectStatus().isEqualTo(200)
+        val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusFinnKriterierTestModel(
                     sedId = uuid1,
                     sedVersjon = 1
                 )
-                    .httpEntity
-            )!!
+            )
+            .exchange()
+            .expectBody(SedJournalstatuserTestModel::class.java)
+            .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         sedJournalstatus.feilmelding shouldBe null
@@ -210,38 +217,40 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `PUT sed journalstatuser - oppdater eksisterende med feilmelding - 200`() {
-        restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 1,
-                sedId = uuid1,
-                sedVersjon = 1,
-                sedJournalstatus = "UKJENT"
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 1,
+                    sedId = uuid1,
+                    sedVersjon = 1,
+                    sedJournalstatus = "UKJENT"
+                )
             )
-                .httpEntity
-        )
-        restTemplate.exchange<Void>(
-            url = sedJournalstatuserUrl,
-            method = HttpMethod.PUT,
-            requestEntity = SedJournalstatusPutTestModel(
-                rinasakId = 1,
-                sedId = uuid1,
-                sedVersjon = 1,
-                sedJournalstatus = "FEILET_FERDIGSTILL",
-                feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
+            .exchange()
+        restTestClient.put().uri(sedJournalstatuserUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusPutTestModel(
+                    rinasakId = 1,
+                    sedId = uuid1,
+                    sedVersjon = 1,
+                    sedJournalstatus = "FEILET_FERDIGSTILL",
+                    feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
+                )
             )
-                .httpEntity
-        )
-        val sedJournalstatus = restTemplate
-            .postForObject<SedJournalstatuserTestModel>(
-                url = sedJournalstatuserFinnUrl,
-                request = SedJournalstatusFinnKriterierTestModel(
+            .exchange()
+        val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                SedJournalstatusFinnKriterierTestModel(
                     sedId = uuid1,
                     sedVersjon = 1
                 )
-                    .httpEntity
-            )!!
+            )
+            .exchange()
+            .expectBody(SedJournalstatuserTestModel::class.java)
+            .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         sedJournalstatus.sedJournalstatus shouldBe "FEILET_FERDIGSTILL"
