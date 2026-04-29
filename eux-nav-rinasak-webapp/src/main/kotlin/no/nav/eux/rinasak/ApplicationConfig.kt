@@ -1,12 +1,12 @@
 package no.nav.eux.rinasak
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.SerializationFeature
 import com.zaxxer.hikari.HikariDataSource
 import no.nav.eux.logging.RequestIdMdcFilter
-import org.springframework.boot.jackson2.autoconfigure.Jackson2ObjectMapperBuilderCustomizer
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import tools.jackson.databind.DeserializationFeature
+import tools.jackson.databind.cfg.DateTimeFeature
 
 @Configuration
 class ApplicationConfig(
@@ -19,12 +19,10 @@ class ApplicationConfig(
     @Bean
     fun requestIdMdcFilter() = RequestIdMdcFilter()
 
-    @Suppress("removal")
     @Bean
-    fun jackson2ObjectMapperBuilderCustomizer() = Jackson2ObjectMapperBuilderCustomizer { builder ->
-        builder.featuresToDisable(
-            SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,
-            DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
-        )
+    fun jsonMapperBuilderCustomizer() = JsonMapperBuilderCustomizer { builder ->
+        builder
+            .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
     }
 }
