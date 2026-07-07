@@ -21,6 +21,8 @@ paths:
     $ref: 'rinasaker/operations_rot.yaml'
   '/api/v1/rinasaker/finn':
     $ref: 'rinasaker/operations_finn.yaml'
+  '/api/v1/rinasaker/nyeste':
+    $ref: 'rinasaker/operations_nyeste.yaml'
   '/api/v1/rinasaker/{rinasakId}':
     $ref: 'rinasaker/operations_byRinasakId.yaml'
   '/api/v1/rinasaker/{rinasakId}/overstyrtEnhetsnummer':

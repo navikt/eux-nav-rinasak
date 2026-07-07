@@ -91,3 +91,6 @@ spec:
         - application: {{ application.melosys-eessi.name }}
           namespace: {{ application.melosys-eessi.namespace }}
           cluster: {{ cluster.fss }}
+        - application: eux-portal-core
+          namespace: eessibasis
+          cluster: {{ cluster.gcp }}
