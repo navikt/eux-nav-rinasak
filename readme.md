@@ -101,6 +101,7 @@ erDiagram
     sed_journalstatus {
         uuid sed_journalstatus_uuid PK
         text status
+        text feilmelding
         uuid sed_id UK "UNIQUE(sed_id, sed_versjon)"
         integer sed_versjon UK "UNIQUE(sed_id, sed_versjon)"
         integer rinasak_id
