@@ -52,6 +52,13 @@ class RinasakerApiImpl(
         .toNavRinasakSearchResponseType()
         .toOkResponseEntity()
 
+    override fun navRinasakNyeste(
+        antall: Int
+    ) = service
+        .finnNyesteNavRinasaker(antall)
+        .toNavRinasakSearchResponseType()
+        .toOkResponseEntity()
+
     override fun opprettNyttDokument(
         rinasakId: Int,
         dokumentCreateType: DokumentCreateType

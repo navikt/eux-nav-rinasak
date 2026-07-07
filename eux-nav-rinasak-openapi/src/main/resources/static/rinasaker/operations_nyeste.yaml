@@ -1,0 +1,35 @@
+get:
+  tags:
+    - Rinasaker
+  summary: Nyeste
+  description: >-
+    Hent de nyest opprettede Nav rinasakene med tilhørende dokumenter,
+    sortert på opprettetTidspunkt synkende. Brukes for overvåkning av
+    nylig opprettede SED-er.
+  operationId: navRinasakNyeste
+  parameters:
+    - name: antall
+      in: query
+      required: false
+      description: Maks antall rinasaker som returneres.
+      schema:
+        type: integer
+        default: 200
+        minimum: 1
+        maximum: 500
+
+  responses:
+    '200':
+      description: OK
+      content:
+        'application/json':
+          schema:
+            $ref: 'model.yaml#/NavRinasakSearchResponseType'
+    '400':
+      $ref: '../common/responses.yaml#/400'
+    '401':
+      $ref: '../common/responses.yaml#/401'
+    '403':
+      $ref: '../common/responses.yaml#/403'
+    '500':
+      $ref: '../common/responses.yaml#/500'

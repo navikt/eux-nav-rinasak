@@ -5,10 +5,12 @@ import no.nav.eux.rinasak.model.dto.NavRinasakFinnRequest
 import no.nav.eux.rinasak.model.dto.NavRinasakFinnResponse
 import no.nav.eux.rinasak.model.dto.NavRinasakPatch
 import no.nav.eux.rinasak.model.entity.Dokument
+import no.nav.eux.rinasak.model.entity.NavRinasak
 import no.nav.eux.rinasak.persistence.DokumentRepository
 import no.nav.eux.rinasak.persistence.FagsakRepository
 import no.nav.eux.rinasak.persistence.InitiellFagsakRepository
 import no.nav.eux.rinasak.persistence.NavRinasakRepository
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus.CONFLICT
 import org.springframework.http.HttpStatus.NOT_FOUND
@@ -88,6 +90,16 @@ class NavRinasakService(
             request.rinasakId != null -> navRinasakRepository.findAllByRinasakId(request.rinasakId!!)
             else -> navRinasakRepository.findAll()
         }
+        return berik(navRinasakList)
+    }
+
+    fun finnNyesteNavRinasaker(antall: Int): List<NavRinasakFinnResponse> {
+        val navRinasakList = navRinasakRepository
+            .findAllByOrderByOpprettetTidspunktDesc(PageRequest.of(0, antall))
+        return berik(navRinasakList)
+    }
+
+    private fun berik(navRinasakList: List<NavRinasak>): List<NavRinasakFinnResponse> {
         val fagsakMap = fagsakRepository
             .findAllById(navRinasakList.map { it.navRinasakUuid })
             .associateBy { it.navRinasakUuid }
