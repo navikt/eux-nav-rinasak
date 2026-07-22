@@ -2,7 +2,7 @@ package no.nav.eux.rinasak.webapp.dataset.opprettelse
 
 import no.nav.eux.rinasak.webapp.common.forventetSedId
 import no.nav.eux.rinasak.webapp.model.opprettelse.DokumentOpprettelse
-import java.util.UUID
+import java.util.*
 
 val dokumentOpprettelse = DokumentOpprettelse(
     sedId = forventetSedId,
