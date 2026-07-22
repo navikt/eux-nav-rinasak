@@ -34,7 +34,7 @@ class RinasakerApiNyesteTest : AbstractRinasakerApiImplTest() {
             .navRinasaker
 
     @Test
-    fun `GET rinasaker nyeste - sortert nyeste foerst - 200`() {
+    fun `GET rinasaker nyeste - sortert nyeste først - 200`() {
         opprett(navRinasakOpprettelse)
         opprett(navRinasakOpprettelseEnkel2)
         opprett(navRinasakOpprettelseEnkel3)
@@ -67,5 +67,13 @@ class RinasakerApiNyesteTest : AbstractRinasakerApiImplTest() {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus().isEqualTo(401)
+    }
+
+    @Test
+    fun `GET rinasaker nyeste - ugyldig antall - 400`() {
+        restTestClient.get().uri("$navRinasakerNyesteUrl?antall=0")
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .exchange()
+            .expectStatus().isEqualTo(400)
     }
 }

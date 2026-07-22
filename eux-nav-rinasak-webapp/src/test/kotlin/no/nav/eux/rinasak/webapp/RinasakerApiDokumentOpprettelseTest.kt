@@ -1,5 +1,6 @@
 package no.nav.eux.rinasak.webapp
 
+import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
@@ -16,7 +17,7 @@ import org.springframework.http.MediaType
 class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
 
     @Test
-    fun `POST rinasaker dokumenter - gyldig forespørsel - 201`() {
+    fun `POST rinasaker dokumenter - oppretter dokument - 201`() {
         restTestClient.post().uri(navRinasakerUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(navRinasakOpprettelse)
@@ -34,19 +35,69 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             .returnResult().responseBody!!
             .navRinasaker
             .single()
-        val dokumentMap = navRinasak.dokumenter!!.associateBy { Pair(it.sedId, it.sedVersjon) }
-        with(dokumentMap[Pair(uuid1, 1)]!!) {
+        val dokumentMap = navRinasak.dokumenter!!.associateBy { it.sedId to it.sedVersjon }
+        with(dokumentMap[uuid1 to 1]!!) {
             sedId shouldBe uuid1
             sedVersjon shouldBe 1
             dokumentInfoId shouldBe "000000001"
             sedType shouldBe "type"
         }
-        with(dokumentMap[Pair(uuid4, 1)]!!) {
+        with(dokumentMap[uuid4 to 1]!!) {
             sedId shouldBe uuid4
             sedVersjon shouldBe 1
             dokumentInfoId shouldBe "000000111"
             sedType shouldBe "type"
         }
+    }
+
+    @Test
+    fun `POST rinasaker dokumenter - samme sedId med ny versjon - 201`() {
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        restTestClient.post().uri("$navRinasakerUrl/1/dokumenter")
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(
+                navRinasakDokumentOpprettelse.copy(
+                    sedId = uuid1,
+                    sedVersjon = 2,
+                    dokumentInfoId = "000000112"
+                )
+            )
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        val dokumenter = restTestClient.post().uri(navRinasakerFinnUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(NavRinasakFinnKriterier(rinasakId = 1))
+            .exchange()
+            .expectBody(NavRinasaker::class.java)
+            .returnResult().responseBody!!
+            .navRinasaker
+            .single()
+            .dokumenter!!
+        dokumenter
+            .map { it.sedId to it.sedVersjon }
+            .shouldContainExactlyInAnyOrder(listOf(uuid1 to 1, uuid1 to 2))
+    }
+
+    @Test
+    fun `POST rinasaker dokumenter - dokument finnes allerede - 409`() {
+        restTestClient.post().uri(navRinasakerUrl)
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakOpprettelse)
+            .exchange()
+        restTestClient.post().uri("$navRinasakerUrl/1/dokumenter")
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakDokumentOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(201)
+        restTestClient.post().uri("$navRinasakerUrl/1/dokumenter")
+            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+            .body(navRinasakDokumentOpprettelse)
+            .exchange()
+            .expectStatus().isEqualTo(409)
     }
 
     @Test

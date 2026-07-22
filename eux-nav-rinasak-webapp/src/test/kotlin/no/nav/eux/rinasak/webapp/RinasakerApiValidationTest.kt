@@ -1,6 +1,6 @@
 package no.nav.eux.rinasak.webapp
 
-import io.kotest.matchers.shouldBe
+import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import no.nav.eux.rinasak.advice.MethodArgumentNotValidExceptionAdvice
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.token
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class RinasakerApiValidationTest : AbstractRinasakerApiImplTest() {
 
     @Test
-    fun `POST rinasaker - forespørsel, invalid fnr - 400`() {
+    fun `POST rinasaker - ugyldig fødselsnummer - 400`() {
         val responseBody = restTestClient.post().uri(navRinasakerUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(navRinasakOpprettelseInvalid)
@@ -18,13 +18,11 @@ class RinasakerApiValidationTest : AbstractRinasakerApiImplTest() {
             .expectStatus().isEqualTo(400)
             .expectBody(MethodArgumentNotValidExceptionAdvice.ApiError::class.java)
             .returnResult().responseBody!!
-        with(responseBody.errors[0]) {
-            rejectedValue shouldBe "invalid"
-            defaultMessage shouldBe """must match "^\d{11}$""""
-        }
-        with(responseBody.errors[1]) {
-            rejectedValue shouldBe "invalid"
-            defaultMessage shouldBe "size must be between 11 and 11"
-        }
+        responseBody.errors
+            .map { it.rejectedValue to it.defaultMessage }
+            .shouldContainExactlyInAnyOrder(
+                "invalid" to """must match "^\d{11}$"""",
+                "invalid" to "size must be between 11 and 11",
+            )
     }
 }
