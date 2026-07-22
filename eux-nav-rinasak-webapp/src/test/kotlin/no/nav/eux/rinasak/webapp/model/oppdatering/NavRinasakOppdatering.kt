@@ -1,16 +1,23 @@
 package no.nav.eux.rinasak.webapp.model.oppdatering
 
-import no.nav.eux.rinasak.webapp.model.base.Dokument
+import java.util.UUID
 
 data class NavRinasakOppdatering(
     val rinasakId: Int,
     val overstyrtEnhetsnummer: String?,
     val initiellFagsak: InitiellFagsakOppdatering?,
-    val dokumenter: List<Dokument>?,
+    val dokumenter: List<DokumentOppdatering>?,
+)
+
+data class DokumentOppdatering(
+    val sedId: UUID,
+    val sedVersjon: Int,
+    val sedType: String,
+    val dokumentInfoId: String?,
 )
 
 data class InitiellFagsakOppdatering(
-    val id: String,
+    val id: String?,
     val tema: String,
     val system: String?,
     val nr: String?,
