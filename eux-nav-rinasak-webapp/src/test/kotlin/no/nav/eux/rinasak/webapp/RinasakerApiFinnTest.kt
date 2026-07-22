@@ -7,13 +7,12 @@ import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.token
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
-import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel1
-import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel2
-import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel3
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseUtenRelasjoner
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.client.expectBody
 
 class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
 
@@ -28,7 +27,7 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(NavRinasakFinnKriterier(rinasakId = 0))
             .exchange()
-            .expectBody(NavRinasaker::class.java)
+            .expectBody<NavRinasaker>()
             .returnResult().responseBody!!
             .navRinasaker
         navRinasaker.shouldBeEmpty()
@@ -36,23 +35,17 @@ class RinasakerApiFinnTest : AbstractRinasakerApiImplTest() {
 
     @Test
     fun `POST rinasaker finn - finner kun rinasak med angitt id - 200`() {
-        restTestClient.post().uri(navRinasakerUrl)
-            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakOpprettelseEnkel1)
-            .exchange()
-        restTestClient.post().uri(navRinasakerUrl)
-            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakOpprettelseEnkel2)
-            .exchange()
-        restTestClient.post().uri(navRinasakerUrl)
-            .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakOpprettelseEnkel3)
-            .exchange()
+        (1..3).forEach { rinasakId ->
+            restTestClient.post().uri(navRinasakerUrl)
+                .header("Authorization", "Bearer ${mockOAuth2Server.token}")
+                .body(navRinasakOpprettelseUtenRelasjoner.copy(rinasakId = rinasakId))
+                .exchange()
+        }
         val navRinasak = restTestClient.post().uri(navRinasakerFinnUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(NavRinasakFinnKriterier(rinasakId = 2))
             .exchange()
-            .expectBody(NavRinasaker::class.java)
+            .expectBody<NavRinasaker>()
             .returnResult().responseBody!!
             .navRinasaker
             .single()

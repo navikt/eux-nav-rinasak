@@ -4,8 +4,9 @@ import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import no.nav.eux.rinasak.advice.MethodArgumentNotValidExceptionAdvice
 import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
 import no.nav.eux.rinasak.webapp.common.token
-import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseInvalid
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseMedUgyldigFnr
 import org.junit.jupiter.api.Test
+import org.springframework.test.web.servlet.client.expectBody
 
 class RinasakerApiValidationTest : AbstractRinasakerApiImplTest() {
 
@@ -13,10 +14,10 @@ class RinasakerApiValidationTest : AbstractRinasakerApiImplTest() {
     fun `POST rinasaker - ugyldig fødselsnummer - 400`() {
         val responseBody = restTestClient.post().uri(navRinasakerUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakOpprettelseInvalid)
+            .body(navRinasakOpprettelseMedUgyldigFnr)
             .exchange()
             .expectStatus().isEqualTo(400)
-            .expectBody(MethodArgumentNotValidExceptionAdvice.ApiError::class.java)
+            .expectBody<MethodArgumentNotValidExceptionAdvice.ApiError>()
             .returnResult().responseBody!!
         responseBody.errors
             .map { it.rejectedValue to it.defaultMessage }

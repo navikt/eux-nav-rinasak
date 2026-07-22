@@ -6,10 +6,10 @@ import no.nav.security.mock.oauth2.token.DefaultOAuth2TokenCallback
 
 val MockOAuth2Server.token: String
     get() = this
-        .issueToken("issuer1", "theclientid", defaultOAuth2TokenCallback)
+        .issueToken("issuer1", "theclientid", tokenCallback)
         .serialize()
 
-var defaultOAuth2TokenCallback =
+private val tokenCallback =
     DefaultOAuth2TokenCallback(
         "issuer1",
         "subject1",

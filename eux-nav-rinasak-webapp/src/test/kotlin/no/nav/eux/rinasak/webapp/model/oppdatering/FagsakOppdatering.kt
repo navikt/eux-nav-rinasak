@@ -1,6 +1,6 @@
-package no.nav.eux.rinasak.webapp.model.opprettelse
+package no.nav.eux.rinasak.webapp.model.oppdatering
 
-data class FagsakOpprettelse(
+data class FagsakOppdatering(
     val tema: String,
     val type: String,
     val system: String?,

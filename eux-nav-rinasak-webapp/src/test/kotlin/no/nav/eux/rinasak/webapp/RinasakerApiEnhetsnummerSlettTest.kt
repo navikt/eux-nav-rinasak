@@ -8,6 +8,7 @@ import no.nav.eux.rinasak.webapp.common.token
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasak
 import org.junit.jupiter.api.Test
+import org.springframework.test.web.servlet.client.expectBody
 
 class RinasakerApiEnhetsnummerSlettTest : AbstractRinasakerApiImplTest() {
 
@@ -17,11 +18,11 @@ class RinasakerApiEnhetsnummerSlettTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(navRinasakOpprettelse)
             .exchange()
-        val navRinasak = restTestClient.get().uri("/api/v1/rinasaker/1")
+        val navRinasak = restTestClient.get().uri("$navRinasakerUrl/1")
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .exchange()
             .expectStatus().isEqualTo(200)
-            .expectBody(NavRinasak::class.java)
+            .expectBody<NavRinasak>()
             .returnResult().responseBody!!
         navRinasak.rinasakId shouldBe 1
         navRinasak.overstyrtEnhetsnummer shouldBe "1234"
@@ -31,10 +32,10 @@ class RinasakerApiEnhetsnummerSlettTest : AbstractRinasakerApiImplTest() {
             .exchange()
             .expectStatus().isEqualTo(204)
 
-        val updatedNavRinasak = restTestClient.get().uri("/api/v1/rinasaker/1")
+        val updatedNavRinasak = restTestClient.get().uri("$navRinasakerUrl/1")
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .exchange()
-            .expectBody(NavRinasak::class.java)
+            .expectBody<NavRinasak>()
             .returnResult().responseBody!!
         updatedNavRinasak.overstyrtEnhetsnummer.shouldBeNull()
     }

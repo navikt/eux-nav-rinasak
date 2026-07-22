@@ -6,13 +6,13 @@ import io.kotest.matchers.shouldBe
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserFinnUrl
 import no.nav.eux.rinasak.webapp.common.sedJournalstatuserUrl
 import no.nav.eux.rinasak.webapp.common.token
-import no.nav.eux.rinasak.webapp.common.uuid1
-import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierRinasakIdTestModel
+import no.nav.eux.rinasak.webapp.common.forventetSedId
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusFinnKriterierTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatusPutTestModel
 import no.nav.eux.rinasak.webapp.model.base.SedJournalstatuserTestModel
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.client.expectBody
 
 class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
 
@@ -23,7 +23,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "UKJENT"
                 )
@@ -34,17 +34,17 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(
                 SedJournalstatusFinnKriterierTestModel(
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1
                 )
             )
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         sedJournalstatus.rinasakId shouldBe 1
-        sedJournalstatus.sedId shouldBe uuid1
+        sedJournalstatus.sedId shouldBe forventetSedId
         sedJournalstatus.sedVersjon shouldBe 1
         sedJournalstatus.sedJournalstatus shouldBe "UKJENT"
         sedJournalstatus.opprettetBruker shouldBe "ukjent"
@@ -58,7 +58,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "UKJENT"
                 )
@@ -73,11 +73,11 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
                 )
             )
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
-        sedJournalstatus.sedId shouldBe uuid1
+        sedJournalstatus.sedId shouldBe forventetSedId
         sedJournalstatus.sedVersjon shouldBe 1
         sedJournalstatus.sedJournalstatus shouldBe "UKJENT"
     }
@@ -89,7 +89,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 3,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 0,
                     sedJournalstatus = "MELOSYS_JOURNALFOERER"
                 )
@@ -99,18 +99,18 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
         val sedJournalstatus = restTestClient.post().uri(sedJournalstatuserFinnUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(
-                SedJournalstatusFinnKriterierRinasakIdTestModel(
+                SedJournalstatusFinnKriterierTestModel(
                     rinasakId = 3
                 )
             )
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         with(sedJournalstatus) {
             rinasakId shouldBe 3
-            sedId shouldBe uuid1
+            sedId shouldBe forventetSedId
             sedVersjon shouldBe 0
             sedJournalstatus.sedJournalstatus shouldBe "MELOSYS_JOURNALFOERER"
         }
@@ -123,7 +123,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "UKJENT"
                 )
@@ -138,7 +138,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
                 )
             )
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
         sedJournalstatus.shouldBeEmpty()
@@ -160,7 +160,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "FEILET_FERDIGSTILL",
                     feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
@@ -172,17 +172,17 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(
                 SedJournalstatusFinnKriterierTestModel(
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1
                 )
             )
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
         sedJournalstatus.rinasakId shouldBe 1
-        sedJournalstatus.sedId shouldBe uuid1
+        sedJournalstatus.sedId shouldBe forventetSedId
         sedJournalstatus.sedVersjon shouldBe 1
         sedJournalstatus.sedJournalstatus shouldBe "FEILET_FERDIGSTILL"
         sedJournalstatus.feilmelding shouldBe "Ferdigstilling feilet: 500 Internal Server Error"
@@ -195,7 +195,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "UKJENT"
                 )
@@ -206,12 +206,12 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(
                 SedJournalstatusFinnKriterierTestModel(
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1
                 )
             )
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
@@ -225,7 +225,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "UKJENT"
                 )
@@ -236,7 +236,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "FEILET_FERDIGSTILL",
                     feilmelding = "Ferdigstilling feilet: 500 Internal Server Error"
@@ -247,12 +247,12 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(
                 SedJournalstatusFinnKriterierTestModel(
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1
                 )
             )
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
             .single()
@@ -267,7 +267,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 1,
                     sedJournalstatus = "UKJENT"
                 )
@@ -279,7 +279,7 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .body(
                 SedJournalstatusPutTestModel(
                     rinasakId = 1,
-                    sedId = uuid1,
+                    sedId = forventetSedId,
                     sedVersjon = 2,
                     sedJournalstatus = "JOURNALFOERT"
                 )
@@ -288,9 +288,9 @@ class SedJournalstatusApiTest : AbstractRinasakerApiImplTest() {
             .expectStatus().isEqualTo(200)
         val sedJournalstatuser = restTestClient.post().uri(sedJournalstatuserFinnUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(SedJournalstatusFinnKriterierRinasakIdTestModel(rinasakId = 1))
+            .body(SedJournalstatusFinnKriterierTestModel(rinasakId = 1))
             .exchange()
-            .expectBody(SedJournalstatuserTestModel::class.java)
+            .expectBody<SedJournalstatuserTestModel>()
             .returnResult().responseBody!!
             .sedJournalstatuser
         sedJournalstatuser

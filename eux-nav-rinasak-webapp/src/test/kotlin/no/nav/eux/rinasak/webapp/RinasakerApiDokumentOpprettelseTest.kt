@@ -2,17 +2,15 @@ package no.nav.eux.rinasak.webapp
 
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
-import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
-import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
-import no.nav.eux.rinasak.webapp.common.token
-import no.nav.eux.rinasak.webapp.common.uuid1
-import no.nav.eux.rinasak.webapp.common.uuid4
-import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakDokumentOpprettelse
+import no.nav.eux.rinasak.webapp.common.*
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.nyttDokumentOpprettelse
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.nyttDokumentSedId
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.client.expectBody
 
 class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
 
@@ -24,26 +22,26 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             .exchange()
         restTestClient.post().uri("$navRinasakerUrl/1/dokumenter")
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakDokumentOpprettelse)
+            .body(nyttDokumentOpprettelse)
             .exchange()
             .expectStatus().isEqualTo(201)
         val navRinasak = restTestClient.post().uri(navRinasakerFinnUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(NavRinasakFinnKriterier(rinasakId = 1))
             .exchange()
-            .expectBody(NavRinasaker::class.java)
+            .expectBody<NavRinasaker>()
             .returnResult().responseBody!!
             .navRinasaker
             .single()
         val dokumentMap = navRinasak.dokumenter!!.associateBy { it.sedId to it.sedVersjon }
-        with(dokumentMap[uuid1 to 1]!!) {
-            sedId shouldBe uuid1
+        with(dokumentMap[forventetSedId to 1]!!) {
+            sedId shouldBe forventetSedId
             sedVersjon shouldBe 1
             dokumentInfoId shouldBe "000000001"
             sedType shouldBe "type"
         }
-        with(dokumentMap[uuid4 to 1]!!) {
-            sedId shouldBe uuid4
+        with(dokumentMap[nyttDokumentSedId to 1]!!) {
+            sedId shouldBe nyttDokumentSedId
             sedVersjon shouldBe 1
             dokumentInfoId shouldBe "000000111"
             sedType shouldBe "type"
@@ -60,8 +58,8 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
         restTestClient.post().uri("$navRinasakerUrl/1/dokumenter")
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(
-                navRinasakDokumentOpprettelse.copy(
-                    sedId = uuid1,
+                nyttDokumentOpprettelse.copy(
+                    sedId = forventetSedId,
                     sedVersjon = 2,
                     dokumentInfoId = "000000112"
                 )
@@ -72,14 +70,14 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(NavRinasakFinnKriterier(rinasakId = 1))
             .exchange()
-            .expectBody(NavRinasaker::class.java)
+            .expectBody<NavRinasaker>()
             .returnResult().responseBody!!
             .navRinasaker
             .single()
             .dokumenter!!
         dokumenter
             .map { it.sedId to it.sedVersjon }
-            .shouldContainExactlyInAnyOrder(listOf(uuid1 to 1, uuid1 to 2))
+            .shouldContainExactlyInAnyOrder(listOf(forventetSedId to 1, forventetSedId to 2))
     }
 
     @Test
@@ -90,12 +88,12 @@ class RinasakerApiDokumentOpprettelseTest : AbstractRinasakerApiImplTest() {
             .exchange()
         restTestClient.post().uri("$navRinasakerUrl/1/dokumenter")
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakDokumentOpprettelse)
+            .body(nyttDokumentOpprettelse)
             .exchange()
             .expectStatus().isEqualTo(201)
         restTestClient.post().uri("$navRinasakerUrl/1/dokumenter")
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakDokumentOpprettelse)
+            .body(nyttDokumentOpprettelse)
             .exchange()
             .expectStatus().isEqualTo(409)
     }

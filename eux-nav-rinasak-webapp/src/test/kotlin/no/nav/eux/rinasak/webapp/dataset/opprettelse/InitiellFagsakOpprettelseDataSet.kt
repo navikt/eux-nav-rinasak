@@ -3,7 +3,7 @@ package no.nav.eux.rinasak.webapp.dataset.opprettelse
 import no.nav.eux.rinasak.webapp.model.opprettelse.InitiellFagsakOpprettelse
 
 val initiellFagsakOpprettelse = InitiellFagsakOpprettelse(
-    id = "fagsak-1",
+    id = null,
     tema = "AAA",
     system = "system",
     nr = "nr",

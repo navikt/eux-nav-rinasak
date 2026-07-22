@@ -3,20 +3,18 @@ package no.nav.eux.rinasak.webapp
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
-import no.nav.eux.rinasak.webapp.common.navRinasakerFinnUrl
-import no.nav.eux.rinasak.webapp.common.navRinasakerUrl
-import no.nav.eux.rinasak.webapp.common.token
-import no.nav.eux.rinasak.webapp.common.uuid1
-import no.nav.eux.rinasak.webapp.common.uuid3
+import no.nav.eux.rinasak.webapp.common.*
 import no.nav.eux.rinasak.webapp.dataset.oppdatering.initiellFagsakOppdatering
 import no.nav.eux.rinasak.webapp.dataset.oppdatering.navRinasakOppdatering
+import no.nav.eux.rinasak.webapp.dataset.oppdatering.tilagtDokumentSedId
 import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelse
-import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseEnkel1
+import no.nav.eux.rinasak.webapp.dataset.opprettelse.navRinasakOpprettelseUtenRelasjoner
 import no.nav.eux.rinasak.webapp.model.base.NavRinasakFinnKriterier
 import no.nav.eux.rinasak.webapp.model.base.NavRinasaker
 import no.nav.eux.rinasak.webapp.model.oppdatering.NavRinasakOppdatering
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.client.expectBody
 
 class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
 
@@ -35,7 +33,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(NavRinasakFinnKriterier(rinasakId = 1))
             .exchange()
-            .expectBody(NavRinasaker::class.java)
+            .expectBody<NavRinasaker>()
             .returnResult().responseBody!!
             .navRinasaker
             .single()
@@ -50,14 +48,14 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
             fnr shouldBe "03028700001"
         }
         val dokumentMap = navRinasak.dokumenter!!.associateBy { it.sedId to it.sedVersjon }
-        with(dokumentMap[uuid1 to 1]!!) {
-            sedId shouldBe uuid1
+        with(dokumentMap[forventetSedId to 1]!!) {
+            sedId shouldBe forventetSedId
             sedVersjon shouldBe 1
             dokumentInfoId shouldBe "000000011"
             sedType shouldBe "oppdatert"
         }
-        with(dokumentMap[uuid3 to 1]!!) {
-            sedId shouldBe uuid3
+        with(dokumentMap[tilagtDokumentSedId to 1]!!) {
+            sedId shouldBe tilagtDokumentSedId
             sedVersjon shouldBe 1
             dokumentInfoId shouldBe "000000003"
             sedType shouldBe "type"
@@ -86,7 +84,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(NavRinasakFinnKriterier(rinasakId = 1))
             .exchange()
-            .expectBody(NavRinasaker::class.java)
+            .expectBody<NavRinasaker>()
             .returnResult().responseBody!!
             .navRinasaker
             .single()
@@ -100,7 +98,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
     fun `PATCH rinasaker - legger til initiell fagsak - 201`() {
         restTestClient.post().uri(navRinasakerUrl)
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
-            .body(navRinasakOpprettelseEnkel1)
+            .body(navRinasakOpprettelseUtenRelasjoner)
             .exchange()
             .expectStatus().isEqualTo(201)
         restTestClient.patch().uri(navRinasakerUrl)
@@ -119,7 +117,7 @@ class RinasakerApiOppdateringTest : AbstractRinasakerApiImplTest() {
             .header("Authorization", "Bearer ${mockOAuth2Server.token}")
             .body(NavRinasakFinnKriterier(rinasakId = 1))
             .exchange()
-            .expectBody(NavRinasaker::class.java)
+            .expectBody<NavRinasaker>()
             .returnResult().responseBody!!
             .navRinasaker
             .single()
