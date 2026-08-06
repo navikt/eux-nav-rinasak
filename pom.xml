@@ -31,6 +31,32 @@
         <postgresql.version>42.7.13</postgresql.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Overstyrer versjoner fra importert spring-boot-dependencies BOM (property alene er no-op ved import-scope). Se navikt/eux-parent-pom#24 og #25. -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <scm>
         <connection>scm:git:https://github.com/navikt/eux-nav-rinasak.git</connection>
         <developerConnection>scm:git:https://github.com/navikt/eux-nav-rinasak.git</developerConnection>
