@@ -30,6 +30,7 @@
         <tomcat.version>11.0.24</tomcat.version>
         <postgresql.version>42.7.13</postgresql.version>
         <httpcore5.version>5.4.3</httpcore5.version>
+        <log4j.version>2.25.5</log4j.version>
     </properties>
 
     <dependencyManagement>
@@ -54,6 +55,14 @@
                 <groupId>org.apache.tomcat.embed</groupId>
                 <artifactId>tomcat-embed-websocket</artifactId>
                 <version>${tomcat.version}</version>
+            </dependency>
+            <!-- CVE-2026-49844 -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${log4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- CVE-2026-54399 / CVE-2026-54428 -->
             <dependency>
