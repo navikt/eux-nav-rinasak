@@ -29,6 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <tomcat.version>11.0.24</tomcat.version>
         <postgresql.version>42.7.13</postgresql.version>
+        <httpcore5.version>5.4.3</httpcore5.version>
     </properties>
 
     <dependencyManagement>
@@ -53,6 +54,17 @@
                 <groupId>org.apache.tomcat.embed</groupId>
                 <artifactId>tomcat-embed-websocket</artifactId>
                 <version>${tomcat.version}</version>
+            </dependency>
+            <!-- CVE-2026-54399 / CVE-2026-54428 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId>
+                <artifactId>httpcore5</artifactId>
+                <version>${httpcore5.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.core5</groupId>
+                <artifactId>httpcore5-h2</artifactId>
+                <version>${httpcore5.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
