@@ -30,6 +30,7 @@
         <tomcat.version>11.0.24</tomcat.version>
         <postgresql.version>42.7.13</postgresql.version>
         <httpcore5.version>5.4.3</httpcore5.version>
+        <httpclient5.version>5.6.4</httpclient5.version>
         <log4j.version>2.25.5</log4j.version>
     </properties>
 
@@ -74,6 +75,12 @@
                 <groupId>org.apache.httpcomponents.core5</groupId>
                 <artifactId>httpcore5-h2</artifactId>
                 <version>${httpcore5.version}</version>
+            </dependency>
+            <!-- CVE-2026-64607 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>${httpclient5.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
