@@ -30,7 +30,7 @@
         <postgresql.version>42.7.13</postgresql.version>
         <httpcore5.version>5.4.4</httpcore5.version>
         <httpclient5.version>5.6.4</httpclient5.version>
-        <log4j.version>2.25.5</log4j.version>
+        <log4j.version>2.26.1</log4j.version>
         <jackson-annotations.version>2.22</jackson-annotations.version>
         <jackson-2-bom.version>2.22.3</jackson-2-bom.version>
         <jackson3.version>3.2.3</jackson3.version>
