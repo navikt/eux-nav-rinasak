@@ -34,9 +34,10 @@ cluster:
 
 resources:
   limits:
-    memory: 512Mi
+    memory: 1Gi
   requests:
-    memory: 512Mi
+    cpu: 384m
+    memory: 1Gi
 
 replicas:
   min: 2
