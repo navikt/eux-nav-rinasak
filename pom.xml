@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>no.nav.eux</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>3.0.1</version>
+    </parent>
+
     <groupId>no.nav.eux.rinasak</groupId>
     <artifactId>eux-nav-rinasak</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -17,87 +23,11 @@
         <module>eux-nav-rinasak-persistence</module>
     </modules>
 
-    <parent>
-        <groupId>no.nav.eux</groupId>
-        <artifactId>parent-pom</artifactId>
-        <version>2.0.24</version>
-    </parent>
-
-    <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <postgresql.version>42.7.13</postgresql.version>
-        <httpcore5.version>5.4.4</httpcore5.version>
-        <httpclient5.version>5.6.4</httpclient5.version>
-        <log4j.version>2.26.1</log4j.version>
-        <jackson-annotations.version>2.22</jackson-annotations.version>
-        <jackson-2-bom.version>2.22.3</jackson-2-bom.version>
-        <jackson3.version>3.2.3</jackson3.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Parent 2.0.24 lar Spring Boot styre Jackson; lokale BOM-er sikrer de oppdaterte versjonene. -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson-annotations.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>${jackson-2-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>tools.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>${jackson3.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- Overstyrer versjoner fra importert spring-boot-dependencies BOM (property alene er no-op ved import-scope). Se navikt/eux-parent-pom#24 og #25. -->
-            <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>${postgresql.version}</version>
-            </dependency>
-            <!-- CVE-2026-49844 -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-bom</artifactId>
-                <version>${log4j.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- CVE-2026-54399 / CVE-2026-54428 -->
-            <dependency>
-                <groupId>org.apache.httpcomponents.core5</groupId>
-                <artifactId>httpcore5</artifactId>
-                <version>${httpcore5.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents.core5</groupId>
-                <artifactId>httpcore5-h2</artifactId>
-                <version>${httpcore5.version}</version>
-            </dependency>
-            <!-- CVE-2026-64607 -->
-            <dependency>
-                <groupId>org.apache.httpcomponents.client5</groupId>
-                <artifactId>httpclient5</artifactId>
-                <version>${httpclient5.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.6.3</version>
                 <executions>
                     <execution>
                         <id>ban-httpcomponents-cve</id>
